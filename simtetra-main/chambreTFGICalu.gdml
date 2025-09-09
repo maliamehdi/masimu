@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+  <define>
+    <position name="center" x="0" y="0" z="0" unit="mm"/>
+    <rotation name="identity" x="0" y="0" z="0"/>
+  </define>
+  <materials/>
+  <solids/>
+  <structure>
+    <assembly name="FrozenBride Chambre Frozen002"/>
+    <assembly name="FrozenEns vis M4x20 - rondelle D4"/>
+    <assembly name="FrozenEns vis M4x20 - rondelle D005"/>
+    <assembly name="FrozenEns vis M4x20 - rondelle D006"/>
+    <assembly name="FrozenEns vis M4x20 - rondelle D007"/>
+    <assembly name="FrozenEns vis M4x20 - rondelle D008"/>
+    <assembly name="FrozenEns vis M4x20 - rondelle D009"/>
+    <assembly name="FrozenEns vis M4x20 - rondelle D010"/>
+    <assembly name="FrozenEns vis M4x20 - rondelle D011"/>
+    <assembly name="FrozenEns vis M4x20 - rondelle D012"/>
+    <assembly name="FrozenEns vis M4x20 - rondelle D013"/>
+    <assembly name="FrozenEns vis M4x20 - rondelle D014"/>
+    <assembly name="FrozenEns vis M4x20 - rondelle D015"/>
+    <assembly name="FrozenRegroup Ens vis M4x20 - rondelle D4.1">
+      <physvol name="av_3_impr_1_FrozenEns vis M4x20 - rondelle D005_pv_0">
+        <volumeref ref="FrozenEns vis M4x20 - rondelle D005"/>
+        <position name="P-FrozenEns vis M4x20 - rondelle D0052" unit="mm" x="448.790559873" y="-67.6936674265" z="154.179466037"/>
+        <rotation name="R-FrozenEns vis M4x20 - rondelle D0052" unit="deg" x="-0.07318884386084115" y="29.99947921949623" z="89.85450182854282"/>
+      </physvol>
+      <physvol name="av_3_impr_1_FrozenEns vis M4x20 - rondelle D006_pv_1">
+        <volumeref ref="FrozenEns vis M4x20 - rondelle D006"/>
+        <position name="P-FrozenEns vis M4x20 - rondelle D0063" unit="mm" x="311.594454429" y="-67.996958474" z="357.843564418"/>
+        <rotation name="R-FrozenEns vis M4x20 - rondelle D0063" unit="deg" x="-0.21868402108618595" y="59.999319231541165" z="89.7479930966535"/>
+      </physvol>
+      <physvol name="av_3_impr_1_FrozenEns vis M4x20 - rondelle D007_pv_2">
+        <volumeref ref="FrozenEns vis M4x20 - rondelle D007"/>
+        <position name="P-FrozenEns vis M4x20 - rondelle D0074" unit="mm" x="90.9473377179" y="-68.4830388844" z="465.623627124"/>
+        <rotation name="R-FrozenEns vis M4x20 - rondelle D0074" unit="deg" x="-89.80001258612099" y="89.87399348897186" z="0.2004277153417468"/>
+      </physvol>
+      <physvol name="av_3_impr_1_FrozenEns vis M4x20 - rondelle D008_pv_3">
+        <volumeref ref="FrozenEns vis M4x20 - rondelle D008"/>
+        <position name="P-FrozenEns vis M4x20 - rondelle D0085" unit="mm" x="-154.028573526" y="-69.0216638042" z="448.640073391"/>
+        <rotation name="R-FrozenEns vis M4x20 - rondelle D0085" unit="deg" x="-179.78218979627385" y="60.00020079535249" z="-89.74798638068651"/>
+      </physvol>
+      <physvol name="av_3_impr_1_FrozenEns vis M4x20 - rondelle D009_pv_4">
+        <volumeref ref="FrozenEns vis M4x20 - rondelle D009"/>
+        <position name="P-FrozenEns vis M4x20 - rondelle D0096" unit="mm" x="-357.69218172" y="-69.4685091212" z="311.443632727"/>
+        <rotation name="R-FrozenEns vis M4x20 - rondelle D0096" unit="deg" x="-179.9276901434317" y="30.00036078894168" z="-89.85450053603772"/>
+      </physvol>
+      <physvol name="av_3_impr_1_FrozenEns vis M4x20 - rondelle D010_pv_5">
+        <volumeref ref="FrozenEns vis M4x20 - rondelle D010"/>
+        <position name="P-FrozenEns vis M4x20 - rondelle D0107" unit="mm" x="-465.47198752" y="-69.7038429935" z="90.795980612"/>
+        <rotation name="R-FrozenEns vis M4x20 - rondelle D0107" unit="deg" x="179.99956018322808" y="0.0004407850876491366" z="-89.87399425993064"/>
+      </physvol>
+      <physvol name="av_3_impr_1_FrozenEns vis M4x20 - rondelle D011_pv_6">
+        <volumeref ref="FrozenEns vis M4x20 - rondelle D011"/>
+        <position name="P-FrozenEns vis M4x20 - rondelle D0118" unit="mm" x="-448.488479002" y="-69.6646079001" z="-154.180522757"/>
+        <rotation name="R-FrozenEns vis M4x20 - rondelle D0118" unit="deg" x="179.92681115613917" y="-29.999479219496234" z="-89.85450182854284"/>
+      </physvol>
+      <physvol name="av_3_impr_1_FrozenEns vis M4x20 - rondelle D012_pv_7">
+        <volumeref ref="FrozenEns vis M4x20 - rondelle D012"/>
+        <position name="P-FrozenEns vis M4x20 - rondelle D0129" unit="mm" x="-311.292373558" y="-69.3613168526" z="-357.844621139"/>
+        <rotation name="R-FrozenEns vis M4x20 - rondelle D0129" unit="deg" x="179.78131597891382" y="-59.999319231541165" z="-89.74799309665353"/>
+      </physvol>
+      <physvol name="av_3_impr_1_FrozenEns vis M4x20 - rondelle D013_pv_8">
+        <volumeref ref="FrozenEns vis M4x20 - rondelle D013"/>
+        <position name="P-FrozenEns vis M4x20 - rondelle D01310" unit="mm" x="-90.6452568463" y="-68.8752364422" z="-465.624683844"/>
+        <rotation name="R-FrozenEns vis M4x20 - rondelle D01310" unit="deg" x="90.19998741388046" y="-89.87399348896896" z="-0.20042771534318643"/>
+      </physvol>
+      <physvol name="av_3_impr_1_FrozenEns vis M4x20 - rondelle D014_pv_9">
+        <volumeref ref="FrozenEns vis M4x20 - rondelle D014"/>
+        <position name="P-FrozenEns vis M4x20 - rondelle D01411" unit="mm" x="154.330654398" y="-68.3366115224" z="-448.641130111"/>
+        <rotation name="R-FrozenEns vis M4x20 - rondelle D01411" unit="deg" x="0.2178102037261159" y="-60.00020079535251" z="89.74798638068653"/>
+      </physvol>
+      <physvol name="av_3_impr_1_FrozenEns vis M4x20 - rondelle D015_pv_10">
+        <volumeref ref="FrozenEns vis M4x20 - rondelle D015"/>
+        <position name="P-FrozenEns vis M4x20 - rondelle D01512" unit="mm" x="357.994262591" y="-67.8897662054" z="-311.444689447"/>
+        <rotation name="R-FrozenEns vis M4x20 - rondelle D01512" unit="deg" x="0.07230985656830152" y="-30.00036078894165" z="89.85450053603769"/>
+      </physvol>
+    </assembly>
+    <assembly name="FrozenEns chambre Frozen+bride">
+      <physvol name="PV_FrozenBride Chambre Frozen002">
+        <volumeref ref="FrozenBride Chambre Frozen002"/>
+        <positionref ref="center"/>
+        <rotationref ref="identity"/>
+      </physvol>
+      <physvol name="PV_FrozenEns vis M4x20 - rondelle D4">
+        <volumeref ref="FrozenEns vis M4x20 - rondelle D4"/>
+        <position name="P-FrozenEns vis M4x20 - rondelle D41" unit="mm" x="465.774068391" y="-67.6544323331" z="-90.7970373325"/>
+        <rotation name="R-FrozenEns vis M4x20 - rondelle D41" unit="deg" x="-0.00043981677193778013" y="-0.0004407850887564658" z="89.87399425993064"/>
+      </physvol>
+      <physvol name="PV_FrozenRegroup Ens vis M4x20 - rondelle D4.1">
+        <volumeref ref="FrozenRegroup Ens vis M4x20 - rondelle D4.1"/>
+        <positionref ref="center"/>
+        <rotationref ref="identity"/>
+      </physvol>
+    </assembly>
+  </structure>
+  <setup name="Default" version="1.0">
+    <world ref="FrozenEns chambre Frozen+bride"/>
+  </setup>
+</gdml>

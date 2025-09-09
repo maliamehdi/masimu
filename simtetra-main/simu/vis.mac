@@ -1,0 +1,62 @@
+/run/numberOfThreads 1
+/run/initialize
+
+/vis/open OGL
+/vis/viewer/set/viewpointVector 0 0 0
+/vis/drawVolume
+/vis/viewer/set/autoRefresh true
+/vis/scene/add/trajectories smooth
+/vis/scene/add/eventID
+/vis/scene/endOfEventAction accumulate
+/vis/geometry/set/colour logicWorld 0 0 0 0 0
+
+
+
+/vis/geometry/set/colour logic_shell 1 1 0.95 0 0.3
+/vis/geometry/set/colour logic_shell2 1 1 0.95 0 0.3
+/vis/geometry/set/colour logic_polycase 1 1 0.8 0 0.3
+/vis/geometry/set/colour logic_polycase2 1 1 0.8 0 0.3
+
+/vis/geometry/set/colour logicChassis 1 1 0.85 0 0.3
+/vis/geometry/set/colour logicSupport 1 1 0.85 0 0.3
+/vis/geometry/set/colour logicArc 1 1 0.85 0 0.3
+
+
+/vis/geometry/set/colour logicIC 0.0 0.6 1.0 0.6
+
+/vis/geometry/set/colour lv_barre_1 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_2 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_3 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_4 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_5 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_6 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_7 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_8 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_9 0.0 0.7 1.0 0.6
+
+
+/vis/geometry/set/colour SCIONIXPWLVFullHousing 0.8 0.8 0.8 0.3
+/vis/geometry/set/colour SCIONIXPWLVCe         0.0 0.6 1.0 0.6
+/vis/geometry/set/colour SCParisPWLV.1         1.0 0.6 0.0 0.6
+/vis/geometry/set/colour SCParisPWQuartzforPMLV 0.7 0.9 1.0 0.3
+/vis/geometry/set/colour SCParisPWSealingforPMLV 0.9 0.9 0.9 0.3
+
+/vis/drawVolume
+/vis/geometry/set/colour logicCyl 0 1 1 0 0.5
+/vis/geometry/set/colour logicCellOne 1 0 1 0 0.2
+/vis/geometry/set/colour logicCellTwo 1 0 1 0 0.2
+/vis/geometry/set/colour logicCellThree 1 0 1 0 0.2
+/vis/geometry/set/colour logicCellFour 1 0 1 0 0.2
+
+
+/vis/viewer/set/style surface
+/vis/filtering/trajectories/create/particleFilter
+/vis/filtering/trajectories/particleFilter-0/add neutron
+/vis/filtering/trajectories/particleFilter-0/add gamma
+/vis/filtering/trajectories/particleFilter-0/add alpha
+/vis/filtering/trajectories/particleFilter-0/add e-
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/set neutron blue
+/vis/modeling/trajectories/drawByParticleID-0/set gamma yellow
+/vis/modeling/trajectories/drawByParticleID-0/set e- white
+/vis/modeling/trajectories/drawByParticleID-0/set alpha red

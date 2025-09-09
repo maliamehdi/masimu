@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+
+  <define/>
+
+  <materials>
+    <isotope N="14" Z="7" name="N14">
+      <atom unit="g/mole" value="14.0031"/>
+    </isotope>
+    <isotope N="15" Z="7" name="N15">
+      <atom unit="g/mole" value="15.0001"/>
+    </isotope>
+    <element name="SToGS_N_El">
+      <fraction n="0.99632" ref="N14"/>
+      <fraction n="0.00368" ref="N15"/>
+    </element>
+    <isotope N="16" Z="8" name="O16">
+      <atom unit="g/mole" value="15.9949"/>
+    </isotope>
+    <isotope N="17" Z="8" name="O17">
+      <atom unit="g/mole" value="16.9991"/>
+    </isotope>
+    <isotope N="18" Z="8" name="O18">
+      <atom unit="g/mole" value="17.9992"/>
+    </isotope>
+    <element name="SToGS_O_El">
+      <fraction n="0.99757" ref="O16"/>
+      <fraction n="0.00038" ref="O17"/>
+      <fraction n="0.00205" ref="O18"/>
+    </element>
+    <material name="SToGS_AIR" state="gas">
+      <T unit="K" value="293.15"/>
+      <MEE unit="eV" value="86.0647433493042"/>
+      <D unit="g/cm3" value="0.00129"/>
+      <fraction n="0.671347357923955" ref="SToGS_N_El"/>
+      <fraction n="0.328652642076045" ref="SToGS_O_El"/>
+    </material>
+    <isotope N="136" Z="58" name="Ce136">
+      <atom unit="g/mole" value="135.907"/>
+    </isotope>
+    <isotope N="138" Z="58" name="Ce138">
+      <atom unit="g/mole" value="137.906"/>
+    </isotope>
+    <isotope N="140" Z="58" name="Ce140">
+      <atom unit="g/mole" value="139.905"/>
+    </isotope>
+    <isotope N="142" Z="58" name="Ce142">
+      <atom unit="g/mole" value="141.909"/>
+    </isotope>
+    <element name="SToGS_Ce_El">
+      <fraction n="0.00185" ref="Ce136"/>
+      <fraction n="0.00251" ref="Ce138"/>
+      <fraction n="0.8845" ref="Ce140"/>
+      <fraction n="0.11114" ref="Ce142"/>
+    </element>
+    <isotope N="79" Z="35" name="Br79">
+      <atom unit="g/mole" value="78.9183"/>
+    </isotope>
+    <isotope N="81" Z="35" name="Br81">
+      <atom unit="g/mole" value="80.9163"/>
+    </isotope>
+    <element name="SToGS_Br_El">
+      <fraction n="0.5069" ref="Br79"/>
+      <fraction n="0.4931" ref="Br81"/>
+    </element>
+    <material name="SToGS_CeBr3" state="solid">
+      <T unit="K" value="293.15"/>
+      <MEE unit="eV" value="398.551587468738"/>
+      <D unit="g/cm3" value="5.1"/>
+      <fraction n="0.368893288541129" ref="SToGS_Ce_El"/>
+      <fraction n="0.631106711458871" ref="SToGS_Br_El"/>
+    </material>
+    <isotope N="23" Z="11" name="Na23">
+      <atom unit="g/mole" value="22.9898"/>
+    </isotope>
+    <element name="SToGS_Na_El">
+      <fraction n="1" ref="Na23"/>
+    </element>
+    <isotope N="127" Z="53" name="I127">
+      <atom unit="g/mole" value="126.904"/>
+    </isotope>
+    <element name="SToGS_I_El">
+      <fraction n="1" ref="I127"/>
+    </element>
+    <material name="SToGS_NaI" state="solid">
+      <T unit="K" value="293.15"/>
+      <MEE unit="eV" value="400.007607094827"/>
+      <D unit="g/cm3" value="3.67"/>
+      <fraction n="0.153374263825215" ref="SToGS_Na_El"/>
+      <fraction n="0.846625736174785" ref="SToGS_I_El"/>
+    </material>
+    <isotope N="28" Z="14" name="Si28">
+      <atom unit="g/mole" value="27.9769"/>
+    </isotope>
+    <isotope N="29" Z="14" name="Si29">
+      <atom unit="g/mole" value="28.9765"/>
+    </isotope>
+    <isotope N="30" Z="14" name="Si30">
+      <atom unit="g/mole" value="29.9738"/>
+    </isotope>
+    <element name="SToGS_Si_El">
+      <fraction n="0.922296077703922" ref="Si28"/>
+      <fraction n="0.0468319531680468" ref="Si29"/>
+      <fraction n="0.0308719691280309" ref="Si30"/>
+    </element>
+    <material name="SToGS_Quartz" state="solid">
+      <T unit="K" value="293.15"/>
+      <MEE unit="eV" value="125.663004061076"/>
+      <D unit="g/cm3" value="2.648"/>
+      <fraction n="0.467430488750712" ref="SToGS_Si_El"/>
+      <fraction n="0.532569511249288" ref="SToGS_O_El"/>
+    </material>
+  </materials>
+
+  <solids>
+    <box lunit="mm" name="SCIONIXPWShapeEntrance" x="57" y="57" z="1"/>
+    <polyhedra aunit="deg" deltaphi="360" lunit="mm" name="SCIONIXPWShapeSideHousing" numsides="4" startphi="45">
+      <zplane rmax="28.5" rmin="27.5" z="0"/>
+      <zplane rmax="28.5" rmin="27.5" z="237"/>
+    </polyhedra>
+    <union name="SCIONIXPWShapeFullHousing">
+      <first ref="SCIONIXPWShapeEntrance"/>
+      <second ref="SCIONIXPWShapeSideHousing"/>
+      <position name="SCIONIXPWShapeFullHousing_pos" unit="mm" x="0" y="0" z="-0.5"/>
+    </union>
+    <box lunit="mm" name="SCIONIXPWShapeCe" x="51" y="51" z="51"/>
+    <box lunit="mm" name="SCParisShapePW1" x="51" y="51" z="152"/>
+    <box lunit="mm" name="SCParisShapeQuartzforPM" x="49" y="49" z="6"/>
+    <polyhedra aunit="deg" deltaphi="360" lunit="mm" name="SCParisShapeSealingforPM" numsides="4" startphi="45">
+      <zplane rmax="27.49" rmin="24.51" z="0"/>
+      <zplane rmax="27.49" rmin="24.51" z="6"/>
+    </polyhedra>
+    <box lunit="mm" name="DetectorFactory_Rooms_VR" x="2000" y="2000" z="2000"/>
+  </solids>
+
+  <structure>
+    <volume name="SCIONIXPWLVFullHousing">
+      <materialref ref="SToGS_AIR"/>
+      <solidref ref="SCIONIXPWShapeFullHousing"/>
+    </volume>
+    <volume name="SCIONIXPWLVCe">
+      <materialref ref="SToGS_CeBr3"/>
+      <solidref ref="SCIONIXPWShapeCe"/>
+    </volume>
+    <volume name="SCParisPWLV.1">
+      <materialref ref="SToGS_NaI"/>
+      <solidref ref="SCParisShapePW1"/>
+    </volume>
+    <volume name="SCParisPWQuartzforPMLV">
+      <materialref ref="SToGS_Quartz"/>
+      <solidref ref="SCParisShapeQuartzforPM"/>
+    </volume>
+    <volume name="SCParisPWSealingforPMLV">
+      <materialref ref="SToGS_AIR"/>
+      <solidref ref="SCParisShapeSealingforPM"/>
+    </volume>
+    <volume name="PARISMalia">
+      <materialref ref="SToGS_AIR"/>
+      <solidref ref="DetectorFactory_Rooms_VR"/>
+      <physvol copynumber="-1" name="SCParisPW.000|SCIONIXPWFullHousing">
+        <volumeref ref="SCIONIXPWLVFullHousing"/>
+        <position name="SCParisPW.000|SCIONIXPWFullHousing_pos" unit="mm" x="193" y="0" z="230.5"/>
+      </physvol>
+      <physvol name="SCParisPW.000|SCPW.0">
+        <volumeref ref="SCIONIXPWLVCe"/>
+        <position name="SCParisPW.000|SCPW.0_pos" unit="mm" x="193" y="0" z="258.5"/>
+      </physvol>
+      <physvol copynumber="1" name="SCParisPW.000|SCPW.1">
+        <volumeref ref="SCParisPWLV.1"/>
+        <position name="SCParisPW.000|SCPW.1_pos" unit="mm" x="193" y="0" z="360.01"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.000|SCPWQuartzforPM">
+        <volumeref ref="SCParisPWQuartzforPMLV"/>
+        <position name="SCParisPW.000|SCPWQuartzforPM_pos" unit="mm" x="193" y="0" z="439.02"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.000|SCPWSealingforPM">
+        <volumeref ref="SCParisPWSealingforPMLV"/>
+        <position name="SCParisPW.000|SCPWSealingforPM_pos" unit="mm" x="193" y="0" z="436.02"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.001|SCIONIXPWFullHousing">
+        <volumeref ref="SCIONIXPWLVFullHousing"/>
+        <position name="SCParisPW.001|SCIONIXPWFullHousing_pos" unit="mm" x="103" y="0" z="282.5"/>
+      </physvol>
+      <physvol copynumber="2" name="SCParisPW.001|SCPW.0">
+        <volumeref ref="SCIONIXPWLVCe"/>
+        <position name="SCParisPW.001|SCPW.0_pos" unit="mm" x="103" y="0" z="310.5"/>
+      </physvol>
+      <physvol copynumber="3" name="SCParisPW.001|SCPW.1">
+        <volumeref ref="SCParisPWLV.1"/>
+        <position name="SCParisPW.001|SCPW.1_pos" unit="mm" x="103" y="0" z="412.01"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.001|SCPWQuartzforPM">
+        <volumeref ref="SCParisPWQuartzforPMLV"/>
+        <position name="SCParisPW.001|SCPWQuartzforPM_pos" unit="mm" x="103" y="0" z="491.02"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.001|SCPWSealingforPM">
+        <volumeref ref="SCParisPWSealingforPMLV"/>
+        <position name="SCParisPW.001|SCPWSealingforPM_pos" unit="mm" x="103" y="0" z="488.02"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.002|SCIONIXPWFullHousing">
+        <volumeref ref="SCIONIXPWLVFullHousing"/>
+        <position name="SCParisPW.002|SCIONIXPWFullHousing_pos" unit="mm" x="0" y="0" z="300.5"/>
+      </physvol>
+      <physvol copynumber="4" name="SCParisPW.002|SCPW.0">
+        <volumeref ref="SCIONIXPWLVCe"/>
+        <position name="SCParisPW.002|SCPW.0_pos" unit="mm" x="0" y="0" z="328.5"/>
+      </physvol>
+      <physvol copynumber="5" name="SCParisPW.002|SCPW.1">
+        <volumeref ref="SCParisPWLV.1"/>
+        <position name="SCParisPW.002|SCPW.1_pos" unit="mm" x="0" y="0" z="430.01"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.002|SCPWQuartzforPM">
+        <volumeref ref="SCParisPWQuartzforPMLV"/>
+        <position name="SCParisPW.002|SCPWQuartzforPM_pos" unit="mm" x="0" y="0" z="509.02"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.002|SCPWSealingforPM">
+        <volumeref ref="SCParisPWSealingforPMLV"/>
+        <position name="SCParisPW.002|SCPWSealingforPM_pos" unit="mm" x="0" y="0" z="506.02"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.003|SCIONIXPWFullHousing">
+        <volumeref ref="SCIONIXPWLVFullHousing"/>
+        <position name="SCParisPW.003|SCIONIXPWFullHousing_pos" unit="mm" x="-103" y="0" z="282.5"/>
+      </physvol>
+      <physvol copynumber="6" name="SCParisPW.003|SCPW.0">
+        <volumeref ref="SCIONIXPWLVCe"/>
+        <position name="SCParisPW.003|SCPW.0_pos" unit="mm" x="-103" y="0" z="310.5"/>
+      </physvol>
+      <physvol copynumber="7" name="SCParisPW.003|SCPW.1">
+        <volumeref ref="SCParisPWLV.1"/>
+        <position name="SCParisPW.003|SCPW.1_pos" unit="mm" x="-103" y="0" z="412.01"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.003|SCPWQuartzforPM">
+        <volumeref ref="SCParisPWQuartzforPMLV"/>
+        <position name="SCParisPW.003|SCPWQuartzforPM_pos" unit="mm" x="-103" y="0" z="491.02"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.003|SCPWSealingforPM">
+        <volumeref ref="SCParisPWSealingforPMLV"/>
+        <position name="SCParisPW.003|SCPWSealingforPM_pos" unit="mm" x="-103" y="0" z="488.02"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.004|SCIONIXPWFullHousing">
+        <volumeref ref="SCIONIXPWLVFullHousing"/>
+        <position name="SCParisPW.004|SCIONIXPWFullHousing_pos" unit="mm" x="-193" y="0" z="230.5"/>
+      </physvol>
+      <physvol copynumber="8" name="SCParisPW.004|SCPW.0">
+        <volumeref ref="SCIONIXPWLVCe"/>
+        <position name="SCParisPW.004|SCPW.0_pos" unit="mm" x="-193" y="0" z="258.5"/>
+      </physvol>
+      <physvol copynumber="9" name="SCParisPW.004|SCPW.1">
+        <volumeref ref="SCParisPWLV.1"/>
+        <position name="SCParisPW.004|SCPW.1_pos" unit="mm" x="-193" y="0" z="360.01"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.004|SCPWQuartzforPM">
+        <volumeref ref="SCParisPWQuartzforPMLV"/>
+        <position name="SCParisPW.004|SCPWQuartzforPM_pos" unit="mm" x="-193" y="0" z="439.02"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.004|SCPWSealingforPM">
+        <volumeref ref="SCParisPWSealingforPMLV"/>
+        <position name="SCParisPW.004|SCPWSealingforPM_pos" unit="mm" x="-193" y="0" z="436.02"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.005|SCIONIXPWFullHousing">
+        <volumeref ref="SCIONIXPWLVFullHousing"/>
+        <position name="SCParisPW.005|SCIONIXPWFullHousing_pos" unit="mm" x="-172" y="0" z="-246.5"/>
+        <rotation name="SCParisPW.005|SCIONIXPWFullHousing_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="10" name="SCParisPW.005|SCPW.0">
+        <volumeref ref="SCIONIXPWLVCe"/>
+        <position name="SCParisPW.005|SCPW.0_pos" unit="mm" x="-172" y="3.49024337756996e-15" z="-274.5"/>
+        <rotation name="SCParisPW.005|SCPW.0_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="11" name="SCParisPW.005|SCPW.1">
+        <volumeref ref="SCParisPWLV.1"/>
+        <position name="SCParisPW.005|SCPW.1_pos" unit="mm" x="-172" y="1.59216330357147e-14" z="-376.01"/>
+        <rotation name="SCParisPW.005|SCPW.1_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.005|SCPWQuartzforPM">
+        <volumeref ref="SCParisPWQuartzforPMLV"/>
+        <position name="SCParisPW.005|SCPWQuartzforPM_pos" unit="mm" x="-172" y="2.5597567395778e-14" z="-455.02"/>
+        <rotation name="SCParisPW.005|SCPWQuartzforPM_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.005|SCPWSealingforPM">
+        <volumeref ref="SCParisPWSealingforPMLV"/>
+        <position name="SCParisPW.005|SCPWSealingforPM_pos" unit="mm" x="-172" y="2.52301733560338e-14" z="-452.02"/>
+        <rotation name="SCParisPW.005|SCPWSealingforPM_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.006|SCIONIXPWFullHousing">
+        <volumeref ref="SCIONIXPWLVFullHousing"/>
+        <position name="SCParisPW.006|SCIONIXPWFullHousing_pos" unit="mm" x="-42" y="0" z="-297.5"/>
+        <rotation name="SCParisPW.006|SCIONIXPWFullHousing_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="12" name="SCParisPW.006|SCPW.0">
+        <volumeref ref="SCIONIXPWLVCe"/>
+        <position name="SCParisPW.006|SCPW.0_pos" unit="mm" x="-42" y="3.49024337756996e-15" z="-325.5"/>
+        <rotation name="SCParisPW.006|SCPW.0_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="13" name="SCParisPW.006|SCPW.1">
+        <volumeref ref="SCParisPWLV.1"/>
+        <position name="SCParisPW.006|SCPW.1_pos" unit="mm" x="-42" y="1.59216330357147e-14" z="-427.01"/>
+        <rotation name="SCParisPW.006|SCPW.1_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.006|SCPWQuartzforPM">
+        <volumeref ref="SCParisPWQuartzforPMLV"/>
+        <position name="SCParisPW.006|SCPWQuartzforPM_pos" unit="mm" x="-42" y="2.5597567395778e-14" z="-506.02"/>
+        <rotation name="SCParisPW.006|SCPWQuartzforPM_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.006|SCPWSealingforPM">
+        <volumeref ref="SCParisPWSealingforPMLV"/>
+        <position name="SCParisPW.006|SCPWSealingforPM_pos" unit="mm" x="-42" y="2.52301733560338e-14" z="-503.02"/>
+        <rotation name="SCParisPW.006|SCPWSealingforPM_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.007|SCIONIXPWFullHousing">
+        <volumeref ref="SCIONIXPWLVFullHousing"/>
+        <position name="SCParisPW.007|SCIONIXPWFullHousing_pos" unit="mm" x="48" y="0" z="-297.6"/>
+        <rotation name="SCParisPW.007|SCIONIXPWFullHousing_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="14" name="SCParisPW.007|SCPW.0">
+        <volumeref ref="SCIONIXPWLVCe"/>
+        <position name="SCParisPW.007|SCPW.0_pos" unit="mm" x="48" y="3.49024337756996e-15" z="-325.6"/>
+        <rotation name="SCParisPW.007|SCPW.0_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="15" name="SCParisPW.007|SCPW.1">
+        <volumeref ref="SCParisPWLV.1"/>
+        <position name="SCParisPW.007|SCPW.1_pos" unit="mm" x="48" y="1.59216330357147e-14" z="-427.11"/>
+        <rotation name="SCParisPW.007|SCPW.1_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.007|SCPWQuartzforPM">
+        <volumeref ref="SCParisPWQuartzforPMLV"/>
+        <position name="SCParisPW.007|SCPWQuartzforPM_pos" unit="mm" x="48" y="2.5597567395778e-14" z="-506.12"/>
+        <rotation name="SCParisPW.007|SCPWQuartzforPM_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.007|SCPWSealingforPM">
+        <volumeref ref="SCParisPWSealingforPMLV"/>
+        <position name="SCParisPW.007|SCPWSealingforPM_pos" unit="mm" x="48" y="2.52301733560338e-14" z="-503.12"/>
+        <rotation name="SCParisPW.007|SCPWSealingforPM_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.008|SCIONIXPWFullHousing">
+        <volumeref ref="SCIONIXPWLVFullHousing"/>
+        <position name="SCParisPW.008|SCIONIXPWFullHousing_pos" unit="mm" x="172" y="0" z="-246.5"/>
+        <rotation name="SCParisPW.008|SCIONIXPWFullHousing_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="16" name="SCParisPW.008|SCPW.0">
+        <volumeref ref="SCIONIXPWLVCe"/>
+        <position name="SCParisPW.008|SCPW.0_pos" unit="mm" x="172" y="3.49024337756996e-15" z="-274.5"/>
+        <rotation name="SCParisPW.008|SCPW.0_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="17" name="SCParisPW.008|SCPW.1">
+        <volumeref ref="SCParisPWLV.1"/>
+        <position name="SCParisPW.008|SCPW.1_pos" unit="mm" x="172" y="1.59216330357147e-14" z="-376.01"/>
+        <rotation name="SCParisPW.008|SCPW.1_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.008|SCPWQuartzforPM">
+        <volumeref ref="SCParisPWQuartzforPMLV"/>
+        <position name="SCParisPW.008|SCPWQuartzforPM_pos" unit="mm" x="172" y="2.5597567395778e-14" z="-455.02"/>
+        <rotation name="SCParisPW.008|SCPWQuartzforPM_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+      <physvol copynumber="-1" name="SCParisPW.008|SCPWSealingforPM">
+        <volumeref ref="SCParisPWSealingforPMLV"/>
+        <position name="SCParisPW.008|SCPWSealingforPM_pos" unit="mm" x="172" y="2.52301733560338e-14" z="-452.02"/>
+        <rotation name="SCParisPW.008|SCPWSealingforPM_rot" unit="deg" x="180" y="0" z="0"/>
+      </physvol>
+    </volume>
+  </structure>
+
+  <setup name="Default" version="1.0">
+    <world ref="PARISMalia"/>
+  </setup>
+
+</gdml>
