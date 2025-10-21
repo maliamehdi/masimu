@@ -1,4 +1,4 @@
-/run/numberOfThreads 44
+/run/numberOfThreads 1
 
 /testhadr/phys/thermalScattering true
 
@@ -10,4 +10,4 @@
 /gun/particle ion
 /gun/ion 98 252
 
-/run/beamOn 100000
+/run/beamOn 100

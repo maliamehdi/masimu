@@ -6,17 +6,20 @@
 
 #include "DetectorConstruction.hh"
 #include "EventAction.hh"
+#include "G4RunManager.hh"
+#include "G4AnalysisManager.hh"
 
-class MySteppingAction : public G4UserSteppingAction
-{
+class G4Step;
+class MyEventAction; // fwd decl
+
+class MySteppingAction : public G4UserSteppingAction {
 public:
-    MySteppingAction(MyEventAction* eventAction);
-    ~MySteppingAction();
-    
-    virtual void UserSteppingAction(const G4Step*);
-    
-private:
-    MyEventAction *fEventAction;
-};
+  explicit MySteppingAction(MyEventAction* eventAction);
+  ~MySteppingAction() override = default;
 
+  void UserSteppingAction(const G4Step*) override;
+
+private:
+  MyEventAction* fEventAction = nullptr; // pas utilisé pour l’accumulation d’énergie
+};
 #endif

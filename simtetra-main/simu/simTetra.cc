@@ -8,6 +8,7 @@
 #include "G4UImanager.hh"
 #include "G4SteppingVerbose.hh"
 #include "Randomize.hh"
+#include "G4RunManagerFactory.hh" 
 
 #include "DetectorConstruction.hh"
 #include "PhysicsList.hh"
@@ -15,20 +16,31 @@
 
 #include "G4ParticleHPManager.hh"
 
+#include "G4PhysListFactory.hh"
+
+
+
 int main(int argc, char** argv)
 {
 	
 	#ifdef G4MULTITHREADED
-		G4MTRunManager *runManager = new G4MTRunManager();
+		//G4MTRunManager *runManager = new G4MTRunManager();
+		//G4RunManager *runManager = new G4RunManager();
+		auto* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);
 	#else	
-		G4RunManager *runManager = new G4RunManager();
+		//commG4RunManager *runManager = new G4RunManager();
+		auto* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);
 	#endif
 
 	G4Random::setTheEngine(new CLHEP::RanecuEngine);
 
 	G4int precision = 4;
   	G4SteppingVerbose::UseBestUnit(precision);
-	
+
+
+	//G4PhysListFactory factory;
+	//G4VModularPhysicsList* phys = factory.GetReferencePhysList("FTFP_BERT_HP");
+	//runManager->SetUserInitialization(phys);
 	runManager->SetUserInitialization(new MyDetectorConstruction());
 	runManager->SetUserInitialization(new MyPhysicsList());
 	runManager->SetUserInitialization(new MyActionInitialization());
@@ -37,7 +49,7 @@ int main(int argc, char** argv)
 	G4ParticleHPManager::GetInstance()->SetDoNotAdjustFinalState( true );
 	G4ParticleHPManager::GetInstance()->SetUseOnlyPhotoEvaporation( false );
 	G4ParticleHPManager::GetInstance()->SetNeglectDoppler( false );
-	G4ParticleHPManager::GetInstance()->SetProduceFissionFragments( false );
+	G4ParticleHPManager::GetInstance()->SetProduceFissionFragments( true );
 	G4ParticleHPManager::GetInstance()->SetUseWendtFissionModel( false );
 	G4ParticleHPManager::GetInstance()->SetUseNRESP71Model( false );
 	
@@ -64,6 +76,12 @@ int main(int argc, char** argv)
 		G4String fileName = argv[1];
 		UImanager->ApplyCommand(command+fileName);
 	}
+	// ---- ARRET PROPRE : ordre important ----
 	
+	
+	//delete visManager;  //visManager = nullptr;
+	//delete runManager;  //runManager = nullptr;
+	
+	//if (ui) { delete ui;  } //ui = nullptr;
 	return 0;
 }

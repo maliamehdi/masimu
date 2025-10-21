@@ -1,12 +1,12 @@
 CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o: \
   /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/src/PrimaryGenerator.cc \
   /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/include/PrimaryGenerator.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4VUserPrimaryGeneratorAction.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4ParticleGun.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/globals.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4ios.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4Types.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4GlobalConfig.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4VUserPrimaryGeneratorAction.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ParticleGun.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/globals.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ios.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Types.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4GlobalConfig.hh \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/complex \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__assert \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__assertion_handler \
@@ -964,26 +964,26 @@ CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__format/formatter_tuple.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/print \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/unistd.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/tls.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/tls.hh \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4String.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4String.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/templates.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4Exception.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4ExceptionSeverity.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4EnvironmentUtils.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4String.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4String.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/templates.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Exception.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ExceptionSeverity.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4EnvironmentUtils.hh \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iomanip \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4VPrimaryGenerator.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4ThreeVector.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Vector/ThreeVector.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Utility/defs.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Vector/ThreeVector.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4ParticleDefinition.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4PDefManager.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4AutoLock.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4Threading.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4VPrimaryGenerator.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ThreeVector.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Vector/ThreeVector.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Utility/defs.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Vector/ThreeVector.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ParticleDefinition.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4PDefManager.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4AutoLock.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Threading.hh \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/chrono \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__chrono/calendar.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__chrono/convert_to_tm.h \
@@ -1015,26 +1015,26 @@ CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__stop_token/stop_source.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/thread.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/this_thread.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/pwdefs.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Units/PhysicalConstants.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Units/SystemOfUnits.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4ParticleDefinition.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4PrimaryVertex.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4Allocator.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4AllocatorPool.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4PrimaryParticle.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4ParticleMomentum.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4SystemOfUnits.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4ParticleTable.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4ParticleTableIterator.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4ParticleTable.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4Geantino.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4IonTable.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/G4Ions.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/Randomize.hh \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/Randomize.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/DualRand.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandomEngine.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/pwdefs.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Units/PhysicalConstants.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Units/SystemOfUnits.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ParticleDefinition.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4PrimaryVertex.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Allocator.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4AllocatorPool.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4PrimaryParticle.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ParticleMomentum.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4SystemOfUnits.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ParticleTable.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ParticleTableIterator.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ParticleTable.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Geantino.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4IonTable.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Ions.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/Randomize.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/Randomize.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/DualRand.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandomEngine.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/fstream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/filesystem \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/copy_options.h \
@@ -1053,46 +1053,46 @@ CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/path_iterator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/u8path.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandomEngine.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/JamesRandom.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/MixMaxRng.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/MTwistEngine.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RanecuEngine.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RanluxEngine.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/Ranlux64Engine.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RanluxppEngine.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RanshiEngine.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandBinomial.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/Random.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/Random.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Utility/memory.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandBinomial.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandBreitWigner.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandFlat.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Utility/thread_local.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandFlat.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandBreitWigner.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandChiSquare.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandChiSquare.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandExponential.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandExponential.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandExpZiggurat.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandBit.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandBit.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandGamma.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandGamma.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandGauss.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandGauss.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandGaussQ.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandGaussQ.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandGaussZiggurat.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandGeneral.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandGeneral.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandLandau.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandLandau.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandPoissonQ.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandPoisson.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandPoisson.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandPoissonQ.icc \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandStudentT.h \
-  /Users/mehdi/install/geant4-v11.2.2-install/include/Geant4/CLHEP/Random/RandStudentT.icc
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandomEngine.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/JamesRandom.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/MixMaxRng.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/MTwistEngine.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RanecuEngine.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RanluxEngine.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/Ranlux64Engine.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RanluxppEngine.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RanshiEngine.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandBinomial.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/Random.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/Random.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Utility/memory.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandBinomial.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandBreitWigner.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandFlat.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Utility/thread_local.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandFlat.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandBreitWigner.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandChiSquare.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandChiSquare.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandExponential.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandExponential.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandExpZiggurat.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandBit.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandBit.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandGamma.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandGamma.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandGauss.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandGauss.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandGaussQ.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandGaussQ.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandGaussZiggurat.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandGeneral.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandGeneral.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandLandau.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandLandau.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandPoissonQ.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandPoisson.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandPoisson.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandPoissonQ.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandStudentT.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Random/RandStudentT.icc

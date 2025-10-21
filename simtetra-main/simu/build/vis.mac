@@ -17,22 +17,22 @@
 /vis/geometry/set/colour logic_polycase 1 1 0.8 0 0.3
 /vis/geometry/set/colour logic_polycase2 1 1 0.8 0 0.3
 
-/vis/geometry/set/colour logicChassis 0.8 0.8 0.8 0.6
-/vis/geometry/set/colour logicSupport 0.8 0.8 0.8 0.6
-/vis/geometry/set/colour logicArc 0.9 0.8 0.85 0 0.3
+/vis/geometry/set/colour logicChassis 1 1 0.85 0 0.3
+/vis/geometry/set/colour logicSupport 1 1 0.85 0 0.3
+/vis/geometry/set/colour logicArc 1 1 0.85 0 0.3
 
 
 /vis/geometry/set/colour logicIC 0.0 0.6 1.0 0.6
 
-/vis/geometry/set/colour lv_barre_1 0.8 0.8 0.8 0.6
-/vis/geometry/set/colour lv_barre_2 0.8 0.8 0.8 0.6
-/vis/geometry/set/colour lv_barre_3 0.8 0.8 0.8 0.6
-/vis/geometry/set/colour lv_barre_4 0.8 0.8 0.8 0.6
-/vis/geometry/set/colour lv_barre_5 0.8 0.8 0.8 0.6
-/vis/geometry/set/colour lv_barre_6 0.8 0.8 0.8 0.6
-/vis/geometry/set/colour lv_barre_7 0.8 0.8 0.8 0.6
-/vis/geometry/set/colour lv_barre_8 0.8 0.8 0.8 0.6
-/vis/geometry/set/colour lv_barre_9 0.8 0.8 0.8 0.6
+/vis/geometry/set/colour lv_barre_1 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_2 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_3 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_4 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_5 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_6 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_7 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_8 0.0 0.7 1.0 0.6
+/vis/geometry/set/colour lv_barre_9 0.0 0.7 1.0 0.6
 
 
 /vis/geometry/set/colour SCIONIXPWLVFullHousing 0.8 0.8 0.8 0.3
@@ -42,11 +42,11 @@
 /vis/geometry/set/colour SCParisPWSealingforPMLV 0.9 0.9 0.9 0.3
 
 /vis/drawVolume
-/vis/geometry/set/colour logicCyl 1 0 0 0 0.8
-/vis/geometry/set/colour logicCellOne 1 0 0 0 0.5
-/vis/geometry/set/colour logicCellTwo 1 0 0 0 0.5
-/vis/geometry/set/colour logicCellThree 1 0 0 0 0.5
-/vis/geometry/set/colour logicCellFour 1 0 0 0 0.5
+/vis/geometry/set/colour logicCyl 0 1 1 0 0.5
+/vis/geometry/set/colour logicCellOne 1 0 1 0 0.2
+/vis/geometry/set/colour logicCellTwo 1 0 1 0 0.2
+/vis/geometry/set/colour logicCellThree 1 0 1 0 0.2
+/vis/geometry/set/colour logicCellFour 1 0 1 0 0.2
 
 
 /vis/viewer/set/style surface

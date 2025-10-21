@@ -28,15 +28,23 @@
 #include "G4PSEnergyDeposit.hh"
 #include "G4PSTrackCounter.hh"
 #include "G4SDParticleWithEnergyFilter.hh"
+#include "G4LogicalVolumeStore.hh"
+
 class MyDetectorConstruction : public G4VUserDetectorConstruction
 {
 
 public :
 	MyDetectorConstruction();
-	~MyDetectorConstruction();
+	~MyDetectorConstruction() override;
 
     void ConstructSDandField() override;
+	virtual G4VPhysicalVolume *Construct() override;
+    
 
+    // Logical volumes composant un phoswich PARIS
+    G4LogicalVolume* lvCe  = nullptr;   // CeBr3
+    G4LogicalVolume* lvNaI = nullptr;   // NaI
+    
     G4LogicalVolume *GetScoringVolumeOne() const { return fScoringVolumeOne; }
     G4LogicalVolume *GetScoringVolumeTwo() const { return fScoringVolumeTwo; }
     G4LogicalVolume *GetScoringVolumeThree() const { return fScoringVolumeThree; }
@@ -45,10 +53,9 @@ public :
     G4LogicalVolume *GetScoringVolume() const { return fScoringVolume; }
     
     G4LogicalVolume *GetSPVolume() const { return fSPVolume; }
-	
-	virtual G4VPhysicalVolume *Construct();
     
 private:
+    
     G4LogicalVolume *logicCellOne, *logicCellTwo, *logicCellThree, *logicCellFour;
 	
     G4LogicalVolume *fScoringVolumeOne, *fScoringVolumeTwo, *fScoringVolumeThree, *fScoringVolumeFour;
@@ -57,7 +64,7 @@ private:
 	
     G4LogicalVolume *fScoringVolume;
     
-    G4LogicalVolume *logicSP;
+    G4LogicalVolume *logicSP, *logicIC, *logicSupport, *logicShell, *logicShell2, *logic_polycase, *logic_polycase2;
     
     G4LogicalVolume *fSPVolume;
     

@@ -2,29 +2,30 @@
 #define EventAction_h
 
 #include "G4UserEventAction.hh"
-#include "G4Event.hh"
-#include "G4AnalysisManager.hh"
-#include "G4RunManager.hh"
+#include "globals.hh"
 
-#include "RunAction.hh"
+class G4Event;
+class MyRunAction; // fwd decl
 
-class MyEventAction : public G4UserEventAction
-{
+class MyEventAction : public G4UserEventAction {
 public:
-    MyEventAction(MyRunAction* runAction);
-    ~MyEventAction();
-    
-    virtual void BeginOfEventAction(const G4Event*);
-    virtual void EndOfEventAction(const G4Event*);
-    
-    void AddEdep1(G4double edep) {fEdep += edep; }
+  explicit MyEventAction(MyRunAction* runAction); // <-- AJOUT
+  ~MyEventAction() override = default;
 
-    void AddEdepLow(G4double edeplow) {fEdepLow += edeplow; }
+  void BeginOfEventAction(const G4Event*) override;
+  void EndOfEventAction  (const G4Event*) override;
 
 private:
-    G4double fEdep, fEdepLow;
-    
-    MyRunAction *fRunAction;
+  // pointeur vers le RunAction si tu en as besoin (ntuple ids, etc.)
+  MyRunAction* fRunAction = nullptr;
+
+  // IDs des hits collections (résolus une fois)
+  G4int fHCID_CeEdep  = -1;   // "CeSD/eDep"
+  G4int fHCID_NaIEdep = -1;   // "NaISD/eDep"
+  G4int fHCID_CellIn  = -1;   // "CellSD/nNeutronEnter"
+
+  // helper
+  G4double GetHitsMapSum(G4int hcID, const G4Event* evt) const;
 };
 
 #endif

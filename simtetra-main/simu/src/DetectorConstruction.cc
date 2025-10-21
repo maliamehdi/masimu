@@ -71,7 +71,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     G4Material* ABS = new G4Material("ABS", density, ncomponents=3);
 
     G4Element* elC = new G4Element("Carbon", "C", 6., 12.011*g/mole);
-    G4Element* elH = new G4Element("Hydrogen", "H", 1., 1.008*g/mole);
+    G4Element* elH = new G4Element("TS_H_of_Polyethylene", "H", 1., 1.0078*g/mole);
     G4Element* elN = new G4Element("Nitrogen","N", 7., 14.007*g/mole);
 
     ABS->AddElement(elC, 85*perCent);
@@ -129,10 +129,16 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         G4Material* aluminium = nist->FindOrBuildMaterial("G4_Al");
 
 
-        modMat = nist->FindOrBuildMaterial("G4_POLYETHYLENE");
+        //modMat = nist->FindOrBuildMaterial("G4_POLYETHYLENE");
+        
         //High density polyethylene (moderator)
-        mod = new G4Material("mod", 0.93*g/cm3, 1);
-        mod->AddMaterial(modMat, 100.*perCent);
+        //mod = new G4Material("mod", 0.93*g/cm3, 1);
+        //mod->AddMaterial(modMat, 100.*perCent);
+        G4double densityPoly_TS; 
+        G4int ncomponentsPoly_TS, natomsH, natomsC;
+        mod = new G4Material("Polyethylene_TS", densityPoly_TS=0.93*g/cm3, ncomponentsPoly_TS=2);
+        mod->AddElement(elH, natomsH=6);
+        mod->AddElement(elC, natomsC=2);
          //Borated polyethylène
         borPol = new G4Material("borPol", 1.005*g/cm3, 2);
         borPol->AddMaterial(poly, 95.*perCent);
@@ -619,8 +625,8 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
         // Logical volumes composant un phoswich PARIS
         auto lvHousing  = parser.GetVolume("SCIONIXPWLVFullHousing");
-        auto lvCe       = parser.GetVolume("SCIONIXPWLVCe");
-        auto lvNaI      = parser.GetVolume("SCParisPWLV.1");
+        lvCe       = parser.GetVolume("SCIONIXPWLVCe");
+        lvNaI      = parser.GetVolume("SCParisPWLV.1");
         auto lvQuartzPM = parser.GetVolume("SCParisPWQuartzforPMLV");
         auto lvSealPM   = parser.GetVolume("SCParisPWSealingforPMLV");
 
@@ -704,13 +710,57 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         } // for angles
         // === Fin de l'import du GDML ===
        
-       
+        //---------------------------------------------------
+        // Sensitive Detectors
+        
    
     
-            //Mono Cell for tests
+    //Mono Cell for tests
     /*monoCell = new G4PVPlacement(0, G4ThreeVector(0., (2.*c)*cm, 0.), logicCell, "physCell", logicMod, false, 0, true);
     monoCyl = new G4PVPlacement(0, G4ThreeVector(0., (2.*c)*cm, 0.), logicCyl, "physCyl", logicMod, false, 0, true);*/
-// Exemple simplifié de détecteur composite hexagonal coupé en deux moitiés (ModA et ModB)
-// avec espace de 29.7 cm dans une boite d'air
-return physWorld;
+    // Exemple simplifié de détecteur composite hexagonal coupé en deux moitiés (ModA et ModB)
+    // avec espace de 29.7 cm dans une boite d'air
+    return physWorld;
+}
+void MyDetectorConstruction::ConstructSDandField()
+{
+
+            // ------------------ Ce & NaI : energy deposit ------------------
+            // Find logicals by name from the GDML
+            auto sdMan = G4SDManager::GetSDMpointer();
+
+            auto sdCe = new G4MultiFunctionalDetector("CeSD");
+            sdMan->AddNewDetector(sdCe);
+            sdCe->RegisterPrimitive(new G4PSEnergyDeposit("edep"));
+            if (lvCe) {
+                lvCe->SetSensitiveDetector(sdCe);
+                G4cout << "[SD] CeSD attaché à " << lvCe->GetName() << G4endl;
+            }
+
+            auto sdNaI = new G4MultiFunctionalDetector("NaISD");
+            sdMan->AddNewDetector(sdNaI);
+            sdNaI->RegisterPrimitive(new G4PSEnergyDeposit("edep"));
+            if (lvNaI) {
+                lvNaI->SetSensitiveDetector(sdNaI);
+                G4cout << "[SD] NaISD attaché à " << lvNaI->GetName() << G4endl;
+            }
+
+            // ------------------ Cells : possibility to set neutron E<100 keV entries ------------------
+            // single MFD shared by all cell logicals you already created
+            auto filterThermalN = new G4SDParticleWithEnergyFilter("fThermalN");
+            filterThermalN->add("neutron");
+            filterThermalN->SetKineticEnergy(0.*eV, 100.*keV);
+
+            auto sdCell = new G4MultiFunctionalDetector("CellSD");
+            sdMan->AddNewDetector(sdCell);
+
+            auto psEnter = new G4PSTrackCounter("nThermalEnter", fCurrent_In);
+            psEnter->SetFilter(filterThermalN);
+            sdCell->RegisterPrimitive(psEnter);
+
+            // Attach to your existing scoring volumes (already stored as members)
+            if (fScoringVolumeOne)   fScoringVolumeOne->SetSensitiveDetector(sdCell);
+            if (fScoringVolumeTwo)   fScoringVolumeTwo->SetSensitiveDetector(sdCell);
+            if (fScoringVolumeThree) fScoringVolumeThree->SetSensitiveDetector(sdCell);
+            if (fScoringVolumeFour)  fScoringVolumeFour->SetSensitiveDetector(sdCell);
 }

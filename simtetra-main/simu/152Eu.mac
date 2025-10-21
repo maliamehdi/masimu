@@ -1,0 +1,44 @@
+# =======================
+#   Eu152.mac  (Geant4)
+# =======================
+
+# --- Multi-thread (optionnel)
+#/run/numberOfThreads 8
+
+# --- Activer la désexcitation atomique (lignes X/IC/Auger)
+#     A faire AVANT /run/initialize
+/process/em/fluo true
+/process/em/auger true
+/process/em/pixe true
+
+# --- Options RDM (RadioactiveDecay)
+#     (la physique RDM doit être dans ta PhysicsList)
+#     Seuil “très longue durée de vie” pour ne pas supprimer de décays
+/process/had/rdm/thresholdForVeryLongDecayTime 1.0e+60 year
+
+# --- (Optionnel) Fichier ENSDF local personnalisé pour 152Eu
+#/process/had/rdm/setRadioactiveDecayFile 63 152 ../decayfolder/z63.a152
+
+# --- Initialisation (géométrie + physique)
+#     Toujours après la config ci-dessus
+/run/initialize
+
+# --- Définir la source comme un ion 152Eu au repos
+/gun/particle ion
+#    Z=63 (Eu), A=152, charge=0, Ex=0
+/gun/ion 63 152 0 0
+/gun/energy 0 keV
+
+# --- Position de la source (à adapter à ta géométrie)
+#     Ex : au centre du monde
+/gun/position 0 0 0 mm
+#/gun/pos/type Point
+
+# --- (Optionnel) un peu de verbosité de tracking pour debug
+#/tracking/verbose 0
+#/run/verbose 1
+#/event/verbose 0
+
+# --- Lancer N désintégrations (N ≈ nombre de noyaux tirés)
+#     Ajuste N selon le temps de calcul souhaité.
+/run/beamOn 100000
