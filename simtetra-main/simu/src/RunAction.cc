@@ -13,7 +13,7 @@ MyRunAction::MyRunAction()
     // 0) Événements (comptes et énergies agrégées)
     man->CreateNtuple("Events","per-event");
     man->CreateNtupleIColumn("EventID");
-    man->CreateNtupleDColumn("nThermalEnter"); // nIn
+    man->CreateNtupleDColumn("nThermalEnter"); // nIn nombre de neutrons détectés
     man->CreateNtupleDColumn("EdepCe_keV");
     man->CreateNtupleDColumn("EdepNaI_keV");
     man->FinishNtuple(); // index 0
@@ -47,7 +47,7 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
     std::stringstream strRunID;
     strRunID << runID;
     
-    man->OpenFile("../../myanalyse/output"+strRunID.str()+".root");
+    man->OpenFile("../../myanalyse/outputCf"+strRunID.str()+".root");
     
 }
 

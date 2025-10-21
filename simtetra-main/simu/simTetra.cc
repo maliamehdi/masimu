@@ -40,7 +40,7 @@ int main(int argc, char** argv)
   hp->SetDoNotAdjustFinalState(true);
   hp->SetUseOnlyPhotoEvaporation(false);
   hp->SetNeglectDoppler(false);
-  hp->SetProduceFissionFragments(false);
+  hp->SetProduceFissionFragments(true);
   hp->SetUseWendtFissionModel(false);
   hp->SetUseNRESP71Model(false);
 
@@ -54,7 +54,7 @@ int main(int argc, char** argv)
 
   if (ui) {
     // Choisis ici le macro par défaut
-    UImanager->ApplyCommand("/control/execute 152Eu.mac");
+    UImanager->ApplyCommand("/control/execute vis.mac");
     ui->SessionStart();
   } else {
     G4String command = "/control/execute ";
