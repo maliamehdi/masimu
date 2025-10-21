@@ -3,7 +3,7 @@
 # =======================
 
 # --- Multi-thread (optionnel)
-#/run/numberOfThreads 1
+#/run/numberOfThreads 8
 
 # --- Activer la désexcitation atomique (lignes X/IC/Auger)
 #     A faire AVANT /run/initialize
@@ -14,7 +14,7 @@
 # --- Options RDM (RadioactiveDecay)
 #     (la physique RDM doit être dans ta PhysicsList)
 #     Seuil “très longue durée de vie” pour ne pas supprimer de décays
-#/process/had/rdm/thresholdForVeryLongDecayTime 1.0e+60 year
+/process/had/rdm/thresholdForVeryLongDecayTime 1.0e+60 year
 
 # --- (Optionnel) Fichier ENSDF local personnalisé pour 152Eu
 #/process/had/rdm/setRadioactiveDecayFile 63 152 ../decayfolder/z63.a152

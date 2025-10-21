@@ -41,4 +41,4 @@
 
 # --- Lancer N désintégrations (N ≈ nombre de noyaux tirés)
 #     Ajuste N selon le temps de calcul souhaité.
-/run/beamOn 100000
+/run/beamOn 100

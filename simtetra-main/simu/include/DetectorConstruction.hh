@@ -39,12 +39,7 @@ public :
 
     void ConstructSDandField() override;
 	virtual G4VPhysicalVolume *Construct() override;
-    
 
-    // Logical volumes composant un phoswich PARIS
-    G4LogicalVolume* lvCe  = nullptr;   // CeBr3
-    G4LogicalVolume* lvNaI = nullptr;   // NaI
-    
     G4LogicalVolume *GetScoringVolumeOne() const { return fScoringVolumeOne; }
     G4LogicalVolume *GetScoringVolumeTwo() const { return fScoringVolumeTwo; }
     G4LogicalVolume *GetScoringVolumeThree() const { return fScoringVolumeThree; }
@@ -55,7 +50,6 @@ public :
     G4LogicalVolume *GetSPVolume() const { return fSPVolume; }
     
 private:
-    
     G4LogicalVolume *logicCellOne, *logicCellTwo, *logicCellThree, *logicCellFour;
 	
     G4LogicalVolume *fScoringVolumeOne, *fScoringVolumeTwo, *fScoringVolumeThree, *fScoringVolumeFour;

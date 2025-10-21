@@ -310,22 +310,22 @@ SimulationTetra_IS_TOP_LEVEL:STATIC=ON
 SimulationTetra_SOURCE_DIR:STATIC=/Users/mehdi/workspace/G4/masimu/simtetra-main/simu
 
 //Path to a file.
-X11_ICE_INCLUDE_PATH:PATH=/opt/X11/include
+X11_ICE_INCLUDE_PATH:PATH=/opt/homebrew/include
 
 //Path to a library.
-X11_ICE_LIB:FILEPATH=/opt/X11/lib/libICE.dylib
+X11_ICE_LIB:FILEPATH=/opt/homebrew/lib/libICE.dylib
 
 //Path to a file.
-X11_SM_INCLUDE_PATH:PATH=/opt/X11/include
+X11_SM_INCLUDE_PATH:PATH=/opt/homebrew/include
 
 //Path to a library.
-X11_SM_LIB:FILEPATH=/opt/X11/lib/libSM.dylib
+X11_SM_LIB:FILEPATH=/opt/homebrew/lib/libSM.dylib
 
 //Path to a file.
-X11_X11_INCLUDE_PATH:PATH=/opt/X11/include
+X11_X11_INCLUDE_PATH:PATH=/opt/homebrew/include
 
 //Path to a library.
-X11_X11_LIB:FILEPATH=/opt/X11/lib/libX11.dylib
+X11_X11_LIB:FILEPATH=/opt/homebrew/lib/libX11.dylib
 
 //Path to a file.
 X11_X11_xcb_INCLUDE_PATH:PATH=/opt/homebrew/include
@@ -391,10 +391,10 @@ X11_Xdmcp_INCLUDE_PATH:PATH=/opt/homebrew/include
 X11_Xdmcp_LIB:FILEPATH=/opt/homebrew/lib/libXdmcp.dylib
 
 //Path to a file.
-X11_Xext_INCLUDE_PATH:PATH=/opt/X11/include
+X11_Xext_INCLUDE_PATH:PATH=/opt/homebrew/include
 
 //Path to a library.
-X11_Xext_LIB:FILEPATH=/opt/X11/lib/libXext.dylib
+X11_Xext_LIB:FILEPATH=/opt/homebrew/lib/libXext.dylib
 
 //Path to a file.
 X11_Xfixes_INCLUDE_PATH:PATH=/usr/X11R6/include
@@ -430,10 +430,10 @@ X11_Xkblib_INCLUDE_PATH:PATH=/opt/homebrew/include
 X11_Xlib_INCLUDE_PATH:PATH=/opt/homebrew/include
 
 //Path to a file.
-X11_Xmu_INCLUDE_PATH:PATH=/opt/X11/include
+X11_Xmu_INCLUDE_PATH:PATH=/opt/homebrew/include
 
 //Path to a library.
-X11_Xmu_LIB:FILEPATH=/opt/X11/lib/libXmu.dylib
+X11_Xmu_LIB:FILEPATH=/opt/homebrew/lib/libXmu.dylib
 
 //Path to a file.
 X11_Xpm_INCLUDE_PATH:PATH=/opt/homebrew/include
@@ -469,10 +469,10 @@ X11_Xss_INCLUDE_PATH:PATH=/usr/X11R6/include
 X11_Xss_LIB:FILEPATH=/usr/X11R6/lib/libXss.dylib
 
 //Path to a file.
-X11_Xt_INCLUDE_PATH:PATH=/opt/X11/include
+X11_Xt_INCLUDE_PATH:PATH=/opt/homebrew/include
 
 //Path to a library.
-X11_Xt_LIB:FILEPATH=/opt/X11/lib/libXt.dylib
+X11_Xt_LIB:FILEPATH=/opt/homebrew/lib/libXt.dylib
 
 //Path to a file.
 X11_Xtst_INCLUDE_PATH:PATH=/usr/X11R6/include
@@ -918,7 +918,7 @@ FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[/Applications/Xcode.app/Contents/D
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //Details about finding X11
-FIND_PACKAGE_MESSAGE_DETAILS_X11:INTERNAL=[/opt/X11/include][/opt/X11/lib/libX11.dylib][ ][v()]
+FIND_PACKAGE_MESSAGE_DETAILS_X11:INTERNAL=[/opt/homebrew/include][/opt/homebrew/lib/libX11.dylib][ ][v()]
 //Details about finding XQuartzGL
 FIND_PACKAGE_MESSAGE_DETAILS_XQuartzGL:INTERNAL=[/usr/X11R6/include][/usr/X11R6/lib/libGL.dylib][v()]
 //Details about finding XercesC
@@ -1021,7 +1021,7 @@ PKG_FONTCONFIG_fontconfig_VERSION:INTERNAL=
 X11_ICE_INCLUDE_PATH-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: X11_ICE_LIB
 X11_ICE_LIB-ADVANCED:INTERNAL=1
-//Have library /opt/X11/lib/libX11.dylib;/opt/X11/lib/libXext.dylib
+//Have library /opt/homebrew/lib/libX11.dylib;/opt/homebrew/lib/libXext.dylib
 X11_LIB_X11_SOLO:INTERNAL=1
 //ADVANCED property for variable: X11_SM_INCLUDE_PATH
 X11_SM_INCLUDE_PATH-ADVANCED:INTERNAL=1

@@ -956,18 +956,17 @@ CMakeFiles/simTetra.dir/simTetra.cc.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__format/formatter_tuple.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/print \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/unistd.h \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4RunManager.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4Event.hh \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/set \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
-  /Users/mehdi/install/myG4/install/include/Geant4/globals.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4ios.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4RunManagerFactory.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4MTRunManager.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4MTBarrier.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Threading.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4Types.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4GlobalConfig.hh \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/complex \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/sstream \
   /Users/mehdi/install/myG4/install/include/Geant4/tls.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/globals.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ios.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4String.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4String.icc \
   /Users/mehdi/install/myG4/install/include/Geant4/templates.hh \
@@ -975,47 +974,8 @@ CMakeFiles/simTetra.dir/simTetra.cc.o: \
   /Users/mehdi/install/myG4/install/include/Geant4/G4ExceptionSeverity.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4EnvironmentUtils.hh \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iomanip \
-  /Users/mehdi/install/myG4/install/include/Geant4/evtdefs.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4Allocator.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4AllocatorPool.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4PrimaryVertex.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4PrimaryParticle.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4ThreeVector.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Vector/ThreeVector.h \
-  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Utility/defs.h \
-  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Vector/ThreeVector.icc \
-  /Users/mehdi/install/myG4/install/include/Geant4/pwdefs.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4HCofThisEvent.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4VHitsCollection.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4DCofThisEvent.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4VDigiCollection.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4TrajectoryContainer.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4VTrajectory.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4VUserEventInformation.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4Profiler.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4Profiler.icc \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/Globals.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/Types.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/Utility.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4EventManager.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4StackManager.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4UserStackingAction.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4ClassificationOfNewTrack.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4StackedTrack.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4TrackStack.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4SmartTrackStack.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4SubEventTrackStack.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4SubEvent.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4Track.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Units/PhysicalConstants.h \
-  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Units/SystemOfUnits.h \
-  /Users/mehdi/install/myG4/install/include/Geant4/trkdefs.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4LogicalVolume.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4Region.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4GeomSplitter.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/geomwdefs.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4AutoLock.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4Threading.hh \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/chrono \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__chrono/calendar.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__chrono/convert_to_tm.h \
@@ -1047,6 +1007,50 @@ CMakeFiles/simTetra.dir/simTetra.cc.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__stop_token/stop_source.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/thread.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/this_thread.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Profiler.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Profiler.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/Globals.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/Types.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/Utility.hh \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/set \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4RNGHelper.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4RunManager.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Event.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/evtdefs.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Allocator.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4AllocatorPool.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4PrimaryVertex.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4PrimaryParticle.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ThreeVector.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Vector/ThreeVector.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Utility/defs.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Vector/ThreeVector.icc \
+  /Users/mehdi/install/myG4/install/include/Geant4/pwdefs.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4HCofThisEvent.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4VHitsCollection.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4DCofThisEvent.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4VDigiCollection.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4TrajectoryContainer.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4VTrajectory.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4VUserEventInformation.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4EventManager.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4StackManager.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4UserStackingAction.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ClassificationOfNewTrack.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4StackedTrack.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4TrackStack.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4SmartTrackStack.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4SubEventTrackStack.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4SubEvent.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Track.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Units/PhysicalConstants.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/CLHEP/Units/SystemOfUnits.h \
+  /Users/mehdi/install/myG4/install/include/Geant4/trkdefs.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4LogicalVolume.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4Region.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4GeomSplitter.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/geomwdefs.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4AutoLock.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4Region.icc \
   /Users/mehdi/install/myG4/install/include/Geant4/G4VPhysicalVolume.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/geomdefs.hh \
@@ -1260,9 +1264,25 @@ CMakeFiles/simTetra.dir/simTetra.cc.o: \
   /Users/mehdi/install/myG4/install/include/Geant4/G4RunManagerKernel.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/rundefs.hh \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/list \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4MTRunManager.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4MTBarrier.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4RNGHelper.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4TaskRunManager.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4TBBTaskGroup.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/TaskGroup.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/AutoLock.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/Threading.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/Config.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/JoinFunction.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/Task.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/VTask.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/ThreadData.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/ThreadPool.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/VUserTaskQueue.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4TaskGroup.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4TaskManager.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/TaskManager.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/PTL/TaskRunManager.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ThreadPool.hh \
+  /Users/mehdi/install/myG4/install/include/Geant4/G4VUserTaskQueue.hh \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/regex \
   /Users/mehdi/install/myG4/install/include/Geant4/G4UIExecutive.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4VUIshell.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4VisExecutive.hh \
@@ -1414,26 +1434,6 @@ CMakeFiles/simTetra.dir/simTetra.cc.o: \
   /Users/mehdi/install/myG4/install/include/Geant4/G4coutDestination.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4UIbatch.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4SteppingVerbose.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4RunManagerFactory.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4TaskRunManager.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4TBBTaskGroup.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/TaskGroup.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/AutoLock.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/Threading.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/Config.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/JoinFunction.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/Task.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/VTask.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/ThreadData.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/ThreadPool.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/VUserTaskQueue.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4TaskGroup.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4TaskManager.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/TaskManager.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/PTL/TaskRunManager.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4ThreadPool.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4VUserTaskQueue.hh \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/regex \
   /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/include/DetectorConstruction.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4VUserDetectorConstruction.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4ExtrudedSolid.hh \
@@ -1829,14 +1829,6 @@ CMakeFiles/simTetra.dir/simTetra.cc.o: \
   /Users/mehdi/install/myG4/install/include/Geant4/G4IonPhysicsXS.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4IonPhysics.hh \
   /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/include/GammaNuclearPhysics.hh \
-  /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/include/NeutronHPphysics.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4BosonConstructor.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4LeptonConstructor.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4MesonConstructor.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4BaryonConstructor.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4IonConstructor.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4ShortLivedConstructor.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4HadronPhysicsFTFP_BERT.hh \
   /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/include/ActionInitialization.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4VUserActionInitialization.hh \
   /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/include/PrimaryGenerator.hh \
@@ -1911,5 +1903,4 @@ CMakeFiles/simTetra.dir/simTetra.cc.o: \
   /Users/mehdi/install/myG4/install/include/Geant4/G4UserEventAction.hh \
   /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/include/SteppingAction.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4ParticleHPManager.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4ParticleHPReactionWhiteBoard.hh \
-  /Users/mehdi/install/myG4/install/include/Geant4/G4PhysListFactory.hh
+  /Users/mehdi/install/myG4/install/include/Geant4/G4ParticleHPReactionWhiteBoard.hh

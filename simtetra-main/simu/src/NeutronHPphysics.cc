@@ -97,24 +97,33 @@ void NeutronHPphysics::ConstructProcess()
   process = pManager->GetProcess("nFission");      
   if (process) pManager->RemoveProcess(process);      
          
-  // (re) create process: elastic
-  //
-  G4HadronElasticProcess* process1 = new G4HadronElasticProcess();
-  pManager->AddDiscreteProcess(process1);
-  //
-  // model1a
-  G4ParticleHPElastic*  model1a = new G4ParticleHPElastic();
-  process1->RegisterMe(model1a);
-  process1->AddDataSet(new G4ParticleHPElasticData());
-  //
-  // model1b
-  if (fThermal) {
-    model1a->SetMinEnergy(0*eV);   
-   G4ParticleHPThermalScattering* model1b = new G4ParticleHPThermalScattering();
-    process1->RegisterMe(model1b);
-    process1->AddDataSet(new G4ParticleHPThermalScatteringData());
-  }
-   
+ // (re) create process: elastic
+auto* process1 = new G4HadronElasticProcess();
+pManager->AddDiscreteProcess(process1);
+
+// --- Thermal scattering (S(a,b)) en premier ---
+if (fThermal) {
+  // Données S(a,b)
+  process1->AddDataSet(new G4ParticleHPThermalScatteringData());
+
+  auto* model1b = new G4ParticleHPThermalScattering();
+  model1b->SetMinEnergy(0.0*eV);
+  model1b->SetMaxEnergy(4.0*eV); // domaine TS ~ 4 eV
+  process1->RegisterMe(model1b);
+}
+
+// --- HP elastic "général" au-dessus du domaine thermique ---
+process1->AddDataSet(new G4ParticleHPElasticData());
+
+auto* model1a = new G4ParticleHPElastic();
+if (fThermal) {
+  // Pour éviter le chevauchement avec TS
+  model1a->SetMinEnergy(4.0*eV);
+}
+model1a->SetMaxEnergy(20.0*MeV);
+process1->RegisterMe(model1a);
+
+
   // (re) create process: inelastic
   //
   G4HadronInelasticProcess* process2 =

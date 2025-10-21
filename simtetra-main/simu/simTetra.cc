@@ -1,14 +1,11 @@
 #include <iostream>
 
-#include "G4RunManager.hh"
-#include "G4MTRunManager.hh"
+#include "G4RunManagerFactory.hh"
 #include "G4UIExecutive.hh"
 #include "G4VisExecutive.hh"
-#include "G4VisManager.hh"
 #include "G4UImanager.hh"
 #include "G4SteppingVerbose.hh"
 #include "Randomize.hh"
-#include "G4RunManagerFactory.hh" 
 
 #include "DetectorConstruction.hh"
 #include "PhysicsList.hh"
@@ -16,72 +13,68 @@
 
 #include "G4ParticleHPManager.hh"
 
-#include "G4PhysListFactory.hh"
-
-
+// Si tu fermes l’analyse ici, dé-commente les deux includes suivants
+// #include "g4analysis.hh"     // fabrique d’AnalysisManager (Geant4 11.x)
+// #include "G4AutoDelete.hh"
 
 int main(int argc, char** argv)
 {
-	
-	#ifdef G4MULTITHREADED
-		//G4MTRunManager *runManager = new G4MTRunManager();
-		//G4RunManager *runManager = new G4RunManager();
-		auto* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);
-	#else	
-		//commG4RunManager *runManager = new G4RunManager();
-		auto* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);
-	#endif
+  // --- Run manager (choisit tout seul Serial/MT selon la build)
+  auto* runManager = G4RunManagerFactory::CreateRunManager();
+  #ifdef G4MULTITHREADED
+     runManager->SetNumberOfThreads(G4Threading::G4GetNumberOfCores());
+  #endif
 
-	G4Random::setTheEngine(new CLHEP::RanecuEngine);
+  // RNG + verbosité unités
+  G4Random::setTheEngine(new CLHEP::RanecuEngine);
+  G4SteppingVerbose::UseBestUnit(4);
 
-	G4int precision = 4;
-  	G4SteppingVerbose::UseBestUnit(precision);
+  // Detector / Physics / Actions
+  runManager->SetUserInitialization(new MyDetectorConstruction());
+  runManager->SetUserInitialization(new MyPhysicsList());
+  runManager->SetUserInitialization(new MyActionInitialization());
 
+  // Réglages HP (ok ici, avant /run/initialize)
+  auto* hp = G4ParticleHPManager::GetInstance();
+  hp->SetSkipMissingIsotopes(true);
+  hp->SetDoNotAdjustFinalState(true);
+  hp->SetUseOnlyPhotoEvaporation(false);
+  hp->SetNeglectDoppler(false);
+  hp->SetProduceFissionFragments(false);
+  hp->SetUseWendtFissionModel(false);
+  hp->SetUseNRESP71Model(false);
 
-	//G4PhysListFactory factory;
-	//G4VModularPhysicsList* phys = factory.GetReferencePhysList("FTFP_BERT_HP");
-	//runManager->SetUserInitialization(phys);
-	runManager->SetUserInitialization(new MyDetectorConstruction());
-	runManager->SetUserInitialization(new MyPhysicsList());
-	runManager->SetUserInitialization(new MyActionInitialization());
+  // Visu
+  auto* visManager = new G4VisExecutive();
+  visManager->Initialize();
 
-	G4ParticleHPManager::GetInstance()->SetSkipMissingIsotopes( true );
-	G4ParticleHPManager::GetInstance()->SetDoNotAdjustFinalState( true );
-	G4ParticleHPManager::GetInstance()->SetUseOnlyPhotoEvaporation( false );
-	G4ParticleHPManager::GetInstance()->SetNeglectDoppler( false );
-	G4ParticleHPManager::GetInstance()->SetProduceFissionFragments( true );
-	G4ParticleHPManager::GetInstance()->SetUseWendtFissionModel( false );
-	G4ParticleHPManager::GetInstance()->SetUseNRESP71Model( false );
-	
-	G4UIExecutive *ui = 0;
-	
-	if(argc == 1)
-	{
-		ui = new G4UIExecutive(argc, argv);
-	}
-	
-	G4VisManager *visManager = new G4VisExecutive();
-	visManager->Initialize();
-	
-	G4UImanager *UImanager = G4UImanager::GetUIpointer();
-	
-	if(ui)
-	{
-		UImanager->ApplyCommand("/control/execute vis.mac");
-		ui->SessionStart();
-	}
-	else
-	{
-		G4String command = "/control/execute ";
-		G4String fileName = argv[1];
-		UImanager->ApplyCommand(command+fileName);
-	}
-	// ---- ARRET PROPRE : ordre important ----
-	
-	
-	//delete visManager;  //visManager = nullptr;
-	//delete runManager;  //runManager = nullptr;
-	
-	//if (ui) { delete ui;  } //ui = nullptr;
-	return 0;
+  // UI / Batch
+  G4UIExecutive* ui = (argc == 1) ? new G4UIExecutive(argc, argv) : nullptr;
+  auto* UImanager = G4UImanager::GetUIpointer();
+
+  if (ui) {
+    // Choisis ici le macro par défaut
+    UImanager->ApplyCommand("/control/execute 152Eu.mac");
+    ui->SessionStart();
+  } else {
+    G4String command = "/control/execute ";
+    G4String fileName = argv[1];
+    UImanager->ApplyCommand(command + fileName);
+  }
+
+  // ---------- SHUTDOWN PROPRE ----------
+  // Si tu fermes l’analyse dans les Run/Action via G4AutoDelete, ne fais rien ici.
+  // Si, au contraire, tu ouvres/écris/fermes l’analyse dans main, fais-le AVANT de détruire le runManager :
+  // {
+  //   auto* ana = G4AnalysisManager::Instance();
+  //   ana->Write();
+  //   ana->CloseFile();
+  //   // soit delete ana; soit : G4AutoDelete::Register(ana); (et ne pas le delete ici)
+  // }
+
+  delete ui;          // 1) ferme l’UI d’abord
+  delete visManager;  // 2) puis la visu
+  delete runManager;  // 3) et enfin le run manager (dernier)
+
+  return 0;
 }

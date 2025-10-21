@@ -56,5 +56,4 @@ void MyRunAction::EndOfRunAction(const G4Run*)
     G4AnalysisManager *man = G4AnalysisManager::Instance();
     man->Write();
     man->CloseFile();
-    //delete man;
 }
