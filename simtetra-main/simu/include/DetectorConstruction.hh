@@ -48,8 +48,15 @@ public :
     G4LogicalVolume *GetScoringVolume() const { return fScoringVolume; }
     
     G4LogicalVolume *GetSPVolume() const { return fSPVolume; }
+
+    const std::string& GetParisLabel(int copyNo) const {
+    static const std::string unk = "PARIS?";
+    return (copyNo>=0 && copyNo<(int)ParisLabels.size()) ? ParisLabels[copyNo] : unk;
+    }
+    
     
 private:
+    std::vector<std::string> ParisLabels;
     G4LogicalVolume *logicCellOne, *logicCellTwo, *logicCellThree, *logicCellFour;
 	
     G4LogicalVolume *fScoringVolumeOne, *fScoringVolumeTwo, *fScoringVolumeThree, *fScoringVolumeFour;

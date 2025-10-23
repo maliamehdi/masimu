@@ -31,4 +31,4 @@
 #/tracking/verbose 0
 
 # Tirer N désintégrations
-/run/beamOn 1000000
+/run/beamOn 100000

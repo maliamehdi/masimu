@@ -443,7 +443,11 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         axis = axis.unit();
         G4RotationMatrix R;  R.rotate(ang, axis);
         G4Transform3D T(R, pos);
-        asmPARIS->MakeImprint(logicWorld, T, copyNo++, checkOverlaps);
+        asmPARIS->MakeImprint(logicWorld, T, copyNo, checkOverlaps);
+
+        const int degLab = (int) std::round(theta/deg);
+        ParisLabels.push_back("PARIS" + std::to_string(degLab)); // ex: PARIS50, PARIS90, ...
+        copyNo++;
 
         G4ThreeVector zplus_world = R * k;
         G4ThreeVector faceCe = pos - D_frontCe * zplus_world;

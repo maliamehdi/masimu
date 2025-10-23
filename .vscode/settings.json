@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "multi_plot.C": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "string": "cpp",
+        "MakeRatioFile.C": "cpp"
     }
 }

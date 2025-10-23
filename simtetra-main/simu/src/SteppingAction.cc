@@ -60,11 +60,16 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
     else if (r > 100. && r <= 150.) ring = 2;
     else if (r > 150. && r <= 200.) ring = 3;
     else if (r > 200. && r <= 250.) ring = 4;
+    
+    // Remplir le ntuple Rings (comme avant)
     man->FillNtupleIColumn(2, 0, eventID);
     man->FillNtupleIColumn(2, 1, static_cast<G4int>(ring));
     man->AddNtupleRow(2);
-    //man->FillNtupleDColumn(2, 0, static_cast<G4int>(ring));
-    //man->AddNtupleRow(2);
+    
+    // Nouveau : compter le hit pour ce ring dans EventAction
+    if (ring > 0) {
+      fEventAction->AddHitToRing(ring);
+    }
 }
 
   // IMPORTANT :
