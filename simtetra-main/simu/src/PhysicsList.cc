@@ -8,6 +8,7 @@
 #include "G4BaryonConstructor.hh"
 #include "G4IonConstructor.hh"
 #include "G4ShortLivedConstructor.hh"
+#include "G4EmStandardPhysics.hh"          
 
 #include "G4SystemOfUnits.hh"
 #include "G4UnitsTable.hh"
@@ -16,6 +17,7 @@ MyPhysicsList::MyPhysicsList()
 {	
     RegisterPhysics(new G4DecayPhysics());
     RegisterPhysics(new G4RadioactiveDecayPhysics());
+    RegisterPhysics(new G4EmStandardPhysics());
 
     RegisterPhysics(new G4EmPenelopePhysics());
     RegisterPhysics( new NeutronHPphysics("neutronHP"));

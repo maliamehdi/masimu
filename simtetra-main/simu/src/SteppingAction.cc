@@ -44,12 +44,12 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
   const auto t    = pre->GetGlobalTime();
 
   // ntuple 1 : TritonHits
-    man->FillNtupleIColumn(1, 0, eventID);
-    man->FillNtupleDColumn(1, 1, posW.x()/mm);
-    man->FillNtupleDColumn(1, 2, posW.y()/mm);
-    man->FillNtupleDColumn(1, 3, posW.z()/mm);
-    man->FillNtupleDColumn(1, 4, t/ns);
-    man->AddNtupleRow(1);
+    // man->FillNtupleIColumn(1, 0, eventID);
+    // man->FillNtupleDColumn(1, 1, posW.x()/mm);
+    // man->FillNtupleDColumn(1, 2, posW.y()/mm);
+    // man->FillNtupleDColumn(1, 3, posW.z()/mm);
+    // man->FillNtupleDColumn(1, 4, t/ns);
+    // man->AddNtupleRow(1);
 
     // ntuple 2 : Rings
     // --- Ntuple 2: "Rings" -> [RingN(double)]
@@ -62,9 +62,9 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
     else if (r > 200. && r <= 250.) ring = 4;
     
     // Remplir le ntuple Rings (comme avant)
-    man->FillNtupleIColumn(2, 0, eventID);
-    man->FillNtupleIColumn(2, 1, static_cast<G4int>(ring));
-    man->AddNtupleRow(2);
+    // man->FillNtupleIColumn(2, 0, eventID);
+    // man->FillNtupleIColumn(2, 1, static_cast<G4int>(ring));
+    // man->AddNtupleRow(2);
     
     // Nouveau : compter le hit pour ce ring dans EventAction
     if (ring > 0) {

@@ -1,12 +1,77 @@
 #include "EventAction.hh"
-#include "RunAction.hh"                 // optionnel si tu ne déréférences pas fRunAction
+#include "RunAction.hh"    
+#include "DetectorConstruction.hh"
+#include "G4RunManager.hh"// optionnel si tu ne déréférences pas fRunAction
 #include "G4Event.hh"
 #include "G4HCofThisEvent.hh"
 #include "G4SDManager.hh"
 #include "G4THitsMap.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4AnalysisManager.hh"
+#include "Randomize.hh"
+#include <unordered_map>
+#include <map>
+#include <cmath>
 
+
+// Méthodes pour compter les hits par ring
+void MyEventAction::AddHitToRing(G4int ringNumber) {
+  switch(ringNumber) {
+    case 1: fHitsRing1++; break;
+    case 2: fHitsRing2++; break;
+    case 3: fHitsRing3++; break;
+    case 4: fHitsRing4++; break;
+    default: break;
+  }
+}
+
+void MyEventAction::ResetRingCounters() {
+  fHitsRing1 = 0;
+  fHitsRing2 = 0;
+  fHitsRing3 = 0;
+  fHitsRing4 = 0;
+}
+// ---------- Paramètres de résolution par PARIS ----------
+struct ResParams { double resA; double resPower; };
+
+// Valeurs pour le run de calib 152Eu du 05/08/2024 
+// static const std::map<std::string, ResParams> parisRes = { //run du 05/08/2024
+//     {"PARIS50",  {1.12145,  -0.441244}},
+//     {"PARIS70",  {1.80973,  -0.550685}},
+//     {"PARIS90",  {1.94868,  -0.564616}},
+//     {"PARIS110", {2.11922,  -0.582147}},
+//     {"PARIS130", {0.794233, -0.377311}},
+//     {"PARIS235", {1.30727,  -0.477402}},
+//     {"PARIS262", {1.76345,  -0.542769}},
+//     {"PARIS278", {1.98579,  -0.559095}},
+//     {"PARIS305", {1.9886,   -0.574021}}
+// };
+
+//Avec les copy number
+static const std::map<int, ResParams> parisRes = { //run du 05/08/2024
+    {0,  {1.12145,  -0.441244}},
+    {1,  {1.80973,  -0.550685}},
+    {2,  {1.94868,  -0.564616}},
+    {3, {2.11922,  -0.582147}},
+    {4, {0.794233, -0.377311}},
+    {5, {1.30727,  -0.477402}},
+    {6, {1.76345,  -0.542769}},
+    {7, {1.98579,  -0.559095}},
+    {8, {1.9886,   -0.574021}}
+};
+//Pour les index des différentes partie des PARIS
+// ----- Assembly stride/offsets (5 sous-volumes : housing, Ce, NaI, quartz, seal)
+static constexpr int kStride   = 1;
+static constexpr int kCeOffset = 3;  // Ce = 3,8,13,...
+static constexpr int kNaIOffset= 4;  // NaI= 4,7,...
+
+// Renvoie l’index PARIS (0..N-1) à partir du copy number d’un sous-volume donné
+inline int ParisIndexFromCopy(int copy, int offset) {
+  if (copy < 0) return -1;
+  const int d = copy - offset;
+  //if (d < 0 || (d % kStride) != 0) return -1;
+  return d; // d/kStride;
+}
 // Petit utilitaire pour sommer une HitsMap<G4double>
 namespace {
   G4double SumHitsMap(const G4THitsMap<G4double>* hm) {
@@ -59,54 +124,90 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
   const G4double eNaI  = GetHitsMapSum(fHCID_NaIEdep, evt);  // MeV
   const G4double nIn   = GetHitsMapSum(fHCID_CellIn,  evt);  // compteur
 
-   // ===== Par-copie : lire les hits maps & écrire dans le ntuple #3 =====
-  auto* hparis = evt->GetHCofThisEvent();
-  if (!hparis) return;
+   // ===== Par-PARIS (imprint) : lire les hits maps & écrire dans le ntuple #3 =====
+  auto* hcevt = evt->GetHCofThisEvent();
+  //if (!hcevt) goto FILL_SUM_ONLY;
 
-  auto* hmparisCe  = static_cast<G4THitsMap<G4double>*>(hparis->GetHC(fHCID_CeEdep));
-  auto* hmparisNaI = static_cast<G4THitsMap<G4double>*>(hparis->GetHC(fHCID_NaIEdep));
+  auto* hmCe  = static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_CeEdep));
+  auto* hmNaI = static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_NaIEdep));
 
-  // Accumulateurs : copyNo -> (eCe, eNaI) en keV
-  std::unordered_map<G4int, std::pair<G4double,G4double>> byCopy;
+  // Accumulateurs : parisIndex -> (eCe, eNaI) en keV (on convertit directement)
+  std::unordered_map<int, std::pair<G4double,G4double>> byParisIndex;
 
-  if (hmparisCe) {
-    for (const auto& kv : *hmparisCe->GetMap()) {
-      const G4int copy = kv.first;
-      const G4double e = kv.second ? *(kv.second) : 0.;
-      byCopy[copy].first += e;
+  if (hmCe) {
+    for (const auto& kv : *hmCe->GetMap()) {
+      const int copy = kv.first;
+      //G4cout << "DEBUG: copy number Ce = " << copy-3 << G4endl;
+      const int idx  = copy-3;//ParisIndexFromCopy(copy, kCeOffset);
+      if (idx < 0) continue; // clef inattendue
+      const G4double eMeV = (kv.second ? *(kv.second) : 0.);
+      byParisIndex[idx].first += eMeV/keV;  // stocke en keV
     }
   }
-  if (hmparisNaI) {
-    for (const auto& kv : *hmparisNaI->GetMap()) {
-      const G4int copy = kv.first;
-      const G4double e = kv.second ? *(kv.second) : 0.;
-      byCopy[copy].second += e;
+  if (hmNaI) {
+    for (const auto& kv : *hmNaI->GetMap()) {
+      const int copy = kv.first;
+      //G4cout << "DEBUG: copy number NaI = " << copy-4 << G4endl;
+      const int idx  = copy - 4;//ParisIndexFromCopy(copy, kNaIOffset);
+      if (idx < 0) continue;
+      const G4double eMeV = (kv.second ? *(kv.second) : 0.);
+      byParisIndex[idx].second += eMeV/keV; // keV
     }
   }
+
+
+  // Récupère les labels « PARIS50 », … depuis la géométrie
+  const auto* det =static_cast<const MyDetectorConstruction*>(G4RunManager::GetRunManager()->GetUserDetectorConstruction());
 
   auto* man = G4AnalysisManager::Instance();
 
-  // Option : récupérer un label lisible depuis la géométrie (sinon fallback "PARIS<copy>")
-  // Accès aux labels depuis la géométrie
+  // Pour chaque PARIS, applique la résolution (si >0) et remplis le ntuple #3
+  for (const auto& it : byParisIndex) {
+    const int idx = it.first;
+    const std::string& parisName = det->GetParisLabel(idx);   // "PARIS50", ...
 
-  //const auto* det = static_cast<const MyDetectorConstruction*>(G4RunManager::GetRunManager()->GetUserDetectorConstruction());
+    // Énergies (déjà en keV)
+    const double Ece_keV  = it.second.first;
+    const double Enai_keV = it.second.second;
 
-  for (const auto& it : byCopy) {
-    const G4int copy = it.first;
-    const G4double eparisCe  = it.second.first; //MeV
-    const G4double eparisNaI = it.second.second; //MeV
-    //const std::string& name = det->GetParisLabel(copy);
-    // Ntuple #3: (eventID, copy, eCe_keV, eNaI_keV)
+    // Paramètres de résolution
+    auto prm = parisRes.find(idx);
+    if (prm == parisRes.end()) {
+      G4Exception("MyEventAction::EndOfEventAction","ParamsNotFound", JustWarning,
+                  ("Pas de paramètres de résolution pour " + parisName).c_str());
+      // même si pas de params, on peut sauver les valeurs non-smear
+      man->FillNtupleIColumn(3, 0, evt->GetEventID());
+      man->FillNtupleIColumn(3, 1, idx);                // index PARIS
+      man->FillNtupleDColumn(3, 2, Ece_keV);            // sans smear
+      man->FillNtupleDColumn(3, 3, Enai_keV);           // sans smear
+      man->AddNtupleRow(3);
+      continue;
+    }
+    const ResParams& P = prm->second;
+
+    // Smearing uniquement si E>0
+    double eResCe_keV  = Ece_keV;
+    double eResNaI_keV = Enai_keV;
+
+    if (Ece_keV > 0.0) {
+      const double fwhm_Ce  = P.resA * std::pow(Ece_keV,  P.resPower);
+      const double sigma_Ce    = (fwhm_Ce / 2.35) * Ece_keV;  // keV
+      eResCe_keV  = G4RandGauss::shoot(Ece_keV,  std::max(sigma_Ce,  0.0));
+    }
+    // if (Enai_keV > 0.0) {
+    //   const double fwhm_NaI = P.resA * std::pow(Enai_keV, P.resPower);
+    //   const double sigma_NaI   = (fwhm_NaI/ 2.35) * Enai_keV; // keV
+    //   eResNaI_keV = G4RandGauss::shoot(Enai_keV, std::max(sigma_NaI, 0.0));
+    // }
+
+    // Remplissage ntuple #3 : (eventID, parisIndex, eCe_keV_smear, eNaI_keV_smear)
     man->FillNtupleIColumn(3, 0, evt->GetEventID());
-    man->FillNtupleIColumn(3, 1, copy);
-    man->FillNtupleDColumn(3, 2, eparisCe/keV);
-    man->FillNtupleDColumn(3, 3, eparisNaI/keV);
+    man->FillNtupleIColumn(3, 1, idx);
+    if (eResCe_keV>0)man->FillNtupleDColumn(3, 2, eResCe_keV);
+    if (eResNaI_keV>0) man->FillNtupleDColumn(3, 3, eResNaI_keV);
     man->AddNtupleRow(3);
   }
-  
-
-
-
+  //FILL_SUM_ONLY: ; // étiquette pour sauter directement au remplissage des totaux si pas de HCEvt
   // Remplissage du ntuple #0 : (eventID, nIn, eCe_keV, eNaI_keV, HitsRing1, HitsRing2, HitsRing3, HitsRing4)
   
   man->FillNtupleIColumn(0, 0, evt->GetEventID());
@@ -122,20 +223,3 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
 
 }
 
-// Méthodes pour compter les hits par ring
-void MyEventAction::AddHitToRing(G4int ringNumber) {
-  switch(ringNumber) {
-    case 1: fHitsRing1++; break;
-    case 2: fHitsRing2++; break;
-    case 3: fHitsRing3++; break;
-    case 4: fHitsRing4++; break;
-    default: break;
-  }
-}
-
-void MyEventAction::ResetRingCounters() {
-  fHitsRing1 = 0;
-  fHitsRing2 = 0;
-  fHitsRing3 = 0;
-  fHitsRing4 = 0;
-}

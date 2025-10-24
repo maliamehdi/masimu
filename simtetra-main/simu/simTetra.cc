@@ -6,6 +6,8 @@
 #include "G4UImanager.hh"
 #include "G4SteppingVerbose.hh"
 #include "Randomize.hh"
+#include <chrono>
+#include <ctime>
 
 #include "DetectorConstruction.hh"
 #include "PhysicsList.hh"
@@ -52,6 +54,9 @@ int main(int argc, char** argv)
   G4UIExecutive* ui = (argc == 1) ? new G4UIExecutive(argc, argv) : nullptr;
   auto* UImanager = G4UImanager::GetUIpointer();
 
+  auto wall_start = std::chrono::steady_clock::now();
+  std::clock_t cpu_start = std::clock();
+
   if (ui) {
     // Choisis ici le macro par défaut
     UImanager->ApplyCommand("/control/execute vis.mac");
@@ -62,6 +67,16 @@ int main(int argc, char** argv)
     UImanager->ApplyCommand(command + fileName);
   }
 
+  auto wall_end = std::chrono::steady_clock::now();
+  std::clock_t cpu_end = std::clock();
+
+  const double wall_s = std::chrono::duration<double>(wall_end - wall_start).count();
+  const double cpu_s  = double(cpu_end - cpu_start) / CLOCKS_PER_SEC;
+
+  G4cout << "\n==== Timing (process) ====\n"
+        << "Wall time : " << wall_s << " s\n"
+        << "CPU time  : " << cpu_s  << " s\n"
+        << "==========================\n" << G4endl;
   // ---------- SHUTDOWN PROPRE ----------
   // Si tu fermes l’analyse dans les Run/Action via G4AutoDelete, ne fais rien ici.
   // Si, au contraire, tu ouvres/écris/fermes l’analyse dans main, fais-le AVANT de détruire le runManager :

@@ -29,16 +29,18 @@
 #include "G4PSTrackCounter.hh"
 #include "G4SDParticleWithEnergyFilter.hh"
 #include "G4LogicalVolumeStore.hh"
+#include <unordered_map>
+
 
 class MyDetectorConstruction : public G4VUserDetectorConstruction
 {
 
 public :
-	MyDetectorConstruction();
-	~MyDetectorConstruction() override;
+    MyDetectorConstruction();
+    ~MyDetectorConstruction() override;
 
     void ConstructSDandField() override;
-	virtual G4VPhysicalVolume *Construct() override;
+    virtual G4VPhysicalVolume *Construct() override;
 
     G4LogicalVolume *GetScoringVolumeOne() const { return fScoringVolumeOne; }
     G4LogicalVolume *GetScoringVolumeTwo() const { return fScoringVolumeTwo; }
@@ -49,20 +51,32 @@ public :
     
     G4LogicalVolume *GetSPVolume() const { return fSPVolume; }
 
-    const std::string& GetParisLabel(int copyNo) const {
-    static const std::string unk = "PARIS?";
-    return (copyNo>=0 && copyNo<(int)ParisLabels.size()) ? ParisLabels[copyNo] : unk;
+    // Méthode pour ajouter un label
+    void SetParisLabel(int copyNo, const std::string& label) {
+        ParisLabels[copyNo] = label;
     }
     
+    // Méthode pour récupérer un label (version map)
+    const std::string& GetParisLabel(int copyNo) const {
+        static const std::string unk = "PARIS?";
+        auto it = ParisLabels.find(copyNo);
+        return (it != ParisLabels.end()) ? it->second : unk;
+    }
+    
+    // Méthode pour vérifier si un copyNo existe
+    bool HasParisLabel(int copyNo) const {
+        return ParisLabels.find(copyNo) != ParisLabels.end();
+    }
     
 private:
-    std::vector<std::string> ParisLabels;
+    std::unordered_map<int, std::string> ParisLabels;  // Plus rapide pour les grandes collections
+    
     G4LogicalVolume *logicCellOne, *logicCellTwo, *logicCellThree, *logicCellFour;
-	
+    
     G4LogicalVolume *fScoringVolumeOne, *fScoringVolumeTwo, *fScoringVolumeThree, *fScoringVolumeFour;
 
     G4LogicalVolume *logicCell;
-	
+    
     G4LogicalVolume *fScoringVolume;
     
     G4LogicalVolume *logicSP, *logicIC, *logicSupport, *logicShell, *logicShell2, *logic_polycase, *logic_polycase2;
@@ -94,9 +108,6 @@ private:
     G4Isotope *he3Iso;
     G4Element *he3;
     G4Material *co2, *gasMix, *realVac, *air, *modMat, *bore, *borPol, *mod, *plasticMat, *steel, *plexi, *boron, *poly;
-
-    
-    
 };
 
 #endif

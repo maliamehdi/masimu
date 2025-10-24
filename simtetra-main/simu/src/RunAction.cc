@@ -59,7 +59,7 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
     std::stringstream strRunID;
     strRunID << runID;
     
-    man->OpenFile("../../myanalyse/output_252Cf"+strRunID.str()+".root");
+    man->OpenFile("../../myanalyse/output_152Eu_smeared1.root");//strRunID.str()
     
 }
 

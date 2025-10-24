@@ -446,7 +446,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         asmPARIS->MakeImprint(logicWorld, T, copyNo, checkOverlaps);
 
         const int degLab = (int) std::round(theta/deg);
-        ParisLabels.push_back("PARIS" + std::to_string(degLab)); // ex: PARIS50, PARIS90, ...
+        SetParisLabel(copyNo,"PARIS" + std::to_string(degLab)); // ex: PARIS50, PARIS90, ...
         copyNo++;
 
         G4ThreeVector zplus_world = R * k;
@@ -469,18 +469,22 @@ void MyDetectorConstruction::ConstructSDandField()
 
     auto sdCe = new G4MultiFunctionalDetector("CeSD");
     sdMan->AddNewDetector(sdCe);
-    sdCe->RegisterPrimitive(new G4PSEnergyDeposit("edep"));
+    // NOTE: depth=0 pour indexer par le copy number du parent (imprint PARIS)
+    auto edepCe = new G4PSEnergyDeposit("edep", /*depth=*/0);
+    sdCe->RegisterPrimitive(edepCe);
     if (lvCe) lvCe->SetSensitiveDetector(sdCe);
 
     auto sdNaI = new G4MultiFunctionalDetector("NaISD");
     sdMan->AddNewDetector(sdNaI);
-    sdNaI->RegisterPrimitive(new G4PSEnergyDeposit("edep"));
+    // NOTE: depth=0 pour indexer par le copy number du parent (imprint PARIS)
+    auto edepNaI = new G4PSEnergyDeposit("edep", /*depth=*/0);
+    sdNaI->RegisterPrimitive(edepNaI);
     if (lvNaI) lvNaI->SetSensitiveDetector(sdNaI);
 
     // Cells : filtre neutron E < 100 keV
     auto filterThermalN = new G4SDParticleWithEnergyFilter("fThermalN");
     filterThermalN->add("neutron");
-    filterThermalN->SetKineticEnergy(0.*eV, 100.*keV);
+    filterThermalN->SetKineticEnergy(0.*eV, 10000.*keV);
 
     auto sdCell = new G4MultiFunctionalDetector("CellSD");
     sdMan->AddNewDetector(sdCell);
