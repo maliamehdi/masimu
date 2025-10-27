@@ -9,6 +9,10 @@
 #include "G4SystemOfUnits.hh"
 #include "G4AnalysisManager.hh"
 #include "Randomize.hh"
+#include "G4PrimaryVertex.hh"
+#include "G4PrimaryParticle.hh"
+#include "G4ParticleDefinition.hh"
+#include "G4SystemOfUnits.hh"
 #include <unordered_map>
 #include <map>
 #include <cmath>
@@ -82,6 +86,24 @@ namespace {
     }
     return s;
   }
+}
+
+// Récupère l'énergie du premier gamma primaire de l'évènement (en keV)
+static G4double GetPrimaryGammaEnergyKeV(const G4Event* evt) {
+  if (!evt) return 0.0;
+  for (G4int iv = 0; iv < evt->GetNumberOfPrimaryVertex(); ++iv) {
+    auto* vtx = evt->GetPrimaryVertex(iv);
+    if (!vtx) continue;
+    for (G4int ip = 0; ip < vtx->GetNumberOfParticle(); ++ip) {
+      auto* pp = vtx->GetPrimary(ip);
+      if (!pp) continue;
+      auto* def = pp->GetParticleDefinition();
+      if (def && def->GetParticleName() == "gamma") {
+        return pp->GetKineticEnergy()/keV; // → keV
+      }
+    }
+  }
+  return 0.0;
 }
 
 // ====== ctor cohérent avec le .hh ======
@@ -176,11 +198,11 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
       G4Exception("MyEventAction::EndOfEventAction","ParamsNotFound", JustWarning,
                   ("Pas de paramètres de résolution pour " + parisName).c_str());
       // même si pas de params, on peut sauver les valeurs non-smear
-      man->FillNtupleIColumn(3, 0, evt->GetEventID());
-      man->FillNtupleIColumn(3, 1, idx);                // index PARIS
-      man->FillNtupleDColumn(3, 2, Ece_keV);            // sans smear
-      man->FillNtupleDColumn(3, 3, Enai_keV);           // sans smear
-      man->AddNtupleRow(3);
+      // man->FillNtupleIColumn(3, 0, evt->GetEventID());
+      // man->FillNtupleIColumn(3, 1, idx);                // index PARIS
+      // man->FillNtupleDColumn(3, 2, Ece_keV);            // sans smear
+      // man->FillNtupleDColumn(3, 3, Enai_keV);           // sans smear
+      // man->AddNtupleRow(3);
       continue;
     }
     const ResParams& P = prm->second;
@@ -206,6 +228,18 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
     if (eResCe_keV>0)man->FillNtupleDColumn(3, 2, eResCe_keV);
     if (eResNaI_keV>0) man->FillNtupleDColumn(3, 3, eResNaI_keV);
     man->AddNtupleRow(3);
+    // ======= NEW : Ntuple "resp" (Etrue/Emeas) =======
+    // Pour un seul PARIS à chaque fois
+    const G4int ntid = fRunAction->TruthRespNtupleId(); // ← pas de chiffre en dur
+    if (ntid >= 0) {
+      man->FillNtupleIColumn(ntid, 0, evt->GetEventID());
+      man->FillNtupleIColumn(ntid, 1, idx);
+      man->FillNtupleDColumn(ntid, 2, Etrue_keV_evt);   // Etrue (mono-énergie GPS)
+      man->FillNtupleDColumn(ntid, 3, eResCe_keV);      // Emeas (Ce smearing)
+      man->FillNtupleDColumn(ntid, 4, Ece_keV);         // dépôt Ce brut
+      man->FillNtupleDColumn(ntid, 5, Enai_keV);        // dépôt NaI brut
+      man->AddNtupleRow(ntid);
+    }
   }
   //FILL_SUM_ONLY: ; // étiquette pour sauter directement au remplissage des totaux si pas de HCEvt
   // Remplissage du ntuple #0 : (eventID, nIn, eCe_keV, eNaI_keV, HitsRing1, HitsRing2, HitsRing3, HitsRing4)

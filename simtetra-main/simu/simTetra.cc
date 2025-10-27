@@ -34,7 +34,8 @@ int main(int argc, char** argv)
   // Detector / Physics / Actions
   runManager->SetUserInitialization(new MyDetectorConstruction());
   runManager->SetUserInitialization(new MyPhysicsList());
-  runManager->SetUserInitialization(new MyActionInitialization());
+  G4String macroName = "137Cs.mac";
+  runManager->SetUserInitialization(new MyActionInitialization(macroName));
 
   // Réglages HP (ok ici, avant /run/initialize)
   auto* hp = G4ParticleHPManager::GetInstance();
