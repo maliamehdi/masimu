@@ -1,0 +1,4019 @@
+# prompt_PARIS262_gun.mac
+/process/em/fluo true
+/process/em/auger true
+/process/em/pixe true
+
+/control/verbose 1
+/run/verbose 1
+/event/verbose 0
+/tracking/verbose 0
+/run/initialize
+
+# Particle gun
+/gun/particle gamma
+/gun/position 0 0 0 mm
+/gun/direction 0 0 1
+
+# Paramètres
+
+# Boucle sur toutes les énergies du fichier bincenters
+/gun/energy 5 keV
+/run/beamOn 1000000
+/gun/energy 15 keV
+/run/beamOn 1000000
+/gun/energy 25 keV
+/run/beamOn 1000000
+/gun/energy 35 keV
+/run/beamOn 1000000
+/gun/energy 45 keV
+/run/beamOn 1000000
+/gun/energy 55 keV
+/run/beamOn 1000000
+/gun/energy 65 keV
+/run/beamOn 1000000
+/gun/energy 75 keV
+/run/beamOn 1000000
+/gun/energy 85 keV
+/run/beamOn 1000000
+/gun/energy 95 keV
+/run/beamOn 1000000
+/gun/energy 105 keV
+/run/beamOn 1000000
+/gun/energy 115 keV
+/run/beamOn 1000000
+/gun/energy 125 keV
+/run/beamOn 1000000
+/gun/energy 135 keV
+/run/beamOn 1000000
+/gun/energy 145 keV
+/run/beamOn 1000000
+/gun/energy 155 keV
+/run/beamOn 1000000
+/gun/energy 165 keV
+/run/beamOn 1000000
+/gun/energy 175 keV
+/run/beamOn 1000000
+/gun/energy 185 keV
+/run/beamOn 1000000
+/gun/energy 195 keV
+/run/beamOn 1000000
+/gun/energy 205 keV
+/run/beamOn 1000000
+/gun/energy 215 keV
+/run/beamOn 1000000
+/gun/energy 225 keV
+/run/beamOn 1000000
+/gun/energy 235 keV
+/run/beamOn 1000000
+/gun/energy 245 keV
+/run/beamOn 1000000
+/gun/energy 255 keV
+/run/beamOn 1000000
+/gun/energy 265 keV
+/run/beamOn 1000000
+/gun/energy 275 keV
+/run/beamOn 1000000
+/gun/energy 285 keV
+/run/beamOn 1000000
+/gun/energy 295 keV
+/run/beamOn 1000000
+/gun/energy 305 keV
+/run/beamOn 1000000
+/gun/energy 315 keV
+/run/beamOn 1000000
+/gun/energy 325 keV
+/run/beamOn 1000000
+/gun/energy 335 keV
+/run/beamOn 1000000
+/gun/energy 345 keV
+/run/beamOn 1000000
+/gun/energy 355 keV
+/run/beamOn 1000000
+/gun/energy 365 keV
+/run/beamOn 1000000
+/gun/energy 375 keV
+/run/beamOn 1000000
+/gun/energy 385 keV
+/run/beamOn 1000000
+/gun/energy 395 keV
+/run/beamOn 1000000
+/gun/energy 405 keV
+/run/beamOn 1000000
+/gun/energy 415 keV
+/run/beamOn 1000000
+/gun/energy 425 keV
+/run/beamOn 1000000
+/gun/energy 435 keV
+/run/beamOn 1000000
+/gun/energy 445 keV
+/run/beamOn 1000000
+/gun/energy 455 keV
+/run/beamOn 1000000
+/gun/energy 465 keV
+/run/beamOn 1000000
+/gun/energy 475 keV
+/run/beamOn 1000000
+/gun/energy 485 keV
+/run/beamOn 1000000
+/gun/energy 495 keV
+/run/beamOn 1000000
+/gun/energy 505 keV
+/run/beamOn 1000000
+/gun/energy 515 keV
+/run/beamOn 1000000
+/gun/energy 525 keV
+/run/beamOn 1000000
+/gun/energy 535 keV
+/run/beamOn 1000000
+/gun/energy 545 keV
+/run/beamOn 1000000
+/gun/energy 555 keV
+/run/beamOn 1000000
+/gun/energy 565 keV
+/run/beamOn 1000000
+/gun/energy 575 keV
+/run/beamOn 1000000
+/gun/energy 585 keV
+/run/beamOn 1000000
+/gun/energy 595 keV
+/run/beamOn 1000000
+/gun/energy 605 keV
+/run/beamOn 1000000
+/gun/energy 615 keV
+/run/beamOn 1000000
+/gun/energy 625 keV
+/run/beamOn 1000000
+/gun/energy 635 keV
+/run/beamOn 1000000
+/gun/energy 645 keV
+/run/beamOn 1000000
+/gun/energy 655 keV
+/run/beamOn 1000000
+/gun/energy 665 keV
+/run/beamOn 1000000
+/gun/energy 675 keV
+/run/beamOn 1000000
+/gun/energy 685 keV
+/run/beamOn 1000000
+/gun/energy 695 keV
+/run/beamOn 1000000
+/gun/energy 705 keV
+/run/beamOn 1000000
+/gun/energy 715 keV
+/run/beamOn 1000000
+/gun/energy 725 keV
+/run/beamOn 1000000
+/gun/energy 735 keV
+/run/beamOn 1000000
+/gun/energy 745 keV
+/run/beamOn 1000000
+/gun/energy 755 keV
+/run/beamOn 1000000
+/gun/energy 765 keV
+/run/beamOn 1000000
+/gun/energy 775 keV
+/run/beamOn 1000000
+/gun/energy 785 keV
+/run/beamOn 1000000
+/gun/energy 795 keV
+/run/beamOn 1000000
+/gun/energy 805 keV
+/run/beamOn 1000000
+/gun/energy 815 keV
+/run/beamOn 1000000
+/gun/energy 825 keV
+/run/beamOn 1000000
+/gun/energy 835 keV
+/run/beamOn 1000000
+/gun/energy 845 keV
+/run/beamOn 1000000
+/gun/energy 855 keV
+/run/beamOn 1000000
+/gun/energy 865 keV
+/run/beamOn 1000000
+/gun/energy 875 keV
+/run/beamOn 1000000
+/gun/energy 885 keV
+/run/beamOn 1000000
+/gun/energy 895 keV
+/run/beamOn 1000000
+/gun/energy 905 keV
+/run/beamOn 1000000
+/gun/energy 915 keV
+/run/beamOn 1000000
+/gun/energy 925 keV
+/run/beamOn 1000000
+/gun/energy 935 keV
+/run/beamOn 1000000
+/gun/energy 945 keV
+/run/beamOn 1000000
+/gun/energy 955 keV
+/run/beamOn 1000000
+/gun/energy 965 keV
+/run/beamOn 1000000
+/gun/energy 975 keV
+/run/beamOn 1000000
+/gun/energy 985 keV
+/run/beamOn 1000000
+/gun/energy 995 keV
+/run/beamOn 1000000
+/gun/energy 1005 keV
+/run/beamOn 1000000
+/gun/energy 1015 keV
+/run/beamOn 1000000
+/gun/energy 1025 keV
+/run/beamOn 1000000
+/gun/energy 1035 keV
+/run/beamOn 1000000
+/gun/energy 1045 keV
+/run/beamOn 1000000
+/gun/energy 1055 keV
+/run/beamOn 1000000
+/gun/energy 1065 keV
+/run/beamOn 1000000
+/gun/energy 1075 keV
+/run/beamOn 1000000
+/gun/energy 1085 keV
+/run/beamOn 1000000
+/gun/energy 1095 keV
+/run/beamOn 1000000
+/gun/energy 1105 keV
+/run/beamOn 1000000
+/gun/energy 1115 keV
+/run/beamOn 1000000
+/gun/energy 1125 keV
+/run/beamOn 1000000
+/gun/energy 1135 keV
+/run/beamOn 1000000
+/gun/energy 1145 keV
+/run/beamOn 1000000
+/gun/energy 1155 keV
+/run/beamOn 1000000
+/gun/energy 1165 keV
+/run/beamOn 1000000
+/gun/energy 1175 keV
+/run/beamOn 1000000
+/gun/energy 1185 keV
+/run/beamOn 1000000
+/gun/energy 1195 keV
+/run/beamOn 1000000
+/gun/energy 1205 keV
+/run/beamOn 1000000
+/gun/energy 1215 keV
+/run/beamOn 1000000
+/gun/energy 1225 keV
+/run/beamOn 1000000
+/gun/energy 1235 keV
+/run/beamOn 1000000
+/gun/energy 1245 keV
+/run/beamOn 1000000
+/gun/energy 1255 keV
+/run/beamOn 1000000
+/gun/energy 1265 keV
+/run/beamOn 1000000
+/gun/energy 1275 keV
+/run/beamOn 1000000
+/gun/energy 1285 keV
+/run/beamOn 1000000
+/gun/energy 1295 keV
+/run/beamOn 1000000
+/gun/energy 1305 keV
+/run/beamOn 1000000
+/gun/energy 1315 keV
+/run/beamOn 1000000
+/gun/energy 1325 keV
+/run/beamOn 1000000
+/gun/energy 1335 keV
+/run/beamOn 1000000
+/gun/energy 1345 keV
+/run/beamOn 1000000
+/gun/energy 1355 keV
+/run/beamOn 1000000
+/gun/energy 1365 keV
+/run/beamOn 1000000
+/gun/energy 1375 keV
+/run/beamOn 1000000
+/gun/energy 1385 keV
+/run/beamOn 1000000
+/gun/energy 1395 keV
+/run/beamOn 1000000
+/gun/energy 1405 keV
+/run/beamOn 1000000
+/gun/energy 1415 keV
+/run/beamOn 1000000
+/gun/energy 1425 keV
+/run/beamOn 1000000
+/gun/energy 1435 keV
+/run/beamOn 1000000
+/gun/energy 1445 keV
+/run/beamOn 1000000
+/gun/energy 1455 keV
+/run/beamOn 1000000
+/gun/energy 1465 keV
+/run/beamOn 1000000
+/gun/energy 1475 keV
+/run/beamOn 1000000
+/gun/energy 1485 keV
+/run/beamOn 1000000
+/gun/energy 1495 keV
+/run/beamOn 1000000
+/gun/energy 1505 keV
+/run/beamOn 1000000
+/gun/energy 1515 keV
+/run/beamOn 1000000
+/gun/energy 1525 keV
+/run/beamOn 1000000
+/gun/energy 1535 keV
+/run/beamOn 1000000
+/gun/energy 1545 keV
+/run/beamOn 1000000
+/gun/energy 1555 keV
+/run/beamOn 1000000
+/gun/energy 1565 keV
+/run/beamOn 1000000
+/gun/energy 1575 keV
+/run/beamOn 1000000
+/gun/energy 1585 keV
+/run/beamOn 1000000
+/gun/energy 1595 keV
+/run/beamOn 1000000
+/gun/energy 1605 keV
+/run/beamOn 1000000
+/gun/energy 1615 keV
+/run/beamOn 1000000
+/gun/energy 1625 keV
+/run/beamOn 1000000
+/gun/energy 1635 keV
+/run/beamOn 1000000
+/gun/energy 1645 keV
+/run/beamOn 1000000
+/gun/energy 1655 keV
+/run/beamOn 1000000
+/gun/energy 1665 keV
+/run/beamOn 1000000
+/gun/energy 1675 keV
+/run/beamOn 1000000
+/gun/energy 1685 keV
+/run/beamOn 1000000
+/gun/energy 1695 keV
+/run/beamOn 1000000
+/gun/energy 1705 keV
+/run/beamOn 1000000
+/gun/energy 1715 keV
+/run/beamOn 1000000
+/gun/energy 1725 keV
+/run/beamOn 1000000
+/gun/energy 1735 keV
+/run/beamOn 1000000
+/gun/energy 1745 keV
+/run/beamOn 1000000
+/gun/energy 1755 keV
+/run/beamOn 1000000
+/gun/energy 1765 keV
+/run/beamOn 1000000
+/gun/energy 1775 keV
+/run/beamOn 1000000
+/gun/energy 1785 keV
+/run/beamOn 1000000
+/gun/energy 1795 keV
+/run/beamOn 1000000
+/gun/energy 1805 keV
+/run/beamOn 1000000
+/gun/energy 1815 keV
+/run/beamOn 1000000
+/gun/energy 1825 keV
+/run/beamOn 1000000
+/gun/energy 1835 keV
+/run/beamOn 1000000
+/gun/energy 1845 keV
+/run/beamOn 1000000
+/gun/energy 1855 keV
+/run/beamOn 1000000
+/gun/energy 1865 keV
+/run/beamOn 1000000
+/gun/energy 1875 keV
+/run/beamOn 1000000
+/gun/energy 1885 keV
+/run/beamOn 1000000
+/gun/energy 1895 keV
+/run/beamOn 1000000
+/gun/energy 1905 keV
+/run/beamOn 1000000
+/gun/energy 1915 keV
+/run/beamOn 1000000
+/gun/energy 1925 keV
+/run/beamOn 1000000
+/gun/energy 1935 keV
+/run/beamOn 1000000
+/gun/energy 1945 keV
+/run/beamOn 1000000
+/gun/energy 1955 keV
+/run/beamOn 1000000
+/gun/energy 1965 keV
+/run/beamOn 1000000
+/gun/energy 1975 keV
+/run/beamOn 1000000
+/gun/energy 1985 keV
+/run/beamOn 1000000
+/gun/energy 1995 keV
+/run/beamOn 1000000
+/gun/energy 2005 keV
+/run/beamOn 1000000
+/gun/energy 2015 keV
+/run/beamOn 1000000
+/gun/energy 2025 keV
+/run/beamOn 1000000
+/gun/energy 2035 keV
+/run/beamOn 1000000
+/gun/energy 2045 keV
+/run/beamOn 1000000
+/gun/energy 2055 keV
+/run/beamOn 1000000
+/gun/energy 2065 keV
+/run/beamOn 1000000
+/gun/energy 2075 keV
+/run/beamOn 1000000
+/gun/energy 2085 keV
+/run/beamOn 1000000
+/gun/energy 2095 keV
+/run/beamOn 1000000
+/gun/energy 2105 keV
+/run/beamOn 1000000
+/gun/energy 2115 keV
+/run/beamOn 1000000
+/gun/energy 2125 keV
+/run/beamOn 1000000
+/gun/energy 2135 keV
+/run/beamOn 1000000
+/gun/energy 2145 keV
+/run/beamOn 1000000
+/gun/energy 2155 keV
+/run/beamOn 1000000
+/gun/energy 2165 keV
+/run/beamOn 1000000
+/gun/energy 2175 keV
+/run/beamOn 1000000
+/gun/energy 2185 keV
+/run/beamOn 1000000
+/gun/energy 2195 keV
+/run/beamOn 1000000
+/gun/energy 2205 keV
+/run/beamOn 1000000
+/gun/energy 2215 keV
+/run/beamOn 1000000
+/gun/energy 2225 keV
+/run/beamOn 1000000
+/gun/energy 2235 keV
+/run/beamOn 1000000
+/gun/energy 2245 keV
+/run/beamOn 1000000
+/gun/energy 2255 keV
+/run/beamOn 1000000
+/gun/energy 2265 keV
+/run/beamOn 1000000
+/gun/energy 2275 keV
+/run/beamOn 1000000
+/gun/energy 2285 keV
+/run/beamOn 1000000
+/gun/energy 2295 keV
+/run/beamOn 1000000
+/gun/energy 2305 keV
+/run/beamOn 1000000
+/gun/energy 2315 keV
+/run/beamOn 1000000
+/gun/energy 2325 keV
+/run/beamOn 1000000
+/gun/energy 2335 keV
+/run/beamOn 1000000
+/gun/energy 2345 keV
+/run/beamOn 1000000
+/gun/energy 2355 keV
+/run/beamOn 1000000
+/gun/energy 2365 keV
+/run/beamOn 1000000
+/gun/energy 2375 keV
+/run/beamOn 1000000
+/gun/energy 2385 keV
+/run/beamOn 1000000
+/gun/energy 2395 keV
+/run/beamOn 1000000
+/gun/energy 2405 keV
+/run/beamOn 1000000
+/gun/energy 2415 keV
+/run/beamOn 1000000
+/gun/energy 2425 keV
+/run/beamOn 1000000
+/gun/energy 2435 keV
+/run/beamOn 1000000
+/gun/energy 2445 keV
+/run/beamOn 1000000
+/gun/energy 2455 keV
+/run/beamOn 1000000
+/gun/energy 2465 keV
+/run/beamOn 1000000
+/gun/energy 2475 keV
+/run/beamOn 1000000
+/gun/energy 2485 keV
+/run/beamOn 1000000
+/gun/energy 2495 keV
+/run/beamOn 1000000
+/gun/energy 2505 keV
+/run/beamOn 1000000
+/gun/energy 2515 keV
+/run/beamOn 1000000
+/gun/energy 2525 keV
+/run/beamOn 1000000
+/gun/energy 2535 keV
+/run/beamOn 1000000
+/gun/energy 2545 keV
+/run/beamOn 1000000
+/gun/energy 2555 keV
+/run/beamOn 1000000
+/gun/energy 2565 keV
+/run/beamOn 1000000
+/gun/energy 2575 keV
+/run/beamOn 1000000
+/gun/energy 2585 keV
+/run/beamOn 1000000
+/gun/energy 2595 keV
+/run/beamOn 1000000
+/gun/energy 2605 keV
+/run/beamOn 1000000
+/gun/energy 2615 keV
+/run/beamOn 1000000
+/gun/energy 2625 keV
+/run/beamOn 1000000
+/gun/energy 2635 keV
+/run/beamOn 1000000
+/gun/energy 2645 keV
+/run/beamOn 1000000
+/gun/energy 2655 keV
+/run/beamOn 1000000
+/gun/energy 2665 keV
+/run/beamOn 1000000
+/gun/energy 2675 keV
+/run/beamOn 1000000
+/gun/energy 2685 keV
+/run/beamOn 1000000
+/gun/energy 2695 keV
+/run/beamOn 1000000
+/gun/energy 2705 keV
+/run/beamOn 1000000
+/gun/energy 2715 keV
+/run/beamOn 1000000
+/gun/energy 2725 keV
+/run/beamOn 1000000
+/gun/energy 2735 keV
+/run/beamOn 1000000
+/gun/energy 2745 keV
+/run/beamOn 1000000
+/gun/energy 2755 keV
+/run/beamOn 1000000
+/gun/energy 2765 keV
+/run/beamOn 1000000
+/gun/energy 2775 keV
+/run/beamOn 1000000
+/gun/energy 2785 keV
+/run/beamOn 1000000
+/gun/energy 2795 keV
+/run/beamOn 1000000
+/gun/energy 2805 keV
+/run/beamOn 1000000
+/gun/energy 2815 keV
+/run/beamOn 1000000
+/gun/energy 2825 keV
+/run/beamOn 1000000
+/gun/energy 2835 keV
+/run/beamOn 1000000
+/gun/energy 2845 keV
+/run/beamOn 1000000
+/gun/energy 2855 keV
+/run/beamOn 1000000
+/gun/energy 2865 keV
+/run/beamOn 1000000
+/gun/energy 2875 keV
+/run/beamOn 1000000
+/gun/energy 2885 keV
+/run/beamOn 1000000
+/gun/energy 2895 keV
+/run/beamOn 1000000
+/gun/energy 2905 keV
+/run/beamOn 1000000
+/gun/energy 2915 keV
+/run/beamOn 1000000
+/gun/energy 2925 keV
+/run/beamOn 1000000
+/gun/energy 2935 keV
+/run/beamOn 1000000
+/gun/energy 2945 keV
+/run/beamOn 1000000
+/gun/energy 2955 keV
+/run/beamOn 1000000
+/gun/energy 2965 keV
+/run/beamOn 1000000
+/gun/energy 2975 keV
+/run/beamOn 1000000
+/gun/energy 2985 keV
+/run/beamOn 1000000
+/gun/energy 2995 keV
+/run/beamOn 1000000
+/gun/energy 3005 keV
+/run/beamOn 1000000
+/gun/energy 3015 keV
+/run/beamOn 1000000
+/gun/energy 3025 keV
+/run/beamOn 1000000
+/gun/energy 3035 keV
+/run/beamOn 1000000
+/gun/energy 3045 keV
+/run/beamOn 1000000
+/gun/energy 3055 keV
+/run/beamOn 1000000
+/gun/energy 3065 keV
+/run/beamOn 1000000
+/gun/energy 3075 keV
+/run/beamOn 1000000
+/gun/energy 3085 keV
+/run/beamOn 1000000
+/gun/energy 3095 keV
+/run/beamOn 1000000
+/gun/energy 3105 keV
+/run/beamOn 1000000
+/gun/energy 3115 keV
+/run/beamOn 1000000
+/gun/energy 3125 keV
+/run/beamOn 1000000
+/gun/energy 3135 keV
+/run/beamOn 1000000
+/gun/energy 3145 keV
+/run/beamOn 1000000
+/gun/energy 3155 keV
+/run/beamOn 1000000
+/gun/energy 3165 keV
+/run/beamOn 1000000
+/gun/energy 3175 keV
+/run/beamOn 1000000
+/gun/energy 3185 keV
+/run/beamOn 1000000
+/gun/energy 3195 keV
+/run/beamOn 1000000
+/gun/energy 3205 keV
+/run/beamOn 1000000
+/gun/energy 3215 keV
+/run/beamOn 1000000
+/gun/energy 3225 keV
+/run/beamOn 1000000
+/gun/energy 3235 keV
+/run/beamOn 1000000
+/gun/energy 3245 keV
+/run/beamOn 1000000
+/gun/energy 3255 keV
+/run/beamOn 1000000
+/gun/energy 3265 keV
+/run/beamOn 1000000
+/gun/energy 3275 keV
+/run/beamOn 1000000
+/gun/energy 3285 keV
+/run/beamOn 1000000
+/gun/energy 3295 keV
+/run/beamOn 1000000
+/gun/energy 3305 keV
+/run/beamOn 1000000
+/gun/energy 3315 keV
+/run/beamOn 1000000
+/gun/energy 3325 keV
+/run/beamOn 1000000
+/gun/energy 3335 keV
+/run/beamOn 1000000
+/gun/energy 3345 keV
+/run/beamOn 1000000
+/gun/energy 3355 keV
+/run/beamOn 1000000
+/gun/energy 3365 keV
+/run/beamOn 1000000
+/gun/energy 3375 keV
+/run/beamOn 1000000
+/gun/energy 3385 keV
+/run/beamOn 1000000
+/gun/energy 3395 keV
+/run/beamOn 1000000
+/gun/energy 3405 keV
+/run/beamOn 1000000
+/gun/energy 3415 keV
+/run/beamOn 1000000
+/gun/energy 3425 keV
+/run/beamOn 1000000
+/gun/energy 3435 keV
+/run/beamOn 1000000
+/gun/energy 3445 keV
+/run/beamOn 1000000
+/gun/energy 3455 keV
+/run/beamOn 1000000
+/gun/energy 3465 keV
+/run/beamOn 1000000
+/gun/energy 3475 keV
+/run/beamOn 1000000
+/gun/energy 3485 keV
+/run/beamOn 1000000
+/gun/energy 3495 keV
+/run/beamOn 1000000
+/gun/energy 3505 keV
+/run/beamOn 1000000
+/gun/energy 3515 keV
+/run/beamOn 1000000
+/gun/energy 3525 keV
+/run/beamOn 1000000
+/gun/energy 3535 keV
+/run/beamOn 1000000
+/gun/energy 3545 keV
+/run/beamOn 1000000
+/gun/energy 3555 keV
+/run/beamOn 1000000
+/gun/energy 3565 keV
+/run/beamOn 1000000
+/gun/energy 3575 keV
+/run/beamOn 1000000
+/gun/energy 3585 keV
+/run/beamOn 1000000
+/gun/energy 3595 keV
+/run/beamOn 1000000
+/gun/energy 3605 keV
+/run/beamOn 1000000
+/gun/energy 3615 keV
+/run/beamOn 1000000
+/gun/energy 3625 keV
+/run/beamOn 1000000
+/gun/energy 3635 keV
+/run/beamOn 1000000
+/gun/energy 3645 keV
+/run/beamOn 1000000
+/gun/energy 3655 keV
+/run/beamOn 1000000
+/gun/energy 3665 keV
+/run/beamOn 1000000
+/gun/energy 3675 keV
+/run/beamOn 1000000
+/gun/energy 3685 keV
+/run/beamOn 1000000
+/gun/energy 3695 keV
+/run/beamOn 1000000
+/gun/energy 3705 keV
+/run/beamOn 1000000
+/gun/energy 3715 keV
+/run/beamOn 1000000
+/gun/energy 3725 keV
+/run/beamOn 1000000
+/gun/energy 3735 keV
+/run/beamOn 1000000
+/gun/energy 3745 keV
+/run/beamOn 1000000
+/gun/energy 3755 keV
+/run/beamOn 1000000
+/gun/energy 3765 keV
+/run/beamOn 1000000
+/gun/energy 3775 keV
+/run/beamOn 1000000
+/gun/energy 3785 keV
+/run/beamOn 1000000
+/gun/energy 3795 keV
+/run/beamOn 1000000
+/gun/energy 3805 keV
+/run/beamOn 1000000
+/gun/energy 3815 keV
+/run/beamOn 1000000
+/gun/energy 3825 keV
+/run/beamOn 1000000
+/gun/energy 3835 keV
+/run/beamOn 1000000
+/gun/energy 3845 keV
+/run/beamOn 1000000
+/gun/energy 3855 keV
+/run/beamOn 1000000
+/gun/energy 3865 keV
+/run/beamOn 1000000
+/gun/energy 3875 keV
+/run/beamOn 1000000
+/gun/energy 3885 keV
+/run/beamOn 1000000
+/gun/energy 3895 keV
+/run/beamOn 1000000
+/gun/energy 3905 keV
+/run/beamOn 1000000
+/gun/energy 3915 keV
+/run/beamOn 1000000
+/gun/energy 3925 keV
+/run/beamOn 1000000
+/gun/energy 3935 keV
+/run/beamOn 1000000
+/gun/energy 3945 keV
+/run/beamOn 1000000
+/gun/energy 3955 keV
+/run/beamOn 1000000
+/gun/energy 3965 keV
+/run/beamOn 1000000
+/gun/energy 3975 keV
+/run/beamOn 1000000
+/gun/energy 3985 keV
+/run/beamOn 1000000
+/gun/energy 3995 keV
+/run/beamOn 1000000
+/gun/energy 4005 keV
+/run/beamOn 1000000
+/gun/energy 4015 keV
+/run/beamOn 1000000
+/gun/energy 4025 keV
+/run/beamOn 1000000
+/gun/energy 4035 keV
+/run/beamOn 1000000
+/gun/energy 4045 keV
+/run/beamOn 1000000
+/gun/energy 4055 keV
+/run/beamOn 1000000
+/gun/energy 4065 keV
+/run/beamOn 1000000
+/gun/energy 4075 keV
+/run/beamOn 1000000
+/gun/energy 4085 keV
+/run/beamOn 1000000
+/gun/energy 4095 keV
+/run/beamOn 1000000
+/gun/energy 4105 keV
+/run/beamOn 1000000
+/gun/energy 4115 keV
+/run/beamOn 1000000
+/gun/energy 4125 keV
+/run/beamOn 1000000
+/gun/energy 4135 keV
+/run/beamOn 1000000
+/gun/energy 4145 keV
+/run/beamOn 1000000
+/gun/energy 4155 keV
+/run/beamOn 1000000
+/gun/energy 4165 keV
+/run/beamOn 1000000
+/gun/energy 4175 keV
+/run/beamOn 1000000
+/gun/energy 4185 keV
+/run/beamOn 1000000
+/gun/energy 4195 keV
+/run/beamOn 1000000
+/gun/energy 4205 keV
+/run/beamOn 1000000
+/gun/energy 4215 keV
+/run/beamOn 1000000
+/gun/energy 4225 keV
+/run/beamOn 1000000
+/gun/energy 4235 keV
+/run/beamOn 1000000
+/gun/energy 4245 keV
+/run/beamOn 1000000
+/gun/energy 4255 keV
+/run/beamOn 1000000
+/gun/energy 4265 keV
+/run/beamOn 1000000
+/gun/energy 4275 keV
+/run/beamOn 1000000
+/gun/energy 4285 keV
+/run/beamOn 1000000
+/gun/energy 4295 keV
+/run/beamOn 1000000
+/gun/energy 4305 keV
+/run/beamOn 1000000
+/gun/energy 4315 keV
+/run/beamOn 1000000
+/gun/energy 4325 keV
+/run/beamOn 1000000
+/gun/energy 4335 keV
+/run/beamOn 1000000
+/gun/energy 4345 keV
+/run/beamOn 1000000
+/gun/energy 4355 keV
+/run/beamOn 1000000
+/gun/energy 4365 keV
+/run/beamOn 1000000
+/gun/energy 4375 keV
+/run/beamOn 1000000
+/gun/energy 4385 keV
+/run/beamOn 1000000
+/gun/energy 4395 keV
+/run/beamOn 1000000
+/gun/energy 4405 keV
+/run/beamOn 1000000
+/gun/energy 4415 keV
+/run/beamOn 1000000
+/gun/energy 4425 keV
+/run/beamOn 1000000
+/gun/energy 4435 keV
+/run/beamOn 1000000
+/gun/energy 4445 keV
+/run/beamOn 1000000
+/gun/energy 4455 keV
+/run/beamOn 1000000
+/gun/energy 4465 keV
+/run/beamOn 1000000
+/gun/energy 4475 keV
+/run/beamOn 1000000
+/gun/energy 4485 keV
+/run/beamOn 1000000
+/gun/energy 4495 keV
+/run/beamOn 1000000
+/gun/energy 4505 keV
+/run/beamOn 1000000
+/gun/energy 4515 keV
+/run/beamOn 1000000
+/gun/energy 4525 keV
+/run/beamOn 1000000
+/gun/energy 4535 keV
+/run/beamOn 1000000
+/gun/energy 4545 keV
+/run/beamOn 1000000
+/gun/energy 4555 keV
+/run/beamOn 1000000
+/gun/energy 4565 keV
+/run/beamOn 1000000
+/gun/energy 4575 keV
+/run/beamOn 1000000
+/gun/energy 4585 keV
+/run/beamOn 1000000
+/gun/energy 4595 keV
+/run/beamOn 1000000
+/gun/energy 4605 keV
+/run/beamOn 1000000
+/gun/energy 4615 keV
+/run/beamOn 1000000
+/gun/energy 4625 keV
+/run/beamOn 1000000
+/gun/energy 4635 keV
+/run/beamOn 1000000
+/gun/energy 4645 keV
+/run/beamOn 1000000
+/gun/energy 4655 keV
+/run/beamOn 1000000
+/gun/energy 4665 keV
+/run/beamOn 1000000
+/gun/energy 4675 keV
+/run/beamOn 1000000
+/gun/energy 4685 keV
+/run/beamOn 1000000
+/gun/energy 4695 keV
+/run/beamOn 1000000
+/gun/energy 4705 keV
+/run/beamOn 1000000
+/gun/energy 4715 keV
+/run/beamOn 1000000
+/gun/energy 4725 keV
+/run/beamOn 1000000
+/gun/energy 4735 keV
+/run/beamOn 1000000
+/gun/energy 4745 keV
+/run/beamOn 1000000
+/gun/energy 4755 keV
+/run/beamOn 1000000
+/gun/energy 4765 keV
+/run/beamOn 1000000
+/gun/energy 4775 keV
+/run/beamOn 1000000
+/gun/energy 4785 keV
+/run/beamOn 1000000
+/gun/energy 4795 keV
+/run/beamOn 1000000
+/gun/energy 4805 keV
+/run/beamOn 1000000
+/gun/energy 4815 keV
+/run/beamOn 1000000
+/gun/energy 4825 keV
+/run/beamOn 1000000
+/gun/energy 4835 keV
+/run/beamOn 1000000
+/gun/energy 4845 keV
+/run/beamOn 1000000
+/gun/energy 4855 keV
+/run/beamOn 1000000
+/gun/energy 4865 keV
+/run/beamOn 1000000
+/gun/energy 4875 keV
+/run/beamOn 1000000
+/gun/energy 4885 keV
+/run/beamOn 1000000
+/gun/energy 4895 keV
+/run/beamOn 1000000
+/gun/energy 4905 keV
+/run/beamOn 1000000
+/gun/energy 4915 keV
+/run/beamOn 1000000
+/gun/energy 4925 keV
+/run/beamOn 1000000
+/gun/energy 4935 keV
+/run/beamOn 1000000
+/gun/energy 4945 keV
+/run/beamOn 1000000
+/gun/energy 4955 keV
+/run/beamOn 1000000
+/gun/energy 4965 keV
+/run/beamOn 1000000
+/gun/energy 4975 keV
+/run/beamOn 1000000
+/gun/energy 4985 keV
+/run/beamOn 1000000
+/gun/energy 4995 keV
+/run/beamOn 1000000
+/gun/energy 5005 keV
+/run/beamOn 1000000
+/gun/energy 5015 keV
+/run/beamOn 1000000
+/gun/energy 5025 keV
+/run/beamOn 1000000
+/gun/energy 5035 keV
+/run/beamOn 1000000
+/gun/energy 5045 keV
+/run/beamOn 1000000
+/gun/energy 5055 keV
+/run/beamOn 1000000
+/gun/energy 5065 keV
+/run/beamOn 1000000
+/gun/energy 5075 keV
+/run/beamOn 1000000
+/gun/energy 5085 keV
+/run/beamOn 1000000
+/gun/energy 5095 keV
+/run/beamOn 1000000
+/gun/energy 5105 keV
+/run/beamOn 1000000
+/gun/energy 5115 keV
+/run/beamOn 1000000
+/gun/energy 5125 keV
+/run/beamOn 1000000
+/gun/energy 5135 keV
+/run/beamOn 1000000
+/gun/energy 5145 keV
+/run/beamOn 1000000
+/gun/energy 5155 keV
+/run/beamOn 1000000
+/gun/energy 5165 keV
+/run/beamOn 1000000
+/gun/energy 5175 keV
+/run/beamOn 1000000
+/gun/energy 5185 keV
+/run/beamOn 1000000
+/gun/energy 5195 keV
+/run/beamOn 1000000
+/gun/energy 5205 keV
+/run/beamOn 1000000
+/gun/energy 5215 keV
+/run/beamOn 1000000
+/gun/energy 5225 keV
+/run/beamOn 1000000
+/gun/energy 5235 keV
+/run/beamOn 1000000
+/gun/energy 5245 keV
+/run/beamOn 1000000
+/gun/energy 5255 keV
+/run/beamOn 1000000
+/gun/energy 5265 keV
+/run/beamOn 1000000
+/gun/energy 5275 keV
+/run/beamOn 1000000
+/gun/energy 5285 keV
+/run/beamOn 1000000
+/gun/energy 5295 keV
+/run/beamOn 1000000
+/gun/energy 5305 keV
+/run/beamOn 1000000
+/gun/energy 5315 keV
+/run/beamOn 1000000
+/gun/energy 5325 keV
+/run/beamOn 1000000
+/gun/energy 5335 keV
+/run/beamOn 1000000
+/gun/energy 5345 keV
+/run/beamOn 1000000
+/gun/energy 5355 keV
+/run/beamOn 1000000
+/gun/energy 5365 keV
+/run/beamOn 1000000
+/gun/energy 5375 keV
+/run/beamOn 1000000
+/gun/energy 5385 keV
+/run/beamOn 1000000
+/gun/energy 5395 keV
+/run/beamOn 1000000
+/gun/energy 5405 keV
+/run/beamOn 1000000
+/gun/energy 5415 keV
+/run/beamOn 1000000
+/gun/energy 5425 keV
+/run/beamOn 1000000
+/gun/energy 5435 keV
+/run/beamOn 1000000
+/gun/energy 5445 keV
+/run/beamOn 1000000
+/gun/energy 5455 keV
+/run/beamOn 1000000
+/gun/energy 5465 keV
+/run/beamOn 1000000
+/gun/energy 5475 keV
+/run/beamOn 1000000
+/gun/energy 5485 keV
+/run/beamOn 1000000
+/gun/energy 5495 keV
+/run/beamOn 1000000
+/gun/energy 5505 keV
+/run/beamOn 1000000
+/gun/energy 5515 keV
+/run/beamOn 1000000
+/gun/energy 5525 keV
+/run/beamOn 1000000
+/gun/energy 5535 keV
+/run/beamOn 1000000
+/gun/energy 5545 keV
+/run/beamOn 1000000
+/gun/energy 5555 keV
+/run/beamOn 1000000
+/gun/energy 5565 keV
+/run/beamOn 1000000
+/gun/energy 5575 keV
+/run/beamOn 1000000
+/gun/energy 5585 keV
+/run/beamOn 1000000
+/gun/energy 5595 keV
+/run/beamOn 1000000
+/gun/energy 5605 keV
+/run/beamOn 1000000
+/gun/energy 5615 keV
+/run/beamOn 1000000
+/gun/energy 5625 keV
+/run/beamOn 1000000
+/gun/energy 5635 keV
+/run/beamOn 1000000
+/gun/energy 5645 keV
+/run/beamOn 1000000
+/gun/energy 5655 keV
+/run/beamOn 1000000
+/gun/energy 5665 keV
+/run/beamOn 1000000
+/gun/energy 5675 keV
+/run/beamOn 1000000
+/gun/energy 5685 keV
+/run/beamOn 1000000
+/gun/energy 5695 keV
+/run/beamOn 1000000
+/gun/energy 5705 keV
+/run/beamOn 1000000
+/gun/energy 5715 keV
+/run/beamOn 1000000
+/gun/energy 5725 keV
+/run/beamOn 1000000
+/gun/energy 5735 keV
+/run/beamOn 1000000
+/gun/energy 5745 keV
+/run/beamOn 1000000
+/gun/energy 5755 keV
+/run/beamOn 1000000
+/gun/energy 5765 keV
+/run/beamOn 1000000
+/gun/energy 5775 keV
+/run/beamOn 1000000
+/gun/energy 5785 keV
+/run/beamOn 1000000
+/gun/energy 5795 keV
+/run/beamOn 1000000
+/gun/energy 5805 keV
+/run/beamOn 1000000
+/gun/energy 5815 keV
+/run/beamOn 1000000
+/gun/energy 5825 keV
+/run/beamOn 1000000
+/gun/energy 5835 keV
+/run/beamOn 1000000
+/gun/energy 5845 keV
+/run/beamOn 1000000
+/gun/energy 5855 keV
+/run/beamOn 1000000
+/gun/energy 5865 keV
+/run/beamOn 1000000
+/gun/energy 5875 keV
+/run/beamOn 1000000
+/gun/energy 5885 keV
+/run/beamOn 1000000
+/gun/energy 5895 keV
+/run/beamOn 1000000
+/gun/energy 5905 keV
+/run/beamOn 1000000
+/gun/energy 5915 keV
+/run/beamOn 1000000
+/gun/energy 5925 keV
+/run/beamOn 1000000
+/gun/energy 5935 keV
+/run/beamOn 1000000
+/gun/energy 5945 keV
+/run/beamOn 1000000
+/gun/energy 5955 keV
+/run/beamOn 1000000
+/gun/energy 5965 keV
+/run/beamOn 1000000
+/gun/energy 5975 keV
+/run/beamOn 1000000
+/gun/energy 5985 keV
+/run/beamOn 1000000
+/gun/energy 5995 keV
+/run/beamOn 1000000
+/gun/energy 6005 keV
+/run/beamOn 1000000
+/gun/energy 6015 keV
+/run/beamOn 1000000
+/gun/energy 6025 keV
+/run/beamOn 1000000
+/gun/energy 6035 keV
+/run/beamOn 1000000
+/gun/energy 6045 keV
+/run/beamOn 1000000
+/gun/energy 6055 keV
+/run/beamOn 1000000
+/gun/energy 6065 keV
+/run/beamOn 1000000
+/gun/energy 6075 keV
+/run/beamOn 1000000
+/gun/energy 6085 keV
+/run/beamOn 1000000
+/gun/energy 6095 keV
+/run/beamOn 1000000
+/gun/energy 6105 keV
+/run/beamOn 1000000
+/gun/energy 6115 keV
+/run/beamOn 1000000
+/gun/energy 6125 keV
+/run/beamOn 1000000
+/gun/energy 6135 keV
+/run/beamOn 1000000
+/gun/energy 6145 keV
+/run/beamOn 1000000
+/gun/energy 6155 keV
+/run/beamOn 1000000
+/gun/energy 6165 keV
+/run/beamOn 1000000
+/gun/energy 6175 keV
+/run/beamOn 1000000
+/gun/energy 6185 keV
+/run/beamOn 1000000
+/gun/energy 6195 keV
+/run/beamOn 1000000
+/gun/energy 6205 keV
+/run/beamOn 1000000
+/gun/energy 6215 keV
+/run/beamOn 1000000
+/gun/energy 6225 keV
+/run/beamOn 1000000
+/gun/energy 6235 keV
+/run/beamOn 1000000
+/gun/energy 6245 keV
+/run/beamOn 1000000
+/gun/energy 6255 keV
+/run/beamOn 1000000
+/gun/energy 6265 keV
+/run/beamOn 1000000
+/gun/energy 6275 keV
+/run/beamOn 1000000
+/gun/energy 6285 keV
+/run/beamOn 1000000
+/gun/energy 6295 keV
+/run/beamOn 1000000
+/gun/energy 6305 keV
+/run/beamOn 1000000
+/gun/energy 6315 keV
+/run/beamOn 1000000
+/gun/energy 6325 keV
+/run/beamOn 1000000
+/gun/energy 6335 keV
+/run/beamOn 1000000
+/gun/energy 6345 keV
+/run/beamOn 1000000
+/gun/energy 6355 keV
+/run/beamOn 1000000
+/gun/energy 6365 keV
+/run/beamOn 1000000
+/gun/energy 6375 keV
+/run/beamOn 1000000
+/gun/energy 6385 keV
+/run/beamOn 1000000
+/gun/energy 6395 keV
+/run/beamOn 1000000
+/gun/energy 6405 keV
+/run/beamOn 1000000
+/gun/energy 6415 keV
+/run/beamOn 1000000
+/gun/energy 6425 keV
+/run/beamOn 1000000
+/gun/energy 6435 keV
+/run/beamOn 1000000
+/gun/energy 6445 keV
+/run/beamOn 1000000
+/gun/energy 6455 keV
+/run/beamOn 1000000
+/gun/energy 6465 keV
+/run/beamOn 1000000
+/gun/energy 6475 keV
+/run/beamOn 1000000
+/gun/energy 6485 keV
+/run/beamOn 1000000
+/gun/energy 6495 keV
+/run/beamOn 1000000
+/gun/energy 6505 keV
+/run/beamOn 1000000
+/gun/energy 6515 keV
+/run/beamOn 1000000
+/gun/energy 6525 keV
+/run/beamOn 1000000
+/gun/energy 6535 keV
+/run/beamOn 1000000
+/gun/energy 6545 keV
+/run/beamOn 1000000
+/gun/energy 6555 keV
+/run/beamOn 1000000
+/gun/energy 6565 keV
+/run/beamOn 1000000
+/gun/energy 6575 keV
+/run/beamOn 1000000
+/gun/energy 6585 keV
+/run/beamOn 1000000
+/gun/energy 6595 keV
+/run/beamOn 1000000
+/gun/energy 6605 keV
+/run/beamOn 1000000
+/gun/energy 6615 keV
+/run/beamOn 1000000
+/gun/energy 6625 keV
+/run/beamOn 1000000
+/gun/energy 6635 keV
+/run/beamOn 1000000
+/gun/energy 6645 keV
+/run/beamOn 1000000
+/gun/energy 6655 keV
+/run/beamOn 1000000
+/gun/energy 6665 keV
+/run/beamOn 1000000
+/gun/energy 6675 keV
+/run/beamOn 1000000
+/gun/energy 6685 keV
+/run/beamOn 1000000
+/gun/energy 6695 keV
+/run/beamOn 1000000
+/gun/energy 6705 keV
+/run/beamOn 1000000
+/gun/energy 6715 keV
+/run/beamOn 1000000
+/gun/energy 6725 keV
+/run/beamOn 1000000
+/gun/energy 6735 keV
+/run/beamOn 1000000
+/gun/energy 6745 keV
+/run/beamOn 1000000
+/gun/energy 6755 keV
+/run/beamOn 1000000
+/gun/energy 6765 keV
+/run/beamOn 1000000
+/gun/energy 6775 keV
+/run/beamOn 1000000
+/gun/energy 6785 keV
+/run/beamOn 1000000
+/gun/energy 6795 keV
+/run/beamOn 1000000
+/gun/energy 6805 keV
+/run/beamOn 1000000
+/gun/energy 6815 keV
+/run/beamOn 1000000
+/gun/energy 6825 keV
+/run/beamOn 1000000
+/gun/energy 6835 keV
+/run/beamOn 1000000
+/gun/energy 6845 keV
+/run/beamOn 1000000
+/gun/energy 6855 keV
+/run/beamOn 1000000
+/gun/energy 6865 keV
+/run/beamOn 1000000
+/gun/energy 6875 keV
+/run/beamOn 1000000
+/gun/energy 6885 keV
+/run/beamOn 1000000
+/gun/energy 6895 keV
+/run/beamOn 1000000
+/gun/energy 6905 keV
+/run/beamOn 1000000
+/gun/energy 6915 keV
+/run/beamOn 1000000
+/gun/energy 6925 keV
+/run/beamOn 1000000
+/gun/energy 6935 keV
+/run/beamOn 1000000
+/gun/energy 6945 keV
+/run/beamOn 1000000
+/gun/energy 6955 keV
+/run/beamOn 1000000
+/gun/energy 6965 keV
+/run/beamOn 1000000
+/gun/energy 6975 keV
+/run/beamOn 1000000
+/gun/energy 6985 keV
+/run/beamOn 1000000
+/gun/energy 6995 keV
+/run/beamOn 1000000
+/gun/energy 7005 keV
+/run/beamOn 1000000
+/gun/energy 7015 keV
+/run/beamOn 1000000
+/gun/energy 7025 keV
+/run/beamOn 1000000
+/gun/energy 7035 keV
+/run/beamOn 1000000
+/gun/energy 7045 keV
+/run/beamOn 1000000
+/gun/energy 7055 keV
+/run/beamOn 1000000
+/gun/energy 7065 keV
+/run/beamOn 1000000
+/gun/energy 7075 keV
+/run/beamOn 1000000
+/gun/energy 7085 keV
+/run/beamOn 1000000
+/gun/energy 7095 keV
+/run/beamOn 1000000
+/gun/energy 7105 keV
+/run/beamOn 1000000
+/gun/energy 7115 keV
+/run/beamOn 1000000
+/gun/energy 7125 keV
+/run/beamOn 1000000
+/gun/energy 7135 keV
+/run/beamOn 1000000
+/gun/energy 7145 keV
+/run/beamOn 1000000
+/gun/energy 7155 keV
+/run/beamOn 1000000
+/gun/energy 7165 keV
+/run/beamOn 1000000
+/gun/energy 7175 keV
+/run/beamOn 1000000
+/gun/energy 7185 keV
+/run/beamOn 1000000
+/gun/energy 7195 keV
+/run/beamOn 1000000
+/gun/energy 7205 keV
+/run/beamOn 1000000
+/gun/energy 7215 keV
+/run/beamOn 1000000
+/gun/energy 7225 keV
+/run/beamOn 1000000
+/gun/energy 7235 keV
+/run/beamOn 1000000
+/gun/energy 7245 keV
+/run/beamOn 1000000
+/gun/energy 7255 keV
+/run/beamOn 1000000
+/gun/energy 7265 keV
+/run/beamOn 1000000
+/gun/energy 7275 keV
+/run/beamOn 1000000
+/gun/energy 7285 keV
+/run/beamOn 1000000
+/gun/energy 7295 keV
+/run/beamOn 1000000
+/gun/energy 7305 keV
+/run/beamOn 1000000
+/gun/energy 7315 keV
+/run/beamOn 1000000
+/gun/energy 7325 keV
+/run/beamOn 1000000
+/gun/energy 7335 keV
+/run/beamOn 1000000
+/gun/energy 7345 keV
+/run/beamOn 1000000
+/gun/energy 7355 keV
+/run/beamOn 1000000
+/gun/energy 7365 keV
+/run/beamOn 1000000
+/gun/energy 7375 keV
+/run/beamOn 1000000
+/gun/energy 7385 keV
+/run/beamOn 1000000
+/gun/energy 7395 keV
+/run/beamOn 1000000
+/gun/energy 7405 keV
+/run/beamOn 1000000
+/gun/energy 7415 keV
+/run/beamOn 1000000
+/gun/energy 7425 keV
+/run/beamOn 1000000
+/gun/energy 7435 keV
+/run/beamOn 1000000
+/gun/energy 7445 keV
+/run/beamOn 1000000
+/gun/energy 7455 keV
+/run/beamOn 1000000
+/gun/energy 7465 keV
+/run/beamOn 1000000
+/gun/energy 7475 keV
+/run/beamOn 1000000
+/gun/energy 7485 keV
+/run/beamOn 1000000
+/gun/energy 7495 keV
+/run/beamOn 1000000
+/gun/energy 7505 keV
+/run/beamOn 1000000
+/gun/energy 7515 keV
+/run/beamOn 1000000
+/gun/energy 7525 keV
+/run/beamOn 1000000
+/gun/energy 7535 keV
+/run/beamOn 1000000
+/gun/energy 7545 keV
+/run/beamOn 1000000
+/gun/energy 7555 keV
+/run/beamOn 1000000
+/gun/energy 7565 keV
+/run/beamOn 1000000
+/gun/energy 7575 keV
+/run/beamOn 1000000
+/gun/energy 7585 keV
+/run/beamOn 1000000
+/gun/energy 7595 keV
+/run/beamOn 1000000
+/gun/energy 7605 keV
+/run/beamOn 1000000
+/gun/energy 7615 keV
+/run/beamOn 1000000
+/gun/energy 7625 keV
+/run/beamOn 1000000
+/gun/energy 7635 keV
+/run/beamOn 1000000
+/gun/energy 7645 keV
+/run/beamOn 1000000
+/gun/energy 7655 keV
+/run/beamOn 1000000
+/gun/energy 7665 keV
+/run/beamOn 1000000
+/gun/energy 7675 keV
+/run/beamOn 1000000
+/gun/energy 7685 keV
+/run/beamOn 1000000
+/gun/energy 7695 keV
+/run/beamOn 1000000
+/gun/energy 7705 keV
+/run/beamOn 1000000
+/gun/energy 7715 keV
+/run/beamOn 1000000
+/gun/energy 7725 keV
+/run/beamOn 1000000
+/gun/energy 7735 keV
+/run/beamOn 1000000
+/gun/energy 7745 keV
+/run/beamOn 1000000
+/gun/energy 7755 keV
+/run/beamOn 1000000
+/gun/energy 7765 keV
+/run/beamOn 1000000
+/gun/energy 7775 keV
+/run/beamOn 1000000
+/gun/energy 7785 keV
+/run/beamOn 1000000
+/gun/energy 7795 keV
+/run/beamOn 1000000
+/gun/energy 7805 keV
+/run/beamOn 1000000
+/gun/energy 7815 keV
+/run/beamOn 1000000
+/gun/energy 7825 keV
+/run/beamOn 1000000
+/gun/energy 7835 keV
+/run/beamOn 1000000
+/gun/energy 7845 keV
+/run/beamOn 1000000
+/gun/energy 7855 keV
+/run/beamOn 1000000
+/gun/energy 7865 keV
+/run/beamOn 1000000
+/gun/energy 7875 keV
+/run/beamOn 1000000
+/gun/energy 7885 keV
+/run/beamOn 1000000
+/gun/energy 7895 keV
+/run/beamOn 1000000
+/gun/energy 7905 keV
+/run/beamOn 1000000
+/gun/energy 7915 keV
+/run/beamOn 1000000
+/gun/energy 7925 keV
+/run/beamOn 1000000
+/gun/energy 7935 keV
+/run/beamOn 1000000
+/gun/energy 7945 keV
+/run/beamOn 1000000
+/gun/energy 7955 keV
+/run/beamOn 1000000
+/gun/energy 7965 keV
+/run/beamOn 1000000
+/gun/energy 7975 keV
+/run/beamOn 1000000
+/gun/energy 7985 keV
+/run/beamOn 1000000
+/gun/energy 7995 keV
+/run/beamOn 1000000
+/gun/energy 8005 keV
+/run/beamOn 1000000
+/gun/energy 8015 keV
+/run/beamOn 1000000
+/gun/energy 8025 keV
+/run/beamOn 1000000
+/gun/energy 8035 keV
+/run/beamOn 1000000
+/gun/energy 8045 keV
+/run/beamOn 1000000
+/gun/energy 8055 keV
+/run/beamOn 1000000
+/gun/energy 8065 keV
+/run/beamOn 1000000
+/gun/energy 8075 keV
+/run/beamOn 1000000
+/gun/energy 8085 keV
+/run/beamOn 1000000
+/gun/energy 8095 keV
+/run/beamOn 1000000
+/gun/energy 8105 keV
+/run/beamOn 1000000
+/gun/energy 8115 keV
+/run/beamOn 1000000
+/gun/energy 8125 keV
+/run/beamOn 1000000
+/gun/energy 8135 keV
+/run/beamOn 1000000
+/gun/energy 8145 keV
+/run/beamOn 1000000
+/gun/energy 8155 keV
+/run/beamOn 1000000
+/gun/energy 8165 keV
+/run/beamOn 1000000
+/gun/energy 8175 keV
+/run/beamOn 1000000
+/gun/energy 8185 keV
+/run/beamOn 1000000
+/gun/energy 8195 keV
+/run/beamOn 1000000
+/gun/energy 8205 keV
+/run/beamOn 1000000
+/gun/energy 8215 keV
+/run/beamOn 1000000
+/gun/energy 8225 keV
+/run/beamOn 1000000
+/gun/energy 8235 keV
+/run/beamOn 1000000
+/gun/energy 8245 keV
+/run/beamOn 1000000
+/gun/energy 8255 keV
+/run/beamOn 1000000
+/gun/energy 8265 keV
+/run/beamOn 1000000
+/gun/energy 8275 keV
+/run/beamOn 1000000
+/gun/energy 8285 keV
+/run/beamOn 1000000
+/gun/energy 8295 keV
+/run/beamOn 1000000
+/gun/energy 8305 keV
+/run/beamOn 1000000
+/gun/energy 8315 keV
+/run/beamOn 1000000
+/gun/energy 8325 keV
+/run/beamOn 1000000
+/gun/energy 8335 keV
+/run/beamOn 1000000
+/gun/energy 8345 keV
+/run/beamOn 1000000
+/gun/energy 8355 keV
+/run/beamOn 1000000
+/gun/energy 8365 keV
+/run/beamOn 1000000
+/gun/energy 8375 keV
+/run/beamOn 1000000
+/gun/energy 8385 keV
+/run/beamOn 1000000
+/gun/energy 8395 keV
+/run/beamOn 1000000
+/gun/energy 8405 keV
+/run/beamOn 1000000
+/gun/energy 8415 keV
+/run/beamOn 1000000
+/gun/energy 8425 keV
+/run/beamOn 1000000
+/gun/energy 8435 keV
+/run/beamOn 1000000
+/gun/energy 8445 keV
+/run/beamOn 1000000
+/gun/energy 8455 keV
+/run/beamOn 1000000
+/gun/energy 8465 keV
+/run/beamOn 1000000
+/gun/energy 8475 keV
+/run/beamOn 1000000
+/gun/energy 8485 keV
+/run/beamOn 1000000
+/gun/energy 8495 keV
+/run/beamOn 1000000
+/gun/energy 8505 keV
+/run/beamOn 1000000
+/gun/energy 8515 keV
+/run/beamOn 1000000
+/gun/energy 8525 keV
+/run/beamOn 1000000
+/gun/energy 8535 keV
+/run/beamOn 1000000
+/gun/energy 8545 keV
+/run/beamOn 1000000
+/gun/energy 8555 keV
+/run/beamOn 1000000
+/gun/energy 8565 keV
+/run/beamOn 1000000
+/gun/energy 8575 keV
+/run/beamOn 1000000
+/gun/energy 8585 keV
+/run/beamOn 1000000
+/gun/energy 8595 keV
+/run/beamOn 1000000
+/gun/energy 8605 keV
+/run/beamOn 1000000
+/gun/energy 8615 keV
+/run/beamOn 1000000
+/gun/energy 8625 keV
+/run/beamOn 1000000
+/gun/energy 8635 keV
+/run/beamOn 1000000
+/gun/energy 8645 keV
+/run/beamOn 1000000
+/gun/energy 8655 keV
+/run/beamOn 1000000
+/gun/energy 8665 keV
+/run/beamOn 1000000
+/gun/energy 8675 keV
+/run/beamOn 1000000
+/gun/energy 8685 keV
+/run/beamOn 1000000
+/gun/energy 8695 keV
+/run/beamOn 1000000
+/gun/energy 8705 keV
+/run/beamOn 1000000
+/gun/energy 8715 keV
+/run/beamOn 1000000
+/gun/energy 8725 keV
+/run/beamOn 1000000
+/gun/energy 8735 keV
+/run/beamOn 1000000
+/gun/energy 8745 keV
+/run/beamOn 1000000
+/gun/energy 8755 keV
+/run/beamOn 1000000
+/gun/energy 8765 keV
+/run/beamOn 1000000
+/gun/energy 8775 keV
+/run/beamOn 1000000
+/gun/energy 8785 keV
+/run/beamOn 1000000
+/gun/energy 8795 keV
+/run/beamOn 1000000
+/gun/energy 8805 keV
+/run/beamOn 1000000
+/gun/energy 8815 keV
+/run/beamOn 1000000
+/gun/energy 8825 keV
+/run/beamOn 1000000
+/gun/energy 8835 keV
+/run/beamOn 1000000
+/gun/energy 8845 keV
+/run/beamOn 1000000
+/gun/energy 8855 keV
+/run/beamOn 1000000
+/gun/energy 8865 keV
+/run/beamOn 1000000
+/gun/energy 8875 keV
+/run/beamOn 1000000
+/gun/energy 8885 keV
+/run/beamOn 1000000
+/gun/energy 8895 keV
+/run/beamOn 1000000
+/gun/energy 8905 keV
+/run/beamOn 1000000
+/gun/energy 8915 keV
+/run/beamOn 1000000
+/gun/energy 8925 keV
+/run/beamOn 1000000
+/gun/energy 8935 keV
+/run/beamOn 1000000
+/gun/energy 8945 keV
+/run/beamOn 1000000
+/gun/energy 8955 keV
+/run/beamOn 1000000
+/gun/energy 8965 keV
+/run/beamOn 1000000
+/gun/energy 8975 keV
+/run/beamOn 1000000
+/gun/energy 8985 keV
+/run/beamOn 1000000
+/gun/energy 8995 keV
+/run/beamOn 1000000
+/gun/energy 9005 keV
+/run/beamOn 1000000
+/gun/energy 9015 keV
+/run/beamOn 1000000
+/gun/energy 9025 keV
+/run/beamOn 1000000
+/gun/energy 9035 keV
+/run/beamOn 1000000
+/gun/energy 9045 keV
+/run/beamOn 1000000
+/gun/energy 9055 keV
+/run/beamOn 1000000
+/gun/energy 9065 keV
+/run/beamOn 1000000
+/gun/energy 9075 keV
+/run/beamOn 1000000
+/gun/energy 9085 keV
+/run/beamOn 1000000
+/gun/energy 9095 keV
+/run/beamOn 1000000
+/gun/energy 9105 keV
+/run/beamOn 1000000
+/gun/energy 9115 keV
+/run/beamOn 1000000
+/gun/energy 9125 keV
+/run/beamOn 1000000
+/gun/energy 9135 keV
+/run/beamOn 1000000
+/gun/energy 9145 keV
+/run/beamOn 1000000
+/gun/energy 9155 keV
+/run/beamOn 1000000
+/gun/energy 9165 keV
+/run/beamOn 1000000
+/gun/energy 9175 keV
+/run/beamOn 1000000
+/gun/energy 9185 keV
+/run/beamOn 1000000
+/gun/energy 9195 keV
+/run/beamOn 1000000
+/gun/energy 9205 keV
+/run/beamOn 1000000
+/gun/energy 9215 keV
+/run/beamOn 1000000
+/gun/energy 9225 keV
+/run/beamOn 1000000
+/gun/energy 9235 keV
+/run/beamOn 1000000
+/gun/energy 9245 keV
+/run/beamOn 1000000
+/gun/energy 9255 keV
+/run/beamOn 1000000
+/gun/energy 9265 keV
+/run/beamOn 1000000
+/gun/energy 9275 keV
+/run/beamOn 1000000
+/gun/energy 9285 keV
+/run/beamOn 1000000
+/gun/energy 9295 keV
+/run/beamOn 1000000
+/gun/energy 9305 keV
+/run/beamOn 1000000
+/gun/energy 9315 keV
+/run/beamOn 1000000
+/gun/energy 9325 keV
+/run/beamOn 1000000
+/gun/energy 9335 keV
+/run/beamOn 1000000
+/gun/energy 9345 keV
+/run/beamOn 1000000
+/gun/energy 9355 keV
+/run/beamOn 1000000
+/gun/energy 9365 keV
+/run/beamOn 1000000
+/gun/energy 9375 keV
+/run/beamOn 1000000
+/gun/energy 9385 keV
+/run/beamOn 1000000
+/gun/energy 9395 keV
+/run/beamOn 1000000
+/gun/energy 9405 keV
+/run/beamOn 1000000
+/gun/energy 9415 keV
+/run/beamOn 1000000
+/gun/energy 9425 keV
+/run/beamOn 1000000
+/gun/energy 9435 keV
+/run/beamOn 1000000
+/gun/energy 9445 keV
+/run/beamOn 1000000
+/gun/energy 9455 keV
+/run/beamOn 1000000
+/gun/energy 9465 keV
+/run/beamOn 1000000
+/gun/energy 9475 keV
+/run/beamOn 1000000
+/gun/energy 9485 keV
+/run/beamOn 1000000
+/gun/energy 9495 keV
+/run/beamOn 1000000
+/gun/energy 9505 keV
+/run/beamOn 1000000
+/gun/energy 9515 keV
+/run/beamOn 1000000
+/gun/energy 9525 keV
+/run/beamOn 1000000
+/gun/energy 9535 keV
+/run/beamOn 1000000
+/gun/energy 9545 keV
+/run/beamOn 1000000
+/gun/energy 9555 keV
+/run/beamOn 1000000
+/gun/energy 9565 keV
+/run/beamOn 1000000
+/gun/energy 9575 keV
+/run/beamOn 1000000
+/gun/energy 9585 keV
+/run/beamOn 1000000
+/gun/energy 9595 keV
+/run/beamOn 1000000
+/gun/energy 9605 keV
+/run/beamOn 1000000
+/gun/energy 9615 keV
+/run/beamOn 1000000
+/gun/energy 9625 keV
+/run/beamOn 1000000
+/gun/energy 9635 keV
+/run/beamOn 1000000
+/gun/energy 9645 keV
+/run/beamOn 1000000
+/gun/energy 9655 keV
+/run/beamOn 1000000
+/gun/energy 9665 keV
+/run/beamOn 1000000
+/gun/energy 9675 keV
+/run/beamOn 1000000
+/gun/energy 9685 keV
+/run/beamOn 1000000
+/gun/energy 9695 keV
+/run/beamOn 1000000
+/gun/energy 9705 keV
+/run/beamOn 1000000
+/gun/energy 9715 keV
+/run/beamOn 1000000
+/gun/energy 9725 keV
+/run/beamOn 1000000
+/gun/energy 9735 keV
+/run/beamOn 1000000
+/gun/energy 9745 keV
+/run/beamOn 1000000
+/gun/energy 9755 keV
+/run/beamOn 1000000
+/gun/energy 9765 keV
+/run/beamOn 1000000
+/gun/energy 9775 keV
+/run/beamOn 1000000
+/gun/energy 9785 keV
+/run/beamOn 1000000
+/gun/energy 9795 keV
+/run/beamOn 1000000
+/gun/energy 9805 keV
+/run/beamOn 1000000
+/gun/energy 9815 keV
+/run/beamOn 1000000
+/gun/energy 9825 keV
+/run/beamOn 1000000
+/gun/energy 9835 keV
+/run/beamOn 1000000
+/gun/energy 9845 keV
+/run/beamOn 1000000
+/gun/energy 9855 keV
+/run/beamOn 1000000
+/gun/energy 9865 keV
+/run/beamOn 1000000
+/gun/energy 9875 keV
+/run/beamOn 1000000
+/gun/energy 9885 keV
+/run/beamOn 1000000
+/gun/energy 9895 keV
+/run/beamOn 1000000
+/gun/energy 9905 keV
+/run/beamOn 1000000
+/gun/energy 9915 keV
+/run/beamOn 1000000
+/gun/energy 9925 keV
+/run/beamOn 1000000
+/gun/energy 9935 keV
+/run/beamOn 1000000
+/gun/energy 9945 keV
+/run/beamOn 1000000
+/gun/energy 9955 keV
+/run/beamOn 1000000
+/gun/energy 9965 keV
+/run/beamOn 1000000
+/gun/energy 9975 keV
+/run/beamOn 1000000
+/gun/energy 9985 keV
+/run/beamOn 1000000
+/gun/energy 9995 keV
+/run/beamOn 1000000
+/gun/energy 10005 keV
+/run/beamOn 1000000
+/gun/energy 10015 keV
+/run/beamOn 1000000
+/gun/energy 10025 keV
+/run/beamOn 1000000
+/gun/energy 10035 keV
+/run/beamOn 1000000
+/gun/energy 10045 keV
+/run/beamOn 1000000
+/gun/energy 10055 keV
+/run/beamOn 1000000
+/gun/energy 10065 keV
+/run/beamOn 1000000
+/gun/energy 10075 keV
+/run/beamOn 1000000
+/gun/energy 10085 keV
+/run/beamOn 1000000
+/gun/energy 10095 keV
+/run/beamOn 1000000
+/gun/energy 10105 keV
+/run/beamOn 1000000
+/gun/energy 10115 keV
+/run/beamOn 1000000
+/gun/energy 10125 keV
+/run/beamOn 1000000
+/gun/energy 10135 keV
+/run/beamOn 1000000
+/gun/energy 10145 keV
+/run/beamOn 1000000
+/gun/energy 10155 keV
+/run/beamOn 1000000
+/gun/energy 10165 keV
+/run/beamOn 1000000
+/gun/energy 10175 keV
+/run/beamOn 1000000
+/gun/energy 10185 keV
+/run/beamOn 1000000
+/gun/energy 10195 keV
+/run/beamOn 1000000
+/gun/energy 10205 keV
+/run/beamOn 1000000
+/gun/energy 10215 keV
+/run/beamOn 1000000
+/gun/energy 10225 keV
+/run/beamOn 1000000
+/gun/energy 10235 keV
+/run/beamOn 1000000
+/gun/energy 10245 keV
+/run/beamOn 1000000
+/gun/energy 10255 keV
+/run/beamOn 1000000
+/gun/energy 10265 keV
+/run/beamOn 1000000
+/gun/energy 10275 keV
+/run/beamOn 1000000
+/gun/energy 10285 keV
+/run/beamOn 1000000
+/gun/energy 10295 keV
+/run/beamOn 1000000
+/gun/energy 10305 keV
+/run/beamOn 1000000
+/gun/energy 10315 keV
+/run/beamOn 1000000
+/gun/energy 10325 keV
+/run/beamOn 1000000
+/gun/energy 10335 keV
+/run/beamOn 1000000
+/gun/energy 10345 keV
+/run/beamOn 1000000
+/gun/energy 10355 keV
+/run/beamOn 1000000
+/gun/energy 10365 keV
+/run/beamOn 1000000
+/gun/energy 10375 keV
+/run/beamOn 1000000
+/gun/energy 10385 keV
+/run/beamOn 1000000
+/gun/energy 10395 keV
+/run/beamOn 1000000
+/gun/energy 10405 keV
+/run/beamOn 1000000
+/gun/energy 10415 keV
+/run/beamOn 1000000
+/gun/energy 10425 keV
+/run/beamOn 1000000
+/gun/energy 10435 keV
+/run/beamOn 1000000
+/gun/energy 10445 keV
+/run/beamOn 1000000
+/gun/energy 10455 keV
+/run/beamOn 1000000
+/gun/energy 10465 keV
+/run/beamOn 1000000
+/gun/energy 10475 keV
+/run/beamOn 1000000
+/gun/energy 10485 keV
+/run/beamOn 1000000
+/gun/energy 10495 keV
+/run/beamOn 1000000
+/gun/energy 10505 keV
+/run/beamOn 1000000
+/gun/energy 10515 keV
+/run/beamOn 1000000
+/gun/energy 10525 keV
+/run/beamOn 1000000
+/gun/energy 10535 keV
+/run/beamOn 1000000
+/gun/energy 10545 keV
+/run/beamOn 1000000
+/gun/energy 10555 keV
+/run/beamOn 1000000
+/gun/energy 10565 keV
+/run/beamOn 1000000
+/gun/energy 10575 keV
+/run/beamOn 1000000
+/gun/energy 10585 keV
+/run/beamOn 1000000
+/gun/energy 10595 keV
+/run/beamOn 1000000
+/gun/energy 10605 keV
+/run/beamOn 1000000
+/gun/energy 10615 keV
+/run/beamOn 1000000
+/gun/energy 10625 keV
+/run/beamOn 1000000
+/gun/energy 10635 keV
+/run/beamOn 1000000
+/gun/energy 10645 keV
+/run/beamOn 1000000
+/gun/energy 10655 keV
+/run/beamOn 1000000
+/gun/energy 10665 keV
+/run/beamOn 1000000
+/gun/energy 10675 keV
+/run/beamOn 1000000
+/gun/energy 10685 keV
+/run/beamOn 1000000
+/gun/energy 10695 keV
+/run/beamOn 1000000
+/gun/energy 10705 keV
+/run/beamOn 1000000
+/gun/energy 10715 keV
+/run/beamOn 1000000
+/gun/energy 10725 keV
+/run/beamOn 1000000
+/gun/energy 10735 keV
+/run/beamOn 1000000
+/gun/energy 10745 keV
+/run/beamOn 1000000
+/gun/energy 10755 keV
+/run/beamOn 1000000
+/gun/energy 10765 keV
+/run/beamOn 1000000
+/gun/energy 10775 keV
+/run/beamOn 1000000
+/gun/energy 10785 keV
+/run/beamOn 1000000
+/gun/energy 10795 keV
+/run/beamOn 1000000
+/gun/energy 10805 keV
+/run/beamOn 1000000
+/gun/energy 10815 keV
+/run/beamOn 1000000
+/gun/energy 10825 keV
+/run/beamOn 1000000
+/gun/energy 10835 keV
+/run/beamOn 1000000
+/gun/energy 10845 keV
+/run/beamOn 1000000
+/gun/energy 10855 keV
+/run/beamOn 1000000
+/gun/energy 10865 keV
+/run/beamOn 1000000
+/gun/energy 10875 keV
+/run/beamOn 1000000
+/gun/energy 10885 keV
+/run/beamOn 1000000
+/gun/energy 10895 keV
+/run/beamOn 1000000
+/gun/energy 10905 keV
+/run/beamOn 1000000
+/gun/energy 10915 keV
+/run/beamOn 1000000
+/gun/energy 10925 keV
+/run/beamOn 1000000
+/gun/energy 10935 keV
+/run/beamOn 1000000
+/gun/energy 10945 keV
+/run/beamOn 1000000
+/gun/energy 10955 keV
+/run/beamOn 1000000
+/gun/energy 10965 keV
+/run/beamOn 1000000
+/gun/energy 10975 keV
+/run/beamOn 1000000
+/gun/energy 10985 keV
+/run/beamOn 1000000
+/gun/energy 10995 keV
+/run/beamOn 1000000
+/gun/energy 11005 keV
+/run/beamOn 1000000
+/gun/energy 11015 keV
+/run/beamOn 1000000
+/gun/energy 11025 keV
+/run/beamOn 1000000
+/gun/energy 11035 keV
+/run/beamOn 1000000
+/gun/energy 11045 keV
+/run/beamOn 1000000
+/gun/energy 11055 keV
+/run/beamOn 1000000
+/gun/energy 11065 keV
+/run/beamOn 1000000
+/gun/energy 11075 keV
+/run/beamOn 1000000
+/gun/energy 11085 keV
+/run/beamOn 1000000
+/gun/energy 11095 keV
+/run/beamOn 1000000
+/gun/energy 11105 keV
+/run/beamOn 1000000
+/gun/energy 11115 keV
+/run/beamOn 1000000
+/gun/energy 11125 keV
+/run/beamOn 1000000
+/gun/energy 11135 keV
+/run/beamOn 1000000
+/gun/energy 11145 keV
+/run/beamOn 1000000
+/gun/energy 11155 keV
+/run/beamOn 1000000
+/gun/energy 11165 keV
+/run/beamOn 1000000
+/gun/energy 11175 keV
+/run/beamOn 1000000
+/gun/energy 11185 keV
+/run/beamOn 1000000
+/gun/energy 11195 keV
+/run/beamOn 1000000
+/gun/energy 11205 keV
+/run/beamOn 1000000
+/gun/energy 11215 keV
+/run/beamOn 1000000
+/gun/energy 11225 keV
+/run/beamOn 1000000
+/gun/energy 11235 keV
+/run/beamOn 1000000
+/gun/energy 11245 keV
+/run/beamOn 1000000
+/gun/energy 11255 keV
+/run/beamOn 1000000
+/gun/energy 11265 keV
+/run/beamOn 1000000
+/gun/energy 11275 keV
+/run/beamOn 1000000
+/gun/energy 11285 keV
+/run/beamOn 1000000
+/gun/energy 11295 keV
+/run/beamOn 1000000
+/gun/energy 11305 keV
+/run/beamOn 1000000
+/gun/energy 11315 keV
+/run/beamOn 1000000
+/gun/energy 11325 keV
+/run/beamOn 1000000
+/gun/energy 11335 keV
+/run/beamOn 1000000
+/gun/energy 11345 keV
+/run/beamOn 1000000
+/gun/energy 11355 keV
+/run/beamOn 1000000
+/gun/energy 11365 keV
+/run/beamOn 1000000
+/gun/energy 11375 keV
+/run/beamOn 1000000
+/gun/energy 11385 keV
+/run/beamOn 1000000
+/gun/energy 11395 keV
+/run/beamOn 1000000
+/gun/energy 11405 keV
+/run/beamOn 1000000
+/gun/energy 11415 keV
+/run/beamOn 1000000
+/gun/energy 11425 keV
+/run/beamOn 1000000
+/gun/energy 11435 keV
+/run/beamOn 1000000
+/gun/energy 11445 keV
+/run/beamOn 1000000
+/gun/energy 11455 keV
+/run/beamOn 1000000
+/gun/energy 11465 keV
+/run/beamOn 1000000
+/gun/energy 11475 keV
+/run/beamOn 1000000
+/gun/energy 11485 keV
+/run/beamOn 1000000
+/gun/energy 11495 keV
+/run/beamOn 1000000
+/gun/energy 11505 keV
+/run/beamOn 1000000
+/gun/energy 11515 keV
+/run/beamOn 1000000
+/gun/energy 11525 keV
+/run/beamOn 1000000
+/gun/energy 11535 keV
+/run/beamOn 1000000
+/gun/energy 11545 keV
+/run/beamOn 1000000
+/gun/energy 11555 keV
+/run/beamOn 1000000
+/gun/energy 11565 keV
+/run/beamOn 1000000
+/gun/energy 11575 keV
+/run/beamOn 1000000
+/gun/energy 11585 keV
+/run/beamOn 1000000
+/gun/energy 11595 keV
+/run/beamOn 1000000
+/gun/energy 11605 keV
+/run/beamOn 1000000
+/gun/energy 11615 keV
+/run/beamOn 1000000
+/gun/energy 11625 keV
+/run/beamOn 1000000
+/gun/energy 11635 keV
+/run/beamOn 1000000
+/gun/energy 11645 keV
+/run/beamOn 1000000
+/gun/energy 11655 keV
+/run/beamOn 1000000
+/gun/energy 11665 keV
+/run/beamOn 1000000
+/gun/energy 11675 keV
+/run/beamOn 1000000
+/gun/energy 11685 keV
+/run/beamOn 1000000
+/gun/energy 11695 keV
+/run/beamOn 1000000
+/gun/energy 11705 keV
+/run/beamOn 1000000
+/gun/energy 11715 keV
+/run/beamOn 1000000
+/gun/energy 11725 keV
+/run/beamOn 1000000
+/gun/energy 11735 keV
+/run/beamOn 1000000
+/gun/energy 11745 keV
+/run/beamOn 1000000
+/gun/energy 11755 keV
+/run/beamOn 1000000
+/gun/energy 11765 keV
+/run/beamOn 1000000
+/gun/energy 11775 keV
+/run/beamOn 1000000
+/gun/energy 11785 keV
+/run/beamOn 1000000
+/gun/energy 11795 keV
+/run/beamOn 1000000
+/gun/energy 11805 keV
+/run/beamOn 1000000
+/gun/energy 11815 keV
+/run/beamOn 1000000
+/gun/energy 11825 keV
+/run/beamOn 1000000
+/gun/energy 11835 keV
+/run/beamOn 1000000
+/gun/energy 11845 keV
+/run/beamOn 1000000
+/gun/energy 11855 keV
+/run/beamOn 1000000
+/gun/energy 11865 keV
+/run/beamOn 1000000
+/gun/energy 11875 keV
+/run/beamOn 1000000
+/gun/energy 11885 keV
+/run/beamOn 1000000
+/gun/energy 11895 keV
+/run/beamOn 1000000
+/gun/energy 11905 keV
+/run/beamOn 1000000
+/gun/energy 11915 keV
+/run/beamOn 1000000
+/gun/energy 11925 keV
+/run/beamOn 1000000
+/gun/energy 11935 keV
+/run/beamOn 1000000
+/gun/energy 11945 keV
+/run/beamOn 1000000
+/gun/energy 11955 keV
+/run/beamOn 1000000
+/gun/energy 11965 keV
+/run/beamOn 1000000
+/gun/energy 11975 keV
+/run/beamOn 1000000
+/gun/energy 11985 keV
+/run/beamOn 1000000
+/gun/energy 11995 keV
+/run/beamOn 1000000
+/gun/energy 12005 keV
+/run/beamOn 1000000
+/gun/energy 12015 keV
+/run/beamOn 1000000
+/gun/energy 12025 keV
+/run/beamOn 1000000
+/gun/energy 12035 keV
+/run/beamOn 1000000
+/gun/energy 12045 keV
+/run/beamOn 1000000
+/gun/energy 12055 keV
+/run/beamOn 1000000
+/gun/energy 12065 keV
+/run/beamOn 1000000
+/gun/energy 12075 keV
+/run/beamOn 1000000
+/gun/energy 12085 keV
+/run/beamOn 1000000
+/gun/energy 12095 keV
+/run/beamOn 1000000
+/gun/energy 12105 keV
+/run/beamOn 1000000
+/gun/energy 12115 keV
+/run/beamOn 1000000
+/gun/energy 12125 keV
+/run/beamOn 1000000
+/gun/energy 12135 keV
+/run/beamOn 1000000
+/gun/energy 12145 keV
+/run/beamOn 1000000
+/gun/energy 12155 keV
+/run/beamOn 1000000
+/gun/energy 12165 keV
+/run/beamOn 1000000
+/gun/energy 12175 keV
+/run/beamOn 1000000
+/gun/energy 12185 keV
+/run/beamOn 1000000
+/gun/energy 12195 keV
+/run/beamOn 1000000
+/gun/energy 12205 keV
+/run/beamOn 1000000
+/gun/energy 12215 keV
+/run/beamOn 1000000
+/gun/energy 12225 keV
+/run/beamOn 1000000
+/gun/energy 12235 keV
+/run/beamOn 1000000
+/gun/energy 12245 keV
+/run/beamOn 1000000
+/gun/energy 12255 keV
+/run/beamOn 1000000
+/gun/energy 12265 keV
+/run/beamOn 1000000
+/gun/energy 12275 keV
+/run/beamOn 1000000
+/gun/energy 12285 keV
+/run/beamOn 1000000
+/gun/energy 12295 keV
+/run/beamOn 1000000
+/gun/energy 12305 keV
+/run/beamOn 1000000
+/gun/energy 12315 keV
+/run/beamOn 1000000
+/gun/energy 12325 keV
+/run/beamOn 1000000
+/gun/energy 12335 keV
+/run/beamOn 1000000
+/gun/energy 12345 keV
+/run/beamOn 1000000
+/gun/energy 12355 keV
+/run/beamOn 1000000
+/gun/energy 12365 keV
+/run/beamOn 1000000
+/gun/energy 12375 keV
+/run/beamOn 1000000
+/gun/energy 12385 keV
+/run/beamOn 1000000
+/gun/energy 12395 keV
+/run/beamOn 1000000
+/gun/energy 12405 keV
+/run/beamOn 1000000
+/gun/energy 12415 keV
+/run/beamOn 1000000
+/gun/energy 12425 keV
+/run/beamOn 1000000
+/gun/energy 12435 keV
+/run/beamOn 1000000
+/gun/energy 12445 keV
+/run/beamOn 1000000
+/gun/energy 12455 keV
+/run/beamOn 1000000
+/gun/energy 12465 keV
+/run/beamOn 1000000
+/gun/energy 12475 keV
+/run/beamOn 1000000
+/gun/energy 12485 keV
+/run/beamOn 1000000
+/gun/energy 12495 keV
+/run/beamOn 1000000
+/gun/energy 12505 keV
+/run/beamOn 1000000
+/gun/energy 12515 keV
+/run/beamOn 1000000
+/gun/energy 12525 keV
+/run/beamOn 1000000
+/gun/energy 12535 keV
+/run/beamOn 1000000
+/gun/energy 12545 keV
+/run/beamOn 1000000
+/gun/energy 12555 keV
+/run/beamOn 1000000
+/gun/energy 12565 keV
+/run/beamOn 1000000
+/gun/energy 12575 keV
+/run/beamOn 1000000
+/gun/energy 12585 keV
+/run/beamOn 1000000
+/gun/energy 12595 keV
+/run/beamOn 1000000
+/gun/energy 12605 keV
+/run/beamOn 1000000
+/gun/energy 12615 keV
+/run/beamOn 1000000
+/gun/energy 12625 keV
+/run/beamOn 1000000
+/gun/energy 12635 keV
+/run/beamOn 1000000
+/gun/energy 12645 keV
+/run/beamOn 1000000
+/gun/energy 12655 keV
+/run/beamOn 1000000
+/gun/energy 12665 keV
+/run/beamOn 1000000
+/gun/energy 12675 keV
+/run/beamOn 1000000
+/gun/energy 12685 keV
+/run/beamOn 1000000
+/gun/energy 12695 keV
+/run/beamOn 1000000
+/gun/energy 12705 keV
+/run/beamOn 1000000
+/gun/energy 12715 keV
+/run/beamOn 1000000
+/gun/energy 12725 keV
+/run/beamOn 1000000
+/gun/energy 12735 keV
+/run/beamOn 1000000
+/gun/energy 12745 keV
+/run/beamOn 1000000
+/gun/energy 12755 keV
+/run/beamOn 1000000
+/gun/energy 12765 keV
+/run/beamOn 1000000
+/gun/energy 12775 keV
+/run/beamOn 1000000
+/gun/energy 12785 keV
+/run/beamOn 1000000
+/gun/energy 12795 keV
+/run/beamOn 1000000
+/gun/energy 12805 keV
+/run/beamOn 1000000
+/gun/energy 12815 keV
+/run/beamOn 1000000
+/gun/energy 12825 keV
+/run/beamOn 1000000
+/gun/energy 12835 keV
+/run/beamOn 1000000
+/gun/energy 12845 keV
+/run/beamOn 1000000
+/gun/energy 12855 keV
+/run/beamOn 1000000
+/gun/energy 12865 keV
+/run/beamOn 1000000
+/gun/energy 12875 keV
+/run/beamOn 1000000
+/gun/energy 12885 keV
+/run/beamOn 1000000
+/gun/energy 12895 keV
+/run/beamOn 1000000
+/gun/energy 12905 keV
+/run/beamOn 1000000
+/gun/energy 12915 keV
+/run/beamOn 1000000
+/gun/energy 12925 keV
+/run/beamOn 1000000
+/gun/energy 12935 keV
+/run/beamOn 1000000
+/gun/energy 12945 keV
+/run/beamOn 1000000
+/gun/energy 12955 keV
+/run/beamOn 1000000
+/gun/energy 12965 keV
+/run/beamOn 1000000
+/gun/energy 12975 keV
+/run/beamOn 1000000
+/gun/energy 12985 keV
+/run/beamOn 1000000
+/gun/energy 12995 keV
+/run/beamOn 1000000
+/gun/energy 13005 keV
+/run/beamOn 1000000
+/gun/energy 13015 keV
+/run/beamOn 1000000
+/gun/energy 13025 keV
+/run/beamOn 1000000
+/gun/energy 13035 keV
+/run/beamOn 1000000
+/gun/energy 13045 keV
+/run/beamOn 1000000
+/gun/energy 13055 keV
+/run/beamOn 1000000
+/gun/energy 13065 keV
+/run/beamOn 1000000
+/gun/energy 13075 keV
+/run/beamOn 1000000
+/gun/energy 13085 keV
+/run/beamOn 1000000
+/gun/energy 13095 keV
+/run/beamOn 1000000
+/gun/energy 13105 keV
+/run/beamOn 1000000
+/gun/energy 13115 keV
+/run/beamOn 1000000
+/gun/energy 13125 keV
+/run/beamOn 1000000
+/gun/energy 13135 keV
+/run/beamOn 1000000
+/gun/energy 13145 keV
+/run/beamOn 1000000
+/gun/energy 13155 keV
+/run/beamOn 1000000
+/gun/energy 13165 keV
+/run/beamOn 1000000
+/gun/energy 13175 keV
+/run/beamOn 1000000
+/gun/energy 13185 keV
+/run/beamOn 1000000
+/gun/energy 13195 keV
+/run/beamOn 1000000
+/gun/energy 13205 keV
+/run/beamOn 1000000
+/gun/energy 13215 keV
+/run/beamOn 1000000
+/gun/energy 13225 keV
+/run/beamOn 1000000
+/gun/energy 13235 keV
+/run/beamOn 1000000
+/gun/energy 13245 keV
+/run/beamOn 1000000
+/gun/energy 13255 keV
+/run/beamOn 1000000
+/gun/energy 13265 keV
+/run/beamOn 1000000
+/gun/energy 13275 keV
+/run/beamOn 1000000
+/gun/energy 13285 keV
+/run/beamOn 1000000
+/gun/energy 13295 keV
+/run/beamOn 1000000
+/gun/energy 13305 keV
+/run/beamOn 1000000
+/gun/energy 13315 keV
+/run/beamOn 1000000
+/gun/energy 13325 keV
+/run/beamOn 1000000
+/gun/energy 13335 keV
+/run/beamOn 1000000
+/gun/energy 13345 keV
+/run/beamOn 1000000
+/gun/energy 13355 keV
+/run/beamOn 1000000
+/gun/energy 13365 keV
+/run/beamOn 1000000
+/gun/energy 13375 keV
+/run/beamOn 1000000
+/gun/energy 13385 keV
+/run/beamOn 1000000
+/gun/energy 13395 keV
+/run/beamOn 1000000
+/gun/energy 13405 keV
+/run/beamOn 1000000
+/gun/energy 13415 keV
+/run/beamOn 1000000
+/gun/energy 13425 keV
+/run/beamOn 1000000
+/gun/energy 13435 keV
+/run/beamOn 1000000
+/gun/energy 13445 keV
+/run/beamOn 1000000
+/gun/energy 13455 keV
+/run/beamOn 1000000
+/gun/energy 13465 keV
+/run/beamOn 1000000
+/gun/energy 13475 keV
+/run/beamOn 1000000
+/gun/energy 13485 keV
+/run/beamOn 1000000
+/gun/energy 13495 keV
+/run/beamOn 1000000
+/gun/energy 13505 keV
+/run/beamOn 1000000
+/gun/energy 13515 keV
+/run/beamOn 1000000
+/gun/energy 13525 keV
+/run/beamOn 1000000
+/gun/energy 13535 keV
+/run/beamOn 1000000
+/gun/energy 13545 keV
+/run/beamOn 1000000
+/gun/energy 13555 keV
+/run/beamOn 1000000
+/gun/energy 13565 keV
+/run/beamOn 1000000
+/gun/energy 13575 keV
+/run/beamOn 1000000
+/gun/energy 13585 keV
+/run/beamOn 1000000
+/gun/energy 13595 keV
+/run/beamOn 1000000
+/gun/energy 13605 keV
+/run/beamOn 1000000
+/gun/energy 13615 keV
+/run/beamOn 1000000
+/gun/energy 13625 keV
+/run/beamOn 1000000
+/gun/energy 13635 keV
+/run/beamOn 1000000
+/gun/energy 13645 keV
+/run/beamOn 1000000
+/gun/energy 13655 keV
+/run/beamOn 1000000
+/gun/energy 13665 keV
+/run/beamOn 1000000
+/gun/energy 13675 keV
+/run/beamOn 1000000
+/gun/energy 13685 keV
+/run/beamOn 1000000
+/gun/energy 13695 keV
+/run/beamOn 1000000
+/gun/energy 13705 keV
+/run/beamOn 1000000
+/gun/energy 13715 keV
+/run/beamOn 1000000
+/gun/energy 13725 keV
+/run/beamOn 1000000
+/gun/energy 13735 keV
+/run/beamOn 1000000
+/gun/energy 13745 keV
+/run/beamOn 1000000
+/gun/energy 13755 keV
+/run/beamOn 1000000
+/gun/energy 13765 keV
+/run/beamOn 1000000
+/gun/energy 13775 keV
+/run/beamOn 1000000
+/gun/energy 13785 keV
+/run/beamOn 1000000
+/gun/energy 13795 keV
+/run/beamOn 1000000
+/gun/energy 13805 keV
+/run/beamOn 1000000
+/gun/energy 13815 keV
+/run/beamOn 1000000
+/gun/energy 13825 keV
+/run/beamOn 1000000
+/gun/energy 13835 keV
+/run/beamOn 1000000
+/gun/energy 13845 keV
+/run/beamOn 1000000
+/gun/energy 13855 keV
+/run/beamOn 1000000
+/gun/energy 13865 keV
+/run/beamOn 1000000
+/gun/energy 13875 keV
+/run/beamOn 1000000
+/gun/energy 13885 keV
+/run/beamOn 1000000
+/gun/energy 13895 keV
+/run/beamOn 1000000
+/gun/energy 13905 keV
+/run/beamOn 1000000
+/gun/energy 13915 keV
+/run/beamOn 1000000
+/gun/energy 13925 keV
+/run/beamOn 1000000
+/gun/energy 13935 keV
+/run/beamOn 1000000
+/gun/energy 13945 keV
+/run/beamOn 1000000
+/gun/energy 13955 keV
+/run/beamOn 1000000
+/gun/energy 13965 keV
+/run/beamOn 1000000
+/gun/energy 13975 keV
+/run/beamOn 1000000
+/gun/energy 13985 keV
+/run/beamOn 1000000
+/gun/energy 13995 keV
+/run/beamOn 1000000
+/gun/energy 14005 keV
+/run/beamOn 1000000
+/gun/energy 14015 keV
+/run/beamOn 1000000
+/gun/energy 14025 keV
+/run/beamOn 1000000
+/gun/energy 14035 keV
+/run/beamOn 1000000
+/gun/energy 14045 keV
+/run/beamOn 1000000
+/gun/energy 14055 keV
+/run/beamOn 1000000
+/gun/energy 14065 keV
+/run/beamOn 1000000
+/gun/energy 14075 keV
+/run/beamOn 1000000
+/gun/energy 14085 keV
+/run/beamOn 1000000
+/gun/energy 14095 keV
+/run/beamOn 1000000
+/gun/energy 14105 keV
+/run/beamOn 1000000
+/gun/energy 14115 keV
+/run/beamOn 1000000
+/gun/energy 14125 keV
+/run/beamOn 1000000
+/gun/energy 14135 keV
+/run/beamOn 1000000
+/gun/energy 14145 keV
+/run/beamOn 1000000
+/gun/energy 14155 keV
+/run/beamOn 1000000
+/gun/energy 14165 keV
+/run/beamOn 1000000
+/gun/energy 14175 keV
+/run/beamOn 1000000
+/gun/energy 14185 keV
+/run/beamOn 1000000
+/gun/energy 14195 keV
+/run/beamOn 1000000
+/gun/energy 14205 keV
+/run/beamOn 1000000
+/gun/energy 14215 keV
+/run/beamOn 1000000
+/gun/energy 14225 keV
+/run/beamOn 1000000
+/gun/energy 14235 keV
+/run/beamOn 1000000
+/gun/energy 14245 keV
+/run/beamOn 1000000
+/gun/energy 14255 keV
+/run/beamOn 1000000
+/gun/energy 14265 keV
+/run/beamOn 1000000
+/gun/energy 14275 keV
+/run/beamOn 1000000
+/gun/energy 14285 keV
+/run/beamOn 1000000
+/gun/energy 14295 keV
+/run/beamOn 1000000
+/gun/energy 14305 keV
+/run/beamOn 1000000
+/gun/energy 14315 keV
+/run/beamOn 1000000
+/gun/energy 14325 keV
+/run/beamOn 1000000
+/gun/energy 14335 keV
+/run/beamOn 1000000
+/gun/energy 14345 keV
+/run/beamOn 1000000
+/gun/energy 14355 keV
+/run/beamOn 1000000
+/gun/energy 14365 keV
+/run/beamOn 1000000
+/gun/energy 14375 keV
+/run/beamOn 1000000
+/gun/energy 14385 keV
+/run/beamOn 1000000
+/gun/energy 14395 keV
+/run/beamOn 1000000
+/gun/energy 14405 keV
+/run/beamOn 1000000
+/gun/energy 14415 keV
+/run/beamOn 1000000
+/gun/energy 14425 keV
+/run/beamOn 1000000
+/gun/energy 14435 keV
+/run/beamOn 1000000
+/gun/energy 14445 keV
+/run/beamOn 1000000
+/gun/energy 14455 keV
+/run/beamOn 1000000
+/gun/energy 14465 keV
+/run/beamOn 1000000
+/gun/energy 14475 keV
+/run/beamOn 1000000
+/gun/energy 14485 keV
+/run/beamOn 1000000
+/gun/energy 14495 keV
+/run/beamOn 1000000
+/gun/energy 14505 keV
+/run/beamOn 1000000
+/gun/energy 14515 keV
+/run/beamOn 1000000
+/gun/energy 14525 keV
+/run/beamOn 1000000
+/gun/energy 14535 keV
+/run/beamOn 1000000
+/gun/energy 14545 keV
+/run/beamOn 1000000
+/gun/energy 14555 keV
+/run/beamOn 1000000
+/gun/energy 14565 keV
+/run/beamOn 1000000
+/gun/energy 14575 keV
+/run/beamOn 1000000
+/gun/energy 14585 keV
+/run/beamOn 1000000
+/gun/energy 14595 keV
+/run/beamOn 1000000
+/gun/energy 14605 keV
+/run/beamOn 1000000
+/gun/energy 14615 keV
+/run/beamOn 1000000
+/gun/energy 14625 keV
+/run/beamOn 1000000
+/gun/energy 14635 keV
+/run/beamOn 1000000
+/gun/energy 14645 keV
+/run/beamOn 1000000
+/gun/energy 14655 keV
+/run/beamOn 1000000
+/gun/energy 14665 keV
+/run/beamOn 1000000
+/gun/energy 14675 keV
+/run/beamOn 1000000
+/gun/energy 14685 keV
+/run/beamOn 1000000
+/gun/energy 14695 keV
+/run/beamOn 1000000
+/gun/energy 14705 keV
+/run/beamOn 1000000
+/gun/energy 14715 keV
+/run/beamOn 1000000
+/gun/energy 14725 keV
+/run/beamOn 1000000
+/gun/energy 14735 keV
+/run/beamOn 1000000
+/gun/energy 14745 keV
+/run/beamOn 1000000
+/gun/energy 14755 keV
+/run/beamOn 1000000
+/gun/energy 14765 keV
+/run/beamOn 1000000
+/gun/energy 14775 keV
+/run/beamOn 1000000
+/gun/energy 14785 keV
+/run/beamOn 1000000
+/gun/energy 14795 keV
+/run/beamOn 1000000
+/gun/energy 14805 keV
+/run/beamOn 1000000
+/gun/energy 14815 keV
+/run/beamOn 1000000
+/gun/energy 14825 keV
+/run/beamOn 1000000
+/gun/energy 14835 keV
+/run/beamOn 1000000
+/gun/energy 14845 keV
+/run/beamOn 1000000
+/gun/energy 14855 keV
+/run/beamOn 1000000
+/gun/energy 14865 keV
+/run/beamOn 1000000
+/gun/energy 14875 keV
+/run/beamOn 1000000
+/gun/energy 14885 keV
+/run/beamOn 1000000
+/gun/energy 14895 keV
+/run/beamOn 1000000
+/gun/energy 14905 keV
+/run/beamOn 1000000
+/gun/energy 14915 keV
+/run/beamOn 1000000
+/gun/energy 14925 keV
+/run/beamOn 1000000
+/gun/energy 14935 keV
+/run/beamOn 1000000
+/gun/energy 14945 keV
+/run/beamOn 1000000
+/gun/energy 14955 keV
+/run/beamOn 1000000
+/gun/energy 14965 keV
+/run/beamOn 1000000
+/gun/energy 14975 keV
+/run/beamOn 1000000
+/gun/energy 14985 keV
+/run/beamOn 1000000
+/gun/energy 14995 keV
+/run/beamOn 1000000
+/gun/energy 15005 keV
+/run/beamOn 1000000
+/gun/energy 15015 keV
+/run/beamOn 1000000
+/gun/energy 15025 keV
+/run/beamOn 1000000
+/gun/energy 15035 keV
+/run/beamOn 1000000
+/gun/energy 15045 keV
+/run/beamOn 1000000
+/gun/energy 15055 keV
+/run/beamOn 1000000
+/gun/energy 15065 keV
+/run/beamOn 1000000
+/gun/energy 15075 keV
+/run/beamOn 1000000
+/gun/energy 15085 keV
+/run/beamOn 1000000
+/gun/energy 15095 keV
+/run/beamOn 1000000
+/gun/energy 15105 keV
+/run/beamOn 1000000
+/gun/energy 15115 keV
+/run/beamOn 1000000
+/gun/energy 15125 keV
+/run/beamOn 1000000
+/gun/energy 15135 keV
+/run/beamOn 1000000
+/gun/energy 15145 keV
+/run/beamOn 1000000
+/gun/energy 15155 keV
+/run/beamOn 1000000
+/gun/energy 15165 keV
+/run/beamOn 1000000
+/gun/energy 15175 keV
+/run/beamOn 1000000
+/gun/energy 15185 keV
+/run/beamOn 1000000
+/gun/energy 15195 keV
+/run/beamOn 1000000
+/gun/energy 15205 keV
+/run/beamOn 1000000
+/gun/energy 15215 keV
+/run/beamOn 1000000
+/gun/energy 15225 keV
+/run/beamOn 1000000
+/gun/energy 15235 keV
+/run/beamOn 1000000
+/gun/energy 15245 keV
+/run/beamOn 1000000
+/gun/energy 15255 keV
+/run/beamOn 1000000
+/gun/energy 15265 keV
+/run/beamOn 1000000
+/gun/energy 15275 keV
+/run/beamOn 1000000
+/gun/energy 15285 keV
+/run/beamOn 1000000
+/gun/energy 15295 keV
+/run/beamOn 1000000
+/gun/energy 15305 keV
+/run/beamOn 1000000
+/gun/energy 15315 keV
+/run/beamOn 1000000
+/gun/energy 15325 keV
+/run/beamOn 1000000
+/gun/energy 15335 keV
+/run/beamOn 1000000
+/gun/energy 15345 keV
+/run/beamOn 1000000
+/gun/energy 15355 keV
+/run/beamOn 1000000
+/gun/energy 15365 keV
+/run/beamOn 1000000
+/gun/energy 15375 keV
+/run/beamOn 1000000
+/gun/energy 15385 keV
+/run/beamOn 1000000
+/gun/energy 15395 keV
+/run/beamOn 1000000
+/gun/energy 15405 keV
+/run/beamOn 1000000
+/gun/energy 15415 keV
+/run/beamOn 1000000
+/gun/energy 15425 keV
+/run/beamOn 1000000
+/gun/energy 15435 keV
+/run/beamOn 1000000
+/gun/energy 15445 keV
+/run/beamOn 1000000
+/gun/energy 15455 keV
+/run/beamOn 1000000
+/gun/energy 15465 keV
+/run/beamOn 1000000
+/gun/energy 15475 keV
+/run/beamOn 1000000
+/gun/energy 15485 keV
+/run/beamOn 1000000
+/gun/energy 15495 keV
+/run/beamOn 1000000
+/gun/energy 15505 keV
+/run/beamOn 1000000
+/gun/energy 15515 keV
+/run/beamOn 1000000
+/gun/energy 15525 keV
+/run/beamOn 1000000
+/gun/energy 15535 keV
+/run/beamOn 1000000
+/gun/energy 15545 keV
+/run/beamOn 1000000
+/gun/energy 15555 keV
+/run/beamOn 1000000
+/gun/energy 15565 keV
+/run/beamOn 1000000
+/gun/energy 15575 keV
+/run/beamOn 1000000
+/gun/energy 15585 keV
+/run/beamOn 1000000
+/gun/energy 15595 keV
+/run/beamOn 1000000
+/gun/energy 15605 keV
+/run/beamOn 1000000
+/gun/energy 15615 keV
+/run/beamOn 1000000
+/gun/energy 15625 keV
+/run/beamOn 1000000
+/gun/energy 15635 keV
+/run/beamOn 1000000
+/gun/energy 15645 keV
+/run/beamOn 1000000
+/gun/energy 15655 keV
+/run/beamOn 1000000
+/gun/energy 15665 keV
+/run/beamOn 1000000
+/gun/energy 15675 keV
+/run/beamOn 1000000
+/gun/energy 15685 keV
+/run/beamOn 1000000
+/gun/energy 15695 keV
+/run/beamOn 1000000
+/gun/energy 15705 keV
+/run/beamOn 1000000
+/gun/energy 15715 keV
+/run/beamOn 1000000
+/gun/energy 15725 keV
+/run/beamOn 1000000
+/gun/energy 15735 keV
+/run/beamOn 1000000
+/gun/energy 15745 keV
+/run/beamOn 1000000
+/gun/energy 15755 keV
+/run/beamOn 1000000
+/gun/energy 15765 keV
+/run/beamOn 1000000
+/gun/energy 15775 keV
+/run/beamOn 1000000
+/gun/energy 15785 keV
+/run/beamOn 1000000
+/gun/energy 15795 keV
+/run/beamOn 1000000
+/gun/energy 15805 keV
+/run/beamOn 1000000
+/gun/energy 15815 keV
+/run/beamOn 1000000
+/gun/energy 15825 keV
+/run/beamOn 1000000
+/gun/energy 15835 keV
+/run/beamOn 1000000
+/gun/energy 15845 keV
+/run/beamOn 1000000
+/gun/energy 15855 keV
+/run/beamOn 1000000
+/gun/energy 15865 keV
+/run/beamOn 1000000
+/gun/energy 15875 keV
+/run/beamOn 1000000
+/gun/energy 15885 keV
+/run/beamOn 1000000
+/gun/energy 15895 keV
+/run/beamOn 1000000
+/gun/energy 15905 keV
+/run/beamOn 1000000
+/gun/energy 15915 keV
+/run/beamOn 1000000
+/gun/energy 15925 keV
+/run/beamOn 1000000
+/gun/energy 15935 keV
+/run/beamOn 1000000
+/gun/energy 15945 keV
+/run/beamOn 1000000
+/gun/energy 15955 keV
+/run/beamOn 1000000
+/gun/energy 15965 keV
+/run/beamOn 1000000
+/gun/energy 15975 keV
+/run/beamOn 1000000
+/gun/energy 15985 keV
+/run/beamOn 1000000
+/gun/energy 15995 keV
+/run/beamOn 1000000
+/gun/energy 16005 keV
+/run/beamOn 1000000
+/gun/energy 16015 keV
+/run/beamOn 1000000
+/gun/energy 16025 keV
+/run/beamOn 1000000
+/gun/energy 16035 keV
+/run/beamOn 1000000
+/gun/energy 16045 keV
+/run/beamOn 1000000
+/gun/energy 16055 keV
+/run/beamOn 1000000
+/gun/energy 16065 keV
+/run/beamOn 1000000
+/gun/energy 16075 keV
+/run/beamOn 1000000
+/gun/energy 16085 keV
+/run/beamOn 1000000
+/gun/energy 16095 keV
+/run/beamOn 1000000
+/gun/energy 16105 keV
+/run/beamOn 1000000
+/gun/energy 16115 keV
+/run/beamOn 1000000
+/gun/energy 16125 keV
+/run/beamOn 1000000
+/gun/energy 16135 keV
+/run/beamOn 1000000
+/gun/energy 16145 keV
+/run/beamOn 1000000
+/gun/energy 16155 keV
+/run/beamOn 1000000
+/gun/energy 16165 keV
+/run/beamOn 1000000
+/gun/energy 16175 keV
+/run/beamOn 1000000
+/gun/energy 16185 keV
+/run/beamOn 1000000
+/gun/energy 16195 keV
+/run/beamOn 1000000
+/gun/energy 16205 keV
+/run/beamOn 1000000
+/gun/energy 16215 keV
+/run/beamOn 1000000
+/gun/energy 16225 keV
+/run/beamOn 1000000
+/gun/energy 16235 keV
+/run/beamOn 1000000
+/gun/energy 16245 keV
+/run/beamOn 1000000
+/gun/energy 16255 keV
+/run/beamOn 1000000
+/gun/energy 16265 keV
+/run/beamOn 1000000
+/gun/energy 16275 keV
+/run/beamOn 1000000
+/gun/energy 16285 keV
+/run/beamOn 1000000
+/gun/energy 16295 keV
+/run/beamOn 1000000
+/gun/energy 16305 keV
+/run/beamOn 1000000
+/gun/energy 16315 keV
+/run/beamOn 1000000
+/gun/energy 16325 keV
+/run/beamOn 1000000
+/gun/energy 16335 keV
+/run/beamOn 1000000
+/gun/energy 16345 keV
+/run/beamOn 1000000
+/gun/energy 16355 keV
+/run/beamOn 1000000
+/gun/energy 16365 keV
+/run/beamOn 1000000
+/gun/energy 16375 keV
+/run/beamOn 1000000
+/gun/energy 16385 keV
+/run/beamOn 1000000
+/gun/energy 16395 keV
+/run/beamOn 1000000
+/gun/energy 16405 keV
+/run/beamOn 1000000
+/gun/energy 16415 keV
+/run/beamOn 1000000
+/gun/energy 16425 keV
+/run/beamOn 1000000
+/gun/energy 16435 keV
+/run/beamOn 1000000
+/gun/energy 16445 keV
+/run/beamOn 1000000
+/gun/energy 16455 keV
+/run/beamOn 1000000
+/gun/energy 16465 keV
+/run/beamOn 1000000
+/gun/energy 16475 keV
+/run/beamOn 1000000
+/gun/energy 16485 keV
+/run/beamOn 1000000
+/gun/energy 16495 keV
+/run/beamOn 1000000
+/gun/energy 16505 keV
+/run/beamOn 1000000
+/gun/energy 16515 keV
+/run/beamOn 1000000
+/gun/energy 16525 keV
+/run/beamOn 1000000
+/gun/energy 16535 keV
+/run/beamOn 1000000
+/gun/energy 16545 keV
+/run/beamOn 1000000
+/gun/energy 16555 keV
+/run/beamOn 1000000
+/gun/energy 16565 keV
+/run/beamOn 1000000
+/gun/energy 16575 keV
+/run/beamOn 1000000
+/gun/energy 16585 keV
+/run/beamOn 1000000
+/gun/energy 16595 keV
+/run/beamOn 1000000
+/gun/energy 16605 keV
+/run/beamOn 1000000
+/gun/energy 16615 keV
+/run/beamOn 1000000
+/gun/energy 16625 keV
+/run/beamOn 1000000
+/gun/energy 16635 keV
+/run/beamOn 1000000
+/gun/energy 16645 keV
+/run/beamOn 1000000
+/gun/energy 16655 keV
+/run/beamOn 1000000
+/gun/energy 16665 keV
+/run/beamOn 1000000
+/gun/energy 16675 keV
+/run/beamOn 1000000
+/gun/energy 16685 keV
+/run/beamOn 1000000
+/gun/energy 16695 keV
+/run/beamOn 1000000
+/gun/energy 16705 keV
+/run/beamOn 1000000
+/gun/energy 16715 keV
+/run/beamOn 1000000
+/gun/energy 16725 keV
+/run/beamOn 1000000
+/gun/energy 16735 keV
+/run/beamOn 1000000
+/gun/energy 16745 keV
+/run/beamOn 1000000
+/gun/energy 16755 keV
+/run/beamOn 1000000
+/gun/energy 16765 keV
+/run/beamOn 1000000
+/gun/energy 16775 keV
+/run/beamOn 1000000
+/gun/energy 16785 keV
+/run/beamOn 1000000
+/gun/energy 16795 keV
+/run/beamOn 1000000
+/gun/energy 16805 keV
+/run/beamOn 1000000
+/gun/energy 16815 keV
+/run/beamOn 1000000
+/gun/energy 16825 keV
+/run/beamOn 1000000
+/gun/energy 16835 keV
+/run/beamOn 1000000
+/gun/energy 16845 keV
+/run/beamOn 1000000
+/gun/energy 16855 keV
+/run/beamOn 1000000
+/gun/energy 16865 keV
+/run/beamOn 1000000
+/gun/energy 16875 keV
+/run/beamOn 1000000
+/gun/energy 16885 keV
+/run/beamOn 1000000
+/gun/energy 16895 keV
+/run/beamOn 1000000
+/gun/energy 16905 keV
+/run/beamOn 1000000
+/gun/energy 16915 keV
+/run/beamOn 1000000
+/gun/energy 16925 keV
+/run/beamOn 1000000
+/gun/energy 16935 keV
+/run/beamOn 1000000
+/gun/energy 16945 keV
+/run/beamOn 1000000
+/gun/energy 16955 keV
+/run/beamOn 1000000
+/gun/energy 16965 keV
+/run/beamOn 1000000
+/gun/energy 16975 keV
+/run/beamOn 1000000
+/gun/energy 16985 keV
+/run/beamOn 1000000
+/gun/energy 16995 keV
+/run/beamOn 1000000
+/gun/energy 17005 keV
+/run/beamOn 1000000
+/gun/energy 17015 keV
+/run/beamOn 1000000
+/gun/energy 17025 keV
+/run/beamOn 1000000
+/gun/energy 17035 keV
+/run/beamOn 1000000
+/gun/energy 17045 keV
+/run/beamOn 1000000
+/gun/energy 17055 keV
+/run/beamOn 1000000
+/gun/energy 17065 keV
+/run/beamOn 1000000
+/gun/energy 17075 keV
+/run/beamOn 1000000
+/gun/energy 17085 keV
+/run/beamOn 1000000
+/gun/energy 17095 keV
+/run/beamOn 1000000
+/gun/energy 17105 keV
+/run/beamOn 1000000
+/gun/energy 17115 keV
+/run/beamOn 1000000
+/gun/energy 17125 keV
+/run/beamOn 1000000
+/gun/energy 17135 keV
+/run/beamOn 1000000
+/gun/energy 17145 keV
+/run/beamOn 1000000
+/gun/energy 17155 keV
+/run/beamOn 1000000
+/gun/energy 17165 keV
+/run/beamOn 1000000
+/gun/energy 17175 keV
+/run/beamOn 1000000
+/gun/energy 17185 keV
+/run/beamOn 1000000
+/gun/energy 17195 keV
+/run/beamOn 1000000
+/gun/energy 17205 keV
+/run/beamOn 1000000
+/gun/energy 17215 keV
+/run/beamOn 1000000
+/gun/energy 17225 keV
+/run/beamOn 1000000
+/gun/energy 17235 keV
+/run/beamOn 1000000
+/gun/energy 17245 keV
+/run/beamOn 1000000
+/gun/energy 17255 keV
+/run/beamOn 1000000
+/gun/energy 17265 keV
+/run/beamOn 1000000
+/gun/energy 17275 keV
+/run/beamOn 1000000
+/gun/energy 17285 keV
+/run/beamOn 1000000
+/gun/energy 17295 keV
+/run/beamOn 1000000
+/gun/energy 17305 keV
+/run/beamOn 1000000
+/gun/energy 17315 keV
+/run/beamOn 1000000
+/gun/energy 17325 keV
+/run/beamOn 1000000
+/gun/energy 17335 keV
+/run/beamOn 1000000
+/gun/energy 17345 keV
+/run/beamOn 1000000
+/gun/energy 17355 keV
+/run/beamOn 1000000
+/gun/energy 17365 keV
+/run/beamOn 1000000
+/gun/energy 17375 keV
+/run/beamOn 1000000
+/gun/energy 17385 keV
+/run/beamOn 1000000
+/gun/energy 17395 keV
+/run/beamOn 1000000
+/gun/energy 17405 keV
+/run/beamOn 1000000
+/gun/energy 17415 keV
+/run/beamOn 1000000
+/gun/energy 17425 keV
+/run/beamOn 1000000
+/gun/energy 17435 keV
+/run/beamOn 1000000
+/gun/energy 17445 keV
+/run/beamOn 1000000
+/gun/energy 17455 keV
+/run/beamOn 1000000
+/gun/energy 17465 keV
+/run/beamOn 1000000
+/gun/energy 17475 keV
+/run/beamOn 1000000
+/gun/energy 17485 keV
+/run/beamOn 1000000
+/gun/energy 17495 keV
+/run/beamOn 1000000
+/gun/energy 17505 keV
+/run/beamOn 1000000
+/gun/energy 17515 keV
+/run/beamOn 1000000
+/gun/energy 17525 keV
+/run/beamOn 1000000
+/gun/energy 17535 keV
+/run/beamOn 1000000
+/gun/energy 17545 keV
+/run/beamOn 1000000
+/gun/energy 17555 keV
+/run/beamOn 1000000
+/gun/energy 17565 keV
+/run/beamOn 1000000
+/gun/energy 17575 keV
+/run/beamOn 1000000
+/gun/energy 17585 keV
+/run/beamOn 1000000
+/gun/energy 17595 keV
+/run/beamOn 1000000
+/gun/energy 17605 keV
+/run/beamOn 1000000
+/gun/energy 17615 keV
+/run/beamOn 1000000
+/gun/energy 17625 keV
+/run/beamOn 1000000
+/gun/energy 17635 keV
+/run/beamOn 1000000
+/gun/energy 17645 keV
+/run/beamOn 1000000
+/gun/energy 17655 keV
+/run/beamOn 1000000
+/gun/energy 17665 keV
+/run/beamOn 1000000
+/gun/energy 17675 keV
+/run/beamOn 1000000
+/gun/energy 17685 keV
+/run/beamOn 1000000
+/gun/energy 17695 keV
+/run/beamOn 1000000
+/gun/energy 17705 keV
+/run/beamOn 1000000
+/gun/energy 17715 keV
+/run/beamOn 1000000
+/gun/energy 17725 keV
+/run/beamOn 1000000
+/gun/energy 17735 keV
+/run/beamOn 1000000
+/gun/energy 17745 keV
+/run/beamOn 1000000
+/gun/energy 17755 keV
+/run/beamOn 1000000
+/gun/energy 17765 keV
+/run/beamOn 1000000
+/gun/energy 17775 keV
+/run/beamOn 1000000
+/gun/energy 17785 keV
+/run/beamOn 1000000
+/gun/energy 17795 keV
+/run/beamOn 1000000
+/gun/energy 17805 keV
+/run/beamOn 1000000
+/gun/energy 17815 keV
+/run/beamOn 1000000
+/gun/energy 17825 keV
+/run/beamOn 1000000
+/gun/energy 17835 keV
+/run/beamOn 1000000
+/gun/energy 17845 keV
+/run/beamOn 1000000
+/gun/energy 17855 keV
+/run/beamOn 1000000
+/gun/energy 17865 keV
+/run/beamOn 1000000
+/gun/energy 17875 keV
+/run/beamOn 1000000
+/gun/energy 17885 keV
+/run/beamOn 1000000
+/gun/energy 17895 keV
+/run/beamOn 1000000
+/gun/energy 17905 keV
+/run/beamOn 1000000
+/gun/energy 17915 keV
+/run/beamOn 1000000
+/gun/energy 17925 keV
+/run/beamOn 1000000
+/gun/energy 17935 keV
+/run/beamOn 1000000
+/gun/energy 17945 keV
+/run/beamOn 1000000
+/gun/energy 17955 keV
+/run/beamOn 1000000
+/gun/energy 17965 keV
+/run/beamOn 1000000
+/gun/energy 17975 keV
+/run/beamOn 1000000
+/gun/energy 17985 keV
+/run/beamOn 1000000
+/gun/energy 17995 keV
+/run/beamOn 1000000
+/gun/energy 18005 keV
+/run/beamOn 1000000
+/gun/energy 18015 keV
+/run/beamOn 1000000
+/gun/energy 18025 keV
+/run/beamOn 1000000
+/gun/energy 18035 keV
+/run/beamOn 1000000
+/gun/energy 18045 keV
+/run/beamOn 1000000
+/gun/energy 18055 keV
+/run/beamOn 1000000
+/gun/energy 18065 keV
+/run/beamOn 1000000
+/gun/energy 18075 keV
+/run/beamOn 1000000
+/gun/energy 18085 keV
+/run/beamOn 1000000
+/gun/energy 18095 keV
+/run/beamOn 1000000
+/gun/energy 18105 keV
+/run/beamOn 1000000
+/gun/energy 18115 keV
+/run/beamOn 1000000
+/gun/energy 18125 keV
+/run/beamOn 1000000
+/gun/energy 18135 keV
+/run/beamOn 1000000
+/gun/energy 18145 keV
+/run/beamOn 1000000
+/gun/energy 18155 keV
+/run/beamOn 1000000
+/gun/energy 18165 keV
+/run/beamOn 1000000
+/gun/energy 18175 keV
+/run/beamOn 1000000
+/gun/energy 18185 keV
+/run/beamOn 1000000
+/gun/energy 18195 keV
+/run/beamOn 1000000
+/gun/energy 18205 keV
+/run/beamOn 1000000
+/gun/energy 18215 keV
+/run/beamOn 1000000
+/gun/energy 18225 keV
+/run/beamOn 1000000
+/gun/energy 18235 keV
+/run/beamOn 1000000
+/gun/energy 18245 keV
+/run/beamOn 1000000
+/gun/energy 18255 keV
+/run/beamOn 1000000
+/gun/energy 18265 keV
+/run/beamOn 1000000
+/gun/energy 18275 keV
+/run/beamOn 1000000
+/gun/energy 18285 keV
+/run/beamOn 1000000
+/gun/energy 18295 keV
+/run/beamOn 1000000
+/gun/energy 18305 keV
+/run/beamOn 1000000
+/gun/energy 18315 keV
+/run/beamOn 1000000
+/gun/energy 18325 keV
+/run/beamOn 1000000
+/gun/energy 18335 keV
+/run/beamOn 1000000
+/gun/energy 18345 keV
+/run/beamOn 1000000
+/gun/energy 18355 keV
+/run/beamOn 1000000
+/gun/energy 18365 keV
+/run/beamOn 1000000
+/gun/energy 18375 keV
+/run/beamOn 1000000
+/gun/energy 18385 keV
+/run/beamOn 1000000
+/gun/energy 18395 keV
+/run/beamOn 1000000
+/gun/energy 18405 keV
+/run/beamOn 1000000
+/gun/energy 18415 keV
+/run/beamOn 1000000
+/gun/energy 18425 keV
+/run/beamOn 1000000
+/gun/energy 18435 keV
+/run/beamOn 1000000
+/gun/energy 18445 keV
+/run/beamOn 1000000
+/gun/energy 18455 keV
+/run/beamOn 1000000
+/gun/energy 18465 keV
+/run/beamOn 1000000
+/gun/energy 18475 keV
+/run/beamOn 1000000
+/gun/energy 18485 keV
+/run/beamOn 1000000
+/gun/energy 18495 keV
+/run/beamOn 1000000
+/gun/energy 18505 keV
+/run/beamOn 1000000
+/gun/energy 18515 keV
+/run/beamOn 1000000
+/gun/energy 18525 keV
+/run/beamOn 1000000
+/gun/energy 18535 keV
+/run/beamOn 1000000
+/gun/energy 18545 keV
+/run/beamOn 1000000
+/gun/energy 18555 keV
+/run/beamOn 1000000
+/gun/energy 18565 keV
+/run/beamOn 1000000
+/gun/energy 18575 keV
+/run/beamOn 1000000
+/gun/energy 18585 keV
+/run/beamOn 1000000
+/gun/energy 18595 keV
+/run/beamOn 1000000
+/gun/energy 18605 keV
+/run/beamOn 1000000
+/gun/energy 18615 keV
+/run/beamOn 1000000
+/gun/energy 18625 keV
+/run/beamOn 1000000
+/gun/energy 18635 keV
+/run/beamOn 1000000
+/gun/energy 18645 keV
+/run/beamOn 1000000
+/gun/energy 18655 keV
+/run/beamOn 1000000
+/gun/energy 18665 keV
+/run/beamOn 1000000
+/gun/energy 18675 keV
+/run/beamOn 1000000
+/gun/energy 18685 keV
+/run/beamOn 1000000
+/gun/energy 18695 keV
+/run/beamOn 1000000
+/gun/energy 18705 keV
+/run/beamOn 1000000
+/gun/energy 18715 keV
+/run/beamOn 1000000
+/gun/energy 18725 keV
+/run/beamOn 1000000
+/gun/energy 18735 keV
+/run/beamOn 1000000
+/gun/energy 18745 keV
+/run/beamOn 1000000
+/gun/energy 18755 keV
+/run/beamOn 1000000
+/gun/energy 18765 keV
+/run/beamOn 1000000
+/gun/energy 18775 keV
+/run/beamOn 1000000
+/gun/energy 18785 keV
+/run/beamOn 1000000
+/gun/energy 18795 keV
+/run/beamOn 1000000
+/gun/energy 18805 keV
+/run/beamOn 1000000
+/gun/energy 18815 keV
+/run/beamOn 1000000
+/gun/energy 18825 keV
+/run/beamOn 1000000
+/gun/energy 18835 keV
+/run/beamOn 1000000
+/gun/energy 18845 keV
+/run/beamOn 1000000
+/gun/energy 18855 keV
+/run/beamOn 1000000
+/gun/energy 18865 keV
+/run/beamOn 1000000
+/gun/energy 18875 keV
+/run/beamOn 1000000
+/gun/energy 18885 keV
+/run/beamOn 1000000
+/gun/energy 18895 keV
+/run/beamOn 1000000
+/gun/energy 18905 keV
+/run/beamOn 1000000
+/gun/energy 18915 keV
+/run/beamOn 1000000
+/gun/energy 18925 keV
+/run/beamOn 1000000
+/gun/energy 18935 keV
+/run/beamOn 1000000
+/gun/energy 18945 keV
+/run/beamOn 1000000
+/gun/energy 18955 keV
+/run/beamOn 1000000
+/gun/energy 18965 keV
+/run/beamOn 1000000
+/gun/energy 18975 keV
+/run/beamOn 1000000
+/gun/energy 18985 keV
+/run/beamOn 1000000
+/gun/energy 18995 keV
+/run/beamOn 1000000
+/gun/energy 19005 keV
+/run/beamOn 1000000
+/gun/energy 19015 keV
+/run/beamOn 1000000
+/gun/energy 19025 keV
+/run/beamOn 1000000
+/gun/energy 19035 keV
+/run/beamOn 1000000
+/gun/energy 19045 keV
+/run/beamOn 1000000
+/gun/energy 19055 keV
+/run/beamOn 1000000
+/gun/energy 19065 keV
+/run/beamOn 1000000
+/gun/energy 19075 keV
+/run/beamOn 1000000
+/gun/energy 19085 keV
+/run/beamOn 1000000
+/gun/energy 19095 keV
+/run/beamOn 1000000
+/gun/energy 19105 keV
+/run/beamOn 1000000
+/gun/energy 19115 keV
+/run/beamOn 1000000
+/gun/energy 19125 keV
+/run/beamOn 1000000
+/gun/energy 19135 keV
+/run/beamOn 1000000
+/gun/energy 19145 keV
+/run/beamOn 1000000
+/gun/energy 19155 keV
+/run/beamOn 1000000
+/gun/energy 19165 keV
+/run/beamOn 1000000
+/gun/energy 19175 keV
+/run/beamOn 1000000
+/gun/energy 19185 keV
+/run/beamOn 1000000
+/gun/energy 19195 keV
+/run/beamOn 1000000
+/gun/energy 19205 keV
+/run/beamOn 1000000
+/gun/energy 19215 keV
+/run/beamOn 1000000
+/gun/energy 19225 keV
+/run/beamOn 1000000
+/gun/energy 19235 keV
+/run/beamOn 1000000
+/gun/energy 19245 keV
+/run/beamOn 1000000
+/gun/energy 19255 keV
+/run/beamOn 1000000
+/gun/energy 19265 keV
+/run/beamOn 1000000
+/gun/energy 19275 keV
+/run/beamOn 1000000
+/gun/energy 19285 keV
+/run/beamOn 1000000
+/gun/energy 19295 keV
+/run/beamOn 1000000
+/gun/energy 19305 keV
+/run/beamOn 1000000
+/gun/energy 19315 keV
+/run/beamOn 1000000
+/gun/energy 19325 keV
+/run/beamOn 1000000
+/gun/energy 19335 keV
+/run/beamOn 1000000
+/gun/energy 19345 keV
+/run/beamOn 1000000
+/gun/energy 19355 keV
+/run/beamOn 1000000
+/gun/energy 19365 keV
+/run/beamOn 1000000
+/gun/energy 19375 keV
+/run/beamOn 1000000
+/gun/energy 19385 keV
+/run/beamOn 1000000
+/gun/energy 19395 keV
+/run/beamOn 1000000
+/gun/energy 19405 keV
+/run/beamOn 1000000
+/gun/energy 19415 keV
+/run/beamOn 1000000
+/gun/energy 19425 keV
+/run/beamOn 1000000
+/gun/energy 19435 keV
+/run/beamOn 1000000
+/gun/energy 19445 keV
+/run/beamOn 1000000
+/gun/energy 19455 keV
+/run/beamOn 1000000
+/gun/energy 19465 keV
+/run/beamOn 1000000
+/gun/energy 19475 keV
+/run/beamOn 1000000
+/gun/energy 19485 keV
+/run/beamOn 1000000
+/gun/energy 19495 keV
+/run/beamOn 1000000
+/gun/energy 19505 keV
+/run/beamOn 1000000
+/gun/energy 19515 keV
+/run/beamOn 1000000
+/gun/energy 19525 keV
+/run/beamOn 1000000
+/gun/energy 19535 keV
+/run/beamOn 1000000
+/gun/energy 19545 keV
+/run/beamOn 1000000
+/gun/energy 19555 keV
+/run/beamOn 1000000
+/gun/energy 19565 keV
+/run/beamOn 1000000
+/gun/energy 19575 keV
+/run/beamOn 1000000
+/gun/energy 19585 keV
+/run/beamOn 1000000
+/gun/energy 19595 keV
+/run/beamOn 1000000
+/gun/energy 19605 keV
+/run/beamOn 1000000
+/gun/energy 19615 keV
+/run/beamOn 1000000
+/gun/energy 19625 keV
+/run/beamOn 1000000
+/gun/energy 19635 keV
+/run/beamOn 1000000
+/gun/energy 19645 keV
+/run/beamOn 1000000
+/gun/energy 19655 keV
+/run/beamOn 1000000
+/gun/energy 19665 keV
+/run/beamOn 1000000
+/gun/energy 19675 keV
+/run/beamOn 1000000
+/gun/energy 19685 keV
+/run/beamOn 1000000
+/gun/energy 19695 keV
+/run/beamOn 1000000
+/gun/energy 19705 keV
+/run/beamOn 1000000
+/gun/energy 19715 keV
+/run/beamOn 1000000
+/gun/energy 19725 keV
+/run/beamOn 1000000
+/gun/energy 19735 keV
+/run/beamOn 1000000
+/gun/energy 19745 keV
+/run/beamOn 1000000
+/gun/energy 19755 keV
+/run/beamOn 1000000
+/gun/energy 19765 keV
+/run/beamOn 1000000
+/gun/energy 19775 keV
+/run/beamOn 1000000
+/gun/energy 19785 keV
+/run/beamOn 1000000
+/gun/energy 19795 keV
+/run/beamOn 1000000
+/gun/energy 19805 keV
+/run/beamOn 1000000
+/gun/energy 19815 keV
+/run/beamOn 1000000
+/gun/energy 19825 keV
+/run/beamOn 1000000
+/gun/energy 19835 keV
+/run/beamOn 1000000
+/gun/energy 19845 keV
+/run/beamOn 1000000
+/gun/energy 19855 keV
+/run/beamOn 1000000
+/gun/energy 19865 keV
+/run/beamOn 1000000
+/gun/energy 19875 keV
+/run/beamOn 1000000
+/gun/energy 19885 keV
+/run/beamOn 1000000
+/gun/energy 19895 keV
+/run/beamOn 1000000
+/gun/energy 19905 keV
+/run/beamOn 1000000
+/gun/energy 19915 keV
+/run/beamOn 1000000
+/gun/energy 19925 keV
+/run/beamOn 1000000
+/gun/energy 19935 keV
+/run/beamOn 1000000
+/gun/energy 19945 keV
+/run/beamOn 1000000
+/gun/energy 19955 keV
+/run/beamOn 1000000
+/gun/energy 19965 keV
+/run/beamOn 1000000
+/gun/energy 19975 keV
+/run/beamOn 1000000
+/gun/energy 19985 keV
+/run/beamOn 1000000
+/gun/energy 19995 keV
+/run/beamOn 1000000

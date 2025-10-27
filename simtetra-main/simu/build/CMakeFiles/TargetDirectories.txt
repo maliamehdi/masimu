@@ -1,4 +1,4 @@
-/Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles/simTetra.dir
-/Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles/SimulationTetra.dir
-/Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles/edit_cache.dir
-/Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles/rebuild_cache.dir
+/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles/simTetra.dir
+/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles/SimulationTetra.dir
+/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles/edit_cache.dir
+/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles/rebuild_cache.dir
