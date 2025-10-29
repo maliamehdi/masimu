@@ -7,7 +7,7 @@ set -euo pipefail
 EXE="./simTetra"                         # binaire Geant4
 PARIS_IDS=(50 70 90 110 130 235 262 278 305)  # angles
 NJOBS=4                                  # nb de jobs PAR angle
-NTHREADS=10                              # threads Geant4 par job (optimisé pour 40 cœurs)
+NTHREADS=8                              # threads Geant4 par job (optimisé pour 40 cœurs)
 MAX_PROCS=4                              # nb max de processus concurrents (4×10=40 threads)
 OUTBASE="paris"                          # préfixe pour les tags ROOT
 RESULTS_DIR="../../myanalyse/results_$(date +%Y%m%d_%H%M%S)"

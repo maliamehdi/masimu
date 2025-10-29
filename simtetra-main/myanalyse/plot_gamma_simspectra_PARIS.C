@@ -21,7 +21,7 @@ static std::map<int,std::string> gCopyToLabel = {
 };
 
 void plot_paris(const char* infile = "output_152Eu_smeared0.root",
-                int nbins = 30000,       // binning par défaut
+                int nbins = 3000,       // binning par défaut
                 double emax_keV = 30000 // xmax en keV
                 )
 {
