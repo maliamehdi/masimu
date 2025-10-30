@@ -11,14 +11,14 @@
 class MyActionInitialization : public G4VUserActionInitialization
 {
 public:
-	explicit MyActionInitialization(const G4String& macroFileName = "137Cs.mac");
+	explicit MyActionInitialization(const G4String& macroFileName = "standard.mac");
 	~MyActionInitialization();
 
 	
 	virtual void Build() const;
 	virtual void BuildForMaster() const;
 private:
-	G4String fMacroName = "137Cs.mac"; // nom du macro pour RunAction
+	G4String fMacroName = "standard.mac"; // nom du macro pour RunAction
 
 };
 

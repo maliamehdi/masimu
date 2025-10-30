@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /srv/data/Geant4/masimu-1/simtetra-main/simu
+CMAKE_SOURCE_DIR = /srv/data/Geant4/masimu/simtetra-main/simu
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /srv/data/Geant4/masimu-1/simtetra-main/simu/build
+CMAKE_BINARY_DIR = /srv/data/Geant4/masimu/simtetra-main/simu/build
 
 # Utility rule file for SimulationTetra.
 
@@ -81,6 +81,6 @@ CMakeFiles/SimulationTetra.dir/clean:
 .PHONY : CMakeFiles/SimulationTetra.dir/clean
 
 CMakeFiles/SimulationTetra.dir/depend:
-	cd /srv/data/Geant4/masimu-1/simtetra-main/simu/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /srv/data/Geant4/masimu-1/simtetra-main/simu /srv/data/Geant4/masimu-1/simtetra-main/simu /srv/data/Geant4/masimu-1/simtetra-main/simu/build /srv/data/Geant4/masimu-1/simtetra-main/simu/build /srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles/SimulationTetra.dir/DependInfo.cmake --color=$(COLOR)
+	cd /srv/data/Geant4/masimu/simtetra-main/simu/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /srv/data/Geant4/masimu/simtetra-main/simu /srv/data/Geant4/masimu/simtetra-main/simu /srv/data/Geant4/masimu/simtetra-main/simu/build /srv/data/Geant4/masimu/simtetra-main/simu/build /srv/data/Geant4/masimu/simtetra-main/simu/build/CMakeFiles/SimulationTetra.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/SimulationTetra.dir/depend
 

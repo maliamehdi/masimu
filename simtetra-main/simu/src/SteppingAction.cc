@@ -6,74 +6,142 @@
 #include "G4RunManager.hh"
 #include "G4LogicalVolume.hh"
 #include "G4VTouchable.hh"
-#include "G4ThreeVector.hh"
 #include "G4ParticleDefinition.hh"
-#include "G4AnalysisManager.hh"
+#include "G4Neutron.hh"
+#include "G4Triton.hh"
+#include "G4Proton.hh"
 #include "G4SystemOfUnits.hh"
+
+#include <algorithm>
 
 MySteppingAction::MySteppingAction(MyEventAction* eventAction)
 : fEventAction(eventAction) {}
 
-void MySteppingAction::UserSteppingAction(const G4Step* step)
-{
-  // Filtrer : seulement si on est dans une des cellules
+// --------- Helpers ----------
+G4bool MySteppingAction::IsNeutron(const G4Track* t) {
+  return t && t->GetParticleDefinition() == G4Neutron::NeutronDefinition();
+}
+G4bool MySteppingAction::IsBelow1eV(const G4Track* t) {
+  return t && t->GetKineticEnergy() < 1.0*eV;
+}
+G4bool MySteppingAction::InHe3Cell(const G4Step* step) {
   const auto* pre = step->GetPreStepPoint();
-  auto touch = pre->GetTouchableHandle();
-  auto* lv = touch->GetVolume()->GetLogicalVolume();
+  const auto  touch = pre->GetTouchableHandle();
+  const auto* lv = touch->GetVolume()->GetLogicalVolume();
 
   const auto* det =
-    static_cast<const MyDetectorConstruction*>(G4RunManager::GetRunManager()->GetUserDetectorConstruction());
+    static_cast<const MyDetectorConstruction*>(
+      G4RunManager::GetRunManager()->GetUserDetectorConstruction());
 
   auto* v1 = det->GetScoringVolumeOne();
   auto* v2 = det->GetScoringVolumeTwo();
   auto* v3 = det->GetScoringVolumeThree();
   auto* v4 = det->GetScoringVolumeFour();
-  if (lv != v1 && lv != v2 && lv != v3 && lv != v4) return;
 
-  // Exemple : enregistrer le premier pas d’un triton entrant
-  const auto* trk  = step->GetTrack();
-  const auto* part = trk->GetParticleDefinition();
-  if (part->GetParticleName() != "triton" || !step->IsFirstStepInVolume()) return;
-
-  auto* man = G4AnalysisManager::Instance();
-
-  // --- Ntuple 0: "Hits" -> [EventID(int), fX, fY, fZ, fTime]
-  const auto* evt = G4RunManager::GetRunManager()->GetCurrentEvent();
-  const G4int eventID = evt ? evt->GetEventID() : -1;
-  const auto posW = pre->GetPosition();                 // position MONDE du pas
-  const auto t    = pre->GetGlobalTime();
-
-  // ntuple 1 : TritonHits
-    // man->FillNtupleIColumn(1, 0, eventID);
-    // man->FillNtupleDColumn(1, 1, posW.x()/mm);
-    // man->FillNtupleDColumn(1, 2, posW.y()/mm);
-    // man->FillNtupleDColumn(1, 3, posW.z()/mm);
-    // man->FillNtupleDColumn(1, 4, t/ns);
-    // man->AddNtupleRow(1);
-
-    // ntuple 2 : Rings
-    // --- Ntuple 2: "Rings" -> [RingN(double)]
-    const G4double r = posW.perp()/mm;  // rayon dans le plan transverse (monde)
-    // Calcule un entier (1..4) selon r
-    G4int ring = 0;
-    if      (r >   0. && r <= 100.) ring = 1;
-    else if (r > 100. && r <= 150.) ring = 2;
-    else if (r > 150. && r <= 200.) ring = 3;
-    else if (r > 200. && r <= 250.) ring = 4;
-    
-    // Remplir le ntuple Rings (comme avant)
-    // man->FillNtupleIColumn(2, 0, eventID);
-    // man->FillNtupleIColumn(2, 1, static_cast<G4int>(ring));
-    // man->AddNtupleRow(2);
-    
-    // Nouveau : compter le hit pour ce ring dans EventAction
-    if (ring > 0) {
-      fEventAction->AddHitToRing(ring);
-    }
+  return (lv == v1 || lv == v2 || lv == v3 || lv == v4);
+}
+G4bool MySteppingAction::AtWorldBoundary(const G4Step* step) {
+  auto status = step->GetPostStepPoint()->GetStepStatus();
+  if (status == fWorldBoundary) return true;
+  const auto* postPV = step->GetPostStepPoint()->GetPhysicalVolume();
+  return (postPV == nullptr);
 }
 
-  // IMPORTANT :
-  //   L’énergie déposée dans Ce/NaI est mesurée par les SDs (G4PSEnergyDeposit)
-  //   et consolidée dans MyEventAction via les hits maps.
-  // - Si tu veux logger autre chose par pas (par ex. des diagnostics), tu peux
-  //   le faire ici, mais garde la physique « principale » dans les SD.
+void MySteppingAction::EnsureEventSync() {
+  const auto* evt = G4RunManager::GetRunManager()->GetCurrentEvent();
+  const G4int eid = evt ? evt->GetEventID() : -1;
+  if (eid != fLastEventID) {
+    fLastEventID = eid;
+    fThermRecorded.clear();   fThermTime_ns.clear();
+    fDetectRecorded.clear();  fDetectTime_ns.clear();
+    fEscapedRecorded.clear();
+  }
+}
+
+// --------- Coeur ----------
+void MySteppingAction::UserSteppingAction(const G4Step* step)
+{
+  EnsureEventSync();
+
+  // --- 1) TEMPS DE THERMALISATION : première fois E_n < 1 eV
+  {
+    const auto* trk = step->GetTrack();
+    if (IsNeutron(trk)) {
+      const G4int tid = trk->GetTrackID();
+      if (fThermRecorded.find(tid) == fThermRecorded.end() && IsBelow1eV(trk)) {
+        fThermRecorded.insert(tid);
+        const double t_ns = step->GetPostStepPoint()->GetGlobalTime()/ns;
+        fThermTime_ns[tid] = t_ns;
+        if (fEventAction) fEventAction->RegisterNeutronThermalization(tid, t_ns);
+      }
+    }
+  }
+
+  // --- 2) DÉTECTION ³He(n,p)³H : triton/proton créé dans une cellule He-3
+  if (InHe3Cell(step)) {
+    const auto& secs = *step->GetSecondaryInCurrentStep();
+    for (auto* s : secs) {
+      auto* def = s->GetDefinition();
+      // a) Comptage de détection par neutron parent (une seule fois)
+      if (def == G4Triton::TritonDefinition() || def == G4Proton::ProtonDefinition()) {
+        const G4int parentNeutronID = s->GetParentID();
+        if (parentNeutronID > 0 && fDetectRecorded.find(parentNeutronID) == fDetectRecorded.end()) {
+          fDetectRecorded.insert(parentNeutronID);
+          const double t_ns = step->GetPostStepPoint()->GetGlobalTime()/ns;
+          fDetectTime_ns[parentNeutronID] = t_ns;
+          if (fEventAction) {
+            fEventAction->RegisterNeutronDetection(parentNeutronID, t_ns);
+            fEventAction->IncrementDetectedNeutrons();
+          }
+
+        }
+      }
+
+      // b) Enregistrement local du triton (la sauvegarde ROOT se fera en fin d'évènement)
+      if (def == G4Triton::TritonDefinition()) {
+        const auto pos = s->GetPosition();
+        const double t_ns = s->GetGlobalTime()/ns;
+        if (fEventAction) {
+          fEventAction->RegisterTritonBirth(pos.x()/mm, pos.y()/mm, pos.z()/mm, t_ns);
+        }
+      }
+    }
+  }
+
+  // --- 3) NEUTRONS QUI SORTENT DU MONDE
+  {
+    const auto* trk = step->GetTrack();
+    if (IsNeutron(trk)) {
+      const G4int tid = trk->GetTrackID();
+      if (fEscapedRecorded.find(tid) == fEscapedRecorded.end() && AtWorldBoundary(step)) {
+        fEscapedRecorded.insert(tid);
+        if (fEventAction) fEventAction->RegisterNeutronEscaped(tid);
+        // Option: trk->SetTrackStatus(fStopAndKill);
+      }
+    }
+  }
+
+  // --- 4) COMPTAGE DES RINGS (premier pas d’un triton dans une cellule He-3)
+  {
+    const auto* trk  = step->GetTrack();
+    const auto* part = trk->GetParticleDefinition();
+    if (part->GetParticleName() == "triton" && step->IsFirstStepInVolume()) {
+      const auto* pre = step->GetPreStepPoint();
+      auto* lv = pre->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
+
+      const auto* det =
+        static_cast<const MyDetectorConstruction*>(
+          G4RunManager::GetRunManager()->GetUserDetectorConstruction());
+
+      int ring = 0;
+      if      (lv == det->GetScoringVolumeOne())   ring = 1;
+      else if (lv == det->GetScoringVolumeTwo())   ring = 2;
+      else if (lv == det->GetScoringVolumeThree()) ring = 3;
+      else if (lv == det->GetScoringVolumeFour())  ring = 4;
+
+      if (ring > 0 && fEventAction) {
+        fEventAction->AddHitToRing(ring);
+      }
+    }
+  }
+}

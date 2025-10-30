@@ -131,17 +131,19 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     // Gaz cellules He3 + CO2 (inchangé)
     G4double temperatureCell = 293.*kelvin;
     G4double molar_constant  = CLHEP::Avogadro*CLHEP::k_Boltzmann;
+    //To define my pressure values
+    G4double phe=2.0; // pressure in bar units
 
-    G4double pressureCellOne   = 2*bar;
+    G4double pressureCellOne   = phe*bar;
     G4double densityCellOne    = (atomicMass*pressureCellOne)/(temperatureCell*molar_constant);
 
-    G4double pressureCellTwo   = 2*bar;
+    G4double pressureCellTwo   = phe*bar;
     G4double densityCellTwo    = (atomicMass*pressureCellTwo)/(temperatureCell*molar_constant);
 
-    G4double pressureCellThree = 2*bar;
+    G4double pressureCellThree = phe*bar;
     G4double densityCellThree  = (atomicMass*pressureCellThree)/(temperatureCell*molar_constant);
 
-    G4double pressureCellFour  = 2*bar;
+    G4double pressureCellFour  = phe*bar;
     G4double densityCellFour   = (atomicMass*pressureCellFour)/(temperatureCell*molar_constant);
 
     auto gasMixOne = new G4Material("he3GasOne", densityCellOne, 2, kStateGas, temperatureCell, pressureCellOne);

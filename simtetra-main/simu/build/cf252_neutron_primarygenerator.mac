@@ -1,0 +1,13 @@
+# cf252_neutrons_primarygenerator.mac
+#ici je fais appel à mon PrimaryGenerator.cc
+/control/verbose 0
+/run/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+
+# initialise la physique + géométrie
+/run/initialize
+
+# lance N évènements (fissions)
+# (chaque évènement produira multiplicité~Poisson(3.76) neutrons)
+/run/beamOn 100000

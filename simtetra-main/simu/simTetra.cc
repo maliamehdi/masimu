@@ -24,7 +24,16 @@ int main(int argc, char** argv)
   // --- Run manager (choisit tout seul Serial/MT selon la build)
   auto* runManager = G4RunManagerFactory::CreateRunManager();
   #ifdef G4MULTITHREADED
-     runManager->SetNumberOfThreads(G4Threading::G4GetNumberOfCores());
+     // Allow overriding thread count via env or 2nd CLI arg
+     int nThreads = G4Threading::G4GetNumberOfCores();
+     if (const char* envN = std::getenv("G4NUM_THREADS")) {
+       try { nThreads = std::max(1, std::stoi(envN)); } catch (...) {}
+     }
+     if (argc >= 3) {
+       try { nThreads = std::max(1, std::stoi(argv[2])); } catch (...) {}
+     }
+     runManager->SetNumberOfThreads(nThreads);
+     G4cout << "[MT] Using " << nThreads << " threads" << G4endl;
   #endif
 
   // RNG + verbosité unités
@@ -34,7 +43,7 @@ int main(int argc, char** argv)
   // Detector / Physics / Actions
   runManager->SetUserInitialization(new MyDetectorConstruction());
   runManager->SetUserInitialization(new MyPhysicsList());
-  G4String macroName = "137Cs.mac";
+  G4String macroName = "neutron.mac";
   runManager->SetUserInitialization(new MyActionInitialization(macroName));
 
   // Réglages HP (ok ici, avant /run/initialize)
@@ -47,9 +56,8 @@ int main(int argc, char** argv)
   hp->SetUseWendtFissionModel(false);
   hp->SetUseNRESP71Model(false);
 
-  // Visu
-  auto* visManager = new G4VisExecutive();
-  visManager->Initialize();
+  // Visu: init only for interactive UI; skip in batch for speed
+  G4VisManager* visManager = nullptr;
 
   // UI / Batch
   G4UIExecutive* ui = (argc == 1) ? new G4UIExecutive(argc, argv) : nullptr;
@@ -59,6 +67,8 @@ int main(int argc, char** argv)
   std::clock_t cpu_start = std::clock();
 
   if (ui) {
+    visManager = new G4VisExecutive();
+    visManager->Initialize();
     // Choisis ici le macro par défaut
     UImanager->ApplyCommand("/control/execute vis.mac");
     ui->SessionStart();
@@ -89,7 +99,7 @@ int main(int argc, char** argv)
   // }
 
   delete ui;          // 1) ferme l’UI d’abord
-  delete visManager;  // 2) puis la visu
+  delete visManager;  // 2) puis la visu (si non null)
   delete runManager;  // 3) et enfin le run manager (dernier)
 
   return 0;

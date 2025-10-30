@@ -1,7 +1,7 @@
 CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o: \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/src/DetectorConstruction.cc \
+ /srv/data/Geant4/masimu/simtetra-main/simu/src/DetectorConstruction.cc \
  /usr/include/stdc-predef.h \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/include/DetectorConstruction.hh \
+ /srv/data/Geant4/masimu/simtetra-main/simu/include/DetectorConstruction.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VUserDetectorConstruction.hh \
  /opt/geant4/11.2.2/include/Geant4/globals.hh \
  /opt/geant4/11.2.2/include/Geant4/G4ios.hh \

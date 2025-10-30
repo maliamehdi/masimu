@@ -17,7 +17,7 @@ MyRunAction::MyRunAction(const G4String& macroFileName)
 {
     auto* man = G4AnalysisManager::Instance();
 
-    man->SetVerboseLevel(1);
+  man->SetVerboseLevel(0); // reduce analysis chatter for speed
     #ifdef G4MULTITHREADED
     man->SetNtupleMerging(true);
     #endif
@@ -25,7 +25,8 @@ MyRunAction::MyRunAction(const G4String& macroFileName)
     // 0) Événements (comptes et énergies agrégées)
     man->CreateNtuple("Events","per-event");
     man->CreateNtupleIColumn("EventID");
-    man->CreateNtupleDColumn("nThermalEnter"); // nIn nombre de neutrons détectés
+    man->CreateNtupleIColumn("NNeutronsEmitted"); // nombre de neutrons émis par la source donc nombre d'évènement * multiplicité aléatoire tiré dans la poissonienne
+    man->CreateNtupleDColumn("nDetected"); // nIn nombre de neutrons détectés
     man->CreateNtupleDColumn("EdepCe_keV");
     man->CreateNtupleDColumn("EdepNaI_keV");
     // Hits par ring
@@ -33,6 +34,12 @@ MyRunAction::MyRunAction(const G4String& macroFileName)
     man->CreateNtupleIColumn("HitsRing2");
     man->CreateNtupleIColumn("HitsRing3");
     man->CreateNtupleIColumn("HitsRing4");
+    // ====== NOUVEAU ======
+    man->CreateNtupleDColumn("MeanThermTime_ns");    // moyenne (E<1 eV)
+    //man->CreateNtupleDColumn("MeanDetectTime_ns");   // moyenne (entrée ³He), inutile du coup parce que j'enregistre les temps de création des 3H
+    man->CreateNtupleIColumn("NNeutronsEscaped");    // compte
+    man->CreateNtupleDColumn("lastNeutronTime_ns");    // temps global du dernier neutron (utile pour simuler le deadtime du détecteur)
+    
     man->FinishNtuple(); // index 0
 
     // 1) Hits triton (par entrée dans une cellule)
@@ -67,6 +74,7 @@ MyRunAction::MyRunAction(const G4String& macroFileName)
     man->CreateNtupleDColumn(fTruthRespNtupleId, "EdepCe_keV");   // dépôt Ce (avant smearing)
     man->CreateNtupleDColumn(fTruthRespNtupleId, "EdepNaI_keV");  // dépôt NaI (optionnel)
     man->FinishNtuple();    // index 4
+
 }
 
 MyRunAction::~MyRunAction() {}

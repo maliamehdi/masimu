@@ -19,8 +19,15 @@ MyPhysicsList::MyPhysicsList()
     RegisterPhysics(new G4RadioactiveDecayPhysics());
     RegisterPhysics(new G4EmStandardPhysics());
 
-    RegisterPhysics(new G4EmPenelopePhysics());
+    //RegisterPhysics(new G4EmPenelopePhysics());
     RegisterPhysics( new NeutronHPphysics("neutronHP"));
+}
+
+void MyPhysicsList::SetCuts()
+{
+    // Set relatively generous default cuts to speed up (tune as needed)
+    SetDefaultCutValue(10.0*m);
+    G4VUserPhysicsList::SetCuts();
 }
 
 void MyPhysicsList::ConstructParticle()

@@ -1,0 +1,13 @@
+Input: output_neutron_run0_smeared.root
+Total events: 100000
+Total emitted: 377102
+Total detected: 71774
+Total escaped: 185963 (49.314 %)
+Emitted - Detected: 305328
+Check (Em-Det vs Esc): 305328 vs 185963
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 45819 (eff = 45.819000 %)
+Events (any detection <= gate): 48519 (eff = -1.000000 %)
+Mean measured multiplicity: 0.622620
+Mean average detection time [ns]: 59990.707803
+Mean last detection time [ns]: 71707.628120

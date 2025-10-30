@@ -1,4 +1,4 @@
-# Install script for directory: /srv/data/Geant4/masimu-1/simtetra-main/simu
+# Install script for directory: /srv/data/Geant4/masimu/simtetra-main/simu
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/srv/data/Geant4/masimu-1/simtetra-main/simu/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/srv/data/Geant4/masimu/simtetra-main/simu/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,9 +1,13 @@
 CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/src/SteppingAction.cc \
+ /srv/data/Geant4/masimu/simtetra-main/simu/src/SteppingAction.cc \
  /usr/include/stdc-predef.h \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/include/SteppingAction.hh \
+ /srv/data/Geant4/masimu/simtetra-main/simu/include/SteppingAction.hh \
  /opt/geant4/11.2.2/include/Geant4/G4UserSteppingAction.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Step.hh /usr/include/c++/11/cstdlib \
+ /opt/geant4/11.2.2/include/Geant4/globals.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4ios.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Types.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4GlobalConfig.hh \
+ /usr/include/c++/11/complex \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -14,19 +18,32 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/c++/11/pstl/pstl_config.h \
+ /usr/include/c++/11/bits/cpp_type_traits.h \
+ /usr/include/c++/11/ext/type_traits.h /usr/include/c++/11/cmath \
+ /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
- /usr/include/x86_64-linux-gnu/bits/waitflags.h \
- /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
- /usr/include/x86_64-linux-gnu/bits/floatn.h \
- /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
- /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/x86_64-linux-gnu/sys/types.h \
  /usr/include/x86_64-linux-gnu/bits/types.h \
  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
  /usr/include/x86_64-linux-gnu/bits/time64.h \
+ /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+ /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+ /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
+ /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+ /usr/include/c++/11/bits/std_abs.h /usr/include/stdlib.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
+ /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
@@ -49,18 +66,6 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/c++/11/cmath \
- /usr/include/c++/11/bits/cpp_type_traits.h \
- /usr/include/c++/11/ext/type_traits.h /usr/include/math.h \
- /usr/include/x86_64-linux-gnu/bits/math-vector.h \
- /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
- /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
- /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
- /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
- /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
  /usr/include/c++/11/bits/specfun.h \
  /usr/include/c++/11/bits/stl_algobase.h \
  /usr/include/c++/11/bits/functexcept.h \
@@ -86,11 +91,7 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /usr/include/c++/11/tr1/modified_bessel_func.tcc \
  /usr/include/c++/11/tr1/poly_hermite.tcc \
  /usr/include/c++/11/tr1/poly_laguerre.tcc \
- /usr/include/c++/11/tr1/riemann_zeta.tcc \
- /opt/geant4/11.2.2/include/Geant4/G4ios.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Types.hh \
- /opt/geant4/11.2.2/include/Geant4/G4GlobalConfig.hh \
- /usr/include/c++/11/complex /usr/include/c++/11/sstream \
+ /usr/include/c++/11/tr1/riemann_zeta.tcc /usr/include/c++/11/sstream \
  /usr/include/c++/11/istream /usr/include/c++/11/ios \
  /usr/include/c++/11/iosfwd /usr/include/c++/11/bits/stringfwd.h \
  /usr/include/c++/11/bits/memoryfwd.h /usr/include/c++/11/bits/postypes.h \
@@ -147,8 +148,9 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /usr/include/c++/11/bits/stl_construct.h /usr/include/c++/11/string_view \
  /usr/include/c++/11/bits/functional_hash.h \
  /usr/include/c++/11/bits/string_view.tcc \
- /usr/include/c++/11/ext/string_conversions.h /usr/include/c++/11/cstdio \
- /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+ /usr/include/c++/11/ext/string_conversions.h /usr/include/c++/11/cstdlib \
+ /usr/include/c++/11/cstdio /usr/include/stdio.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
@@ -177,26 +179,17 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /usr/include/c++/11/bits/istream.tcc \
  /usr/include/c++/11/bits/sstream.tcc \
  /opt/geant4/11.2.2/include/Geant4/tls.hh /usr/include/c++/11/iostream \
- /usr/include/c++/11/iomanip /usr/include/c++/11/locale \
- /usr/include/c++/11/bits/locale_facets_nonio.h /usr/include/c++/11/ctime \
- /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
- /usr/include/libintl.h /usr/include/c++/11/bits/codecvt.h \
- /usr/include/c++/11/bits/locale_facets_nonio.tcc \
- /usr/include/c++/11/bits/locale_conv.h \
- /usr/include/c++/11/bits/unique_ptr.h /usr/include/c++/11/utility \
- /usr/include/c++/11/bits/stl_relops.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/array /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
- /usr/include/c++/11/bits/quoted_string.h \
- /opt/geant4/11.2.2/include/Geant4/globals.hh \
- /usr/include/c++/11/algorithm /usr/include/c++/11/bits/stl_algo.h \
+ /usr/include/c++/11/algorithm /usr/include/c++/11/utility \
+ /usr/include/c++/11/bits/stl_relops.h \
+ /usr/include/c++/11/bits/stl_algo.h \
  /usr/include/c++/11/bits/algorithmfwd.h \
  /usr/include/c++/11/bits/stl_heap.h \
  /usr/include/c++/11/bits/stl_tempbuf.h \
  /usr/include/c++/11/bits/uniform_int_dist.h \
  /usr/include/c++/11/pstl/glue_algorithm_defs.h \
- /usr/include/c++/11/functional /usr/include/c++/11/bits/refwrap.h \
+ /usr/include/c++/11/functional /usr/include/c++/11/tuple \
+ /usr/include/c++/11/array /usr/include/c++/11/bits/uses_allocator.h \
+ /usr/include/c++/11/bits/invoke.h /usr/include/c++/11/bits/refwrap.h \
  /usr/include/c++/11/bits/std_function.h \
  /usr/include/c++/11/unordered_map \
  /usr/include/c++/11/ext/aligned_buffer.h \
@@ -227,20 +220,34 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /opt/geant4/11.2.2/include/Geant4/G4Exception.hh \
  /opt/geant4/11.2.2/include/Geant4/G4ExceptionSeverity.hh \
  /opt/geant4/11.2.2/include/Geant4/G4EnvironmentUtils.hh \
- /usr/include/c++/11/map /usr/include/c++/11/bits/stl_tree.h \
- /usr/include/c++/11/bits/stl_map.h \
+ /usr/include/c++/11/iomanip /usr/include/c++/11/locale \
+ /usr/include/c++/11/bits/locale_facets_nonio.h /usr/include/c++/11/ctime \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/11/bits/codecvt.h \
+ /usr/include/c++/11/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/11/bits/locale_conv.h \
+ /usr/include/c++/11/bits/unique_ptr.h \
+ /usr/include/c++/11/bits/quoted_string.h /usr/include/c++/11/map \
+ /usr/include/c++/11/bits/stl_tree.h /usr/include/c++/11/bits/stl_map.h \
  /usr/include/c++/11/bits/stl_multimap.h /usr/include/c++/11/mutex \
  /usr/include/c++/11/chrono /usr/include/c++/11/ratio \
  /usr/include/c++/11/bits/parse_numbers.h \
  /usr/include/c++/11/bits/std_mutex.h \
- /usr/include/c++/11/bits/unique_lock.h \
+ /usr/include/c++/11/bits/unique_lock.h /usr/include/c++/11/unordered_set \
+ /usr/include/c++/11/bits/unordered_set.h \
+ /srv/data/Geant4/masimu/simtetra-main/simu/include/EventAction.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4UserEventAction.hh \
+ /srv/data/Geant4/masimu/simtetra-main/simu/include/DetectorConstruction.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VUserDetectorConstruction.hh \
+ /opt/geant4/11.2.2/include/Geant4/globals.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VPhysicalVolume.hh \
+ /opt/geant4/11.2.2/include/Geant4/geomdefs.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4RotationMatrix.hh \
  /opt/geant4/11.2.2/include/Geant4/G4ThreeVector.hh \
  /opt/geant4/11.2.2/include/Geant4/CLHEP/Vector/ThreeVector.h \
  /opt/geant4/11.2.2/include/Geant4/CLHEP/Utility/defs.h \
  /opt/geant4/11.2.2/include/Geant4/CLHEP/Vector/ThreeVector.icc \
- /opt/geant4/11.2.2/include/Geant4/G4VPhysicalVolume.hh \
- /opt/geant4/11.2.2/include/Geant4/geomdefs.hh \
- /opt/geant4/11.2.2/include/Geant4/G4RotationMatrix.hh \
  /opt/geant4/11.2.2/include/Geant4/CLHEP/Vector/Rotation.h \
  /opt/geant4/11.2.2/include/Geant4/CLHEP/Vector/RotationInterfaces.h \
  /opt/geant4/11.2.2/include/Geant4/CLHEP/Vector/LorentzVector.h \
@@ -272,32 +279,6 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /usr/include/c++/11/bits/std_thread.h /usr/include/c++/11/thread \
  /usr/include/c++/11/bits/this_thread_sleep.h \
  /opt/geant4/11.2.2/include/Geant4/G4VPhysicalVolume.icc \
- /opt/geant4/11.2.2/include/Geant4/G4StepPoint.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Allocator.hh \
- /usr/include/c++/11/cstddef \
- /opt/geant4/11.2.2/include/Geant4/G4AllocatorPool.hh \
- /opt/geant4/11.2.2/include/Geant4/G4SteppingControl.hh \
- /opt/geant4/11.2.2/include/Geant4/G4StepStatus.hh \
- /opt/geant4/11.2.2/include/Geant4/G4TouchableHandle.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VTouchable.hh \
- /opt/geant4/11.2.2/include/Geant4/G4TouchableHistory.hh \
- /opt/geant4/11.2.2/include/Geant4/G4NavigationHistory.hh \
- /usr/include/assert.h \
- /opt/geant4/11.2.2/include/Geant4/G4AffineTransform.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Transform3D.hh \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Geometry/Transform3D.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Geometry/Transform3D.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Geometry/Point3D.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Geometry/BasicVector3D.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Geometry/Vector3D.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Geometry/Normal3D.h \
- /opt/geant4/11.2.2/include/Geant4/G4AffineTransform.icc \
- /opt/geant4/11.2.2/include/Geant4/G4NavigationLevel.hh \
- /opt/geant4/11.2.2/include/Geant4/G4NavigationLevelRep.hh \
- /opt/geant4/11.2.2/include/Geant4/G4NavigationLevelRep.icc \
- /opt/geant4/11.2.2/include/Geant4/G4NavigationLevel.icc \
- /opt/geant4/11.2.2/include/Geant4/G4NavigationHistoryPool.hh \
- /opt/geant4/11.2.2/include/Geant4/G4NavigationHistory.icc \
  /opt/geant4/11.2.2/include/Geant4/G4LogicalVolume.hh \
  /usr/include/c++/11/memory \
  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
@@ -307,9 +288,63 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /usr/include/c++/11/pstl/glue_memory_defs.h \
  /opt/geant4/11.2.2/include/Geant4/G4Region.hh \
  /opt/geant4/11.2.2/include/Geant4/G4Region.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4VPhysicalVolume.hh \
  /opt/geant4/11.2.2/include/Geant4/G4LogicalVolume.icc \
- /opt/geant4/11.2.2/include/Geant4/G4TouchableHistory.icc \
- /opt/geant4/11.2.2/include/Geant4/G4ReferenceCountedHandle.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Box.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4GeomTypes.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4GeomConfig.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4CSGSolid.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VSolid.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VSolid.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4Polyhedron.hh \
+ /opt/geant4/11.2.2/include/Geant4/HepPolyhedron.h \
+ /opt/geant4/11.2.2/include/Geant4/G4TwoVector.hh \
+ /opt/geant4/11.2.2/include/Geant4/CLHEP/Vector/TwoVector.h \
+ /opt/geant4/11.2.2/include/Geant4/CLHEP/Vector/TwoVector.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4Point3D.hh \
+ /opt/geant4/11.2.2/include/Geant4/CLHEP/Geometry/Point3D.h \
+ /opt/geant4/11.2.2/include/Geant4/CLHEP/Geometry/BasicVector3D.h \
+ /opt/geant4/11.2.2/include/Geant4/G4Normal3D.hh \
+ /opt/geant4/11.2.2/include/Geant4/CLHEP/Geometry/Normal3D.h \
+ /opt/geant4/11.2.2/include/Geant4/G4Transform3D.hh \
+ /opt/geant4/11.2.2/include/Geant4/CLHEP/Geometry/Transform3D.h \
+ /opt/geant4/11.2.2/include/Geant4/CLHEP/Geometry/Transform3D.icc \
+ /opt/geant4/11.2.2/include/Geant4/CLHEP/Geometry/Vector3D.h \
+ /opt/geant4/11.2.2/include/Geant4/G4Visible.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Visible.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4Box.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4Tubs.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Tubs.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4Polyhedra.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VCSGfaceted.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4PolyhedraSide.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VCSGface.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4PolyhedraHistorical.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Polyhedra.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4Sphere.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Sphere.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4ExtrudedSolid.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4TessellatedSolid.hh \
+ /usr/include/c++/11/set /usr/include/c++/11/bits/stl_set.h \
+ /usr/include/c++/11/bits/stl_multiset.h \
+ /opt/geant4/11.2.2/include/Geant4/G4Voxelizer.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4SurfBits.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Box.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VFacet.hh \
+ /opt/geant4/11.2.2/include/Geant4/windefs.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Voxelizer.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4ExtrudedSolid.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4UnionSolid.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4BooleanSolid.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4DisplacedSolid.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4AffineTransform.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4AffineTransform.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4VBooleanProcessor.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4BooleanSolid.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4SubtractionSolid.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4PVPlacement.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4NistManager.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4ICRU90StoppingData.hh \
  /opt/geant4/11.2.2/include/Geant4/G4Material.hh \
  /opt/geant4/11.2.2/include/Geant4/G4Element.hh \
  /opt/geant4/11.2.2/include/Geant4/G4ElementTable.hh \
@@ -335,82 +370,7 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /opt/geant4/11.2.2/include/Geant4/G4SandiaTable.hh \
  /opt/geant4/11.2.2/include/Geant4/G4OrderedTable.hh \
  /opt/geant4/11.2.2/include/Geant4/G4DataVector.hh \
- /opt/geant4/11.2.2/include/Geant4/G4DataVector.icc \
- /opt/geant4/11.2.2/include/Geant4/G4StepPoint.icc \
- /opt/geant4/11.2.2/include/Geant4/G4TrackVector.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Profiler.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Profiler.icc \
- /opt/geant4/11.2.2/include/Geant4/PTL/Globals.hh \
- /opt/geant4/11.2.2/include/Geant4/PTL/Types.hh \
- /opt/geant4/11.2.2/include/Geant4/PTL/Utility.hh /usr/include/c++/11/set \
- /usr/include/c++/11/bits/stl_set.h \
- /usr/include/c++/11/bits/stl_multiset.h \
- /opt/geant4/11.2.2/include/Geant4/G4Step.icc \
- /opt/geant4/11.2.2/include/Geant4/G4Track.hh \
- /opt/geant4/11.2.2/include/Geant4/trkdefs.hh \
- /opt/geant4/11.2.2/include/Geant4/G4DynamicParticle.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ElectronOccupancy.hh \
- /opt/geant4/11.2.2/include/Geant4/pwdefs.hh \
- /opt/geant4/11.2.2/include/Geant4/G4LorentzVector.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleDefinition.hh \
- /opt/geant4/11.2.2/include/Geant4/G4PDefManager.hh \
- /usr/include/c++/11/stdlib.h \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleDefinition.icc \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleMomentum.hh \
- /opt/geant4/11.2.2/include/Geant4/G4DynamicParticle.icc \
- /opt/geant4/11.2.2/include/Geant4/G4TrackStatus.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VUserTrackInformation.hh \
- /opt/geant4/11.2.2/include/Geant4/G4PhysicsModelCatalog.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Track.icc \
- /opt/geant4/11.2.2/include/Geant4/G4Step.hh \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/include/DetectorConstruction.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VUserDetectorConstruction.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VPhysicalVolume.hh \
- /opt/geant4/11.2.2/include/Geant4/G4LogicalVolume.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Box.hh \
- /opt/geant4/11.2.2/include/Geant4/G4GeomTypes.hh \
- /opt/geant4/11.2.2/include/Geant4/G4GeomConfig.hh \
- /opt/geant4/11.2.2/include/Geant4/G4CSGSolid.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VSolid.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VSolid.icc \
- /opt/geant4/11.2.2/include/Geant4/G4Polyhedron.hh \
- /opt/geant4/11.2.2/include/Geant4/HepPolyhedron.h \
- /opt/geant4/11.2.2/include/Geant4/G4TwoVector.hh \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Vector/TwoVector.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Vector/TwoVector.icc \
- /opt/geant4/11.2.2/include/Geant4/G4Point3D.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Normal3D.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Visible.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Visible.icc \
- /opt/geant4/11.2.2/include/Geant4/G4Box.icc \
- /opt/geant4/11.2.2/include/Geant4/G4Tubs.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Tubs.icc \
- /opt/geant4/11.2.2/include/Geant4/G4Polyhedra.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VCSGfaceted.hh \
- /opt/geant4/11.2.2/include/Geant4/G4PolyhedraSide.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VCSGface.hh \
- /opt/geant4/11.2.2/include/Geant4/G4PolyhedraHistorical.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Polyhedra.icc \
- /opt/geant4/11.2.2/include/Geant4/G4Sphere.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Sphere.icc \
- /opt/geant4/11.2.2/include/Geant4/G4ExtrudedSolid.hh \
- /opt/geant4/11.2.2/include/Geant4/G4TessellatedSolid.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Voxelizer.hh \
- /opt/geant4/11.2.2/include/Geant4/G4SurfBits.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Box.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VFacet.hh \
- /opt/geant4/11.2.2/include/Geant4/windefs.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Voxelizer.icc \
- /opt/geant4/11.2.2/include/Geant4/G4ExtrudedSolid.icc \
- /opt/geant4/11.2.2/include/Geant4/G4UnionSolid.hh \
- /opt/geant4/11.2.2/include/Geant4/G4BooleanSolid.hh \
- /opt/geant4/11.2.2/include/Geant4/G4DisplacedSolid.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VBooleanProcessor.hh \
- /opt/geant4/11.2.2/include/Geant4/G4BooleanSolid.icc \
- /opt/geant4/11.2.2/include/Geant4/G4SubtractionSolid.hh \
- /opt/geant4/11.2.2/include/Geant4/G4PVPlacement.hh \
- /opt/geant4/11.2.2/include/Geant4/G4NistManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ICRU90StoppingData.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4DataVector.icc /usr/include/assert.h \
  /opt/geant4/11.2.2/include/Geant4/G4NistElementBuilder.hh \
  /opt/geant4/11.2.2/include/Geant4/G4NistMaterialBuilder.hh \
  /opt/geant4/11.2.2/include/Geant4/G4Pow.hh \
@@ -453,7 +413,7 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /usr/include/xercesc/util/BaseRefVectorOf.hpp \
  /usr/include/xercesc/util/ArrayIndexOutOfBoundsException.hpp \
  /usr/include/xercesc/util/XMLException.hpp \
- /usr/include/xercesc/util/XMemory.hpp \
+ /usr/include/xercesc/util/XMemory.hpp /usr/include/c++/11/stdlib.h \
  /usr/include/xercesc/util/XMLExceptMsgs.hpp \
  /usr/include/xercesc/dom/DOMError.hpp \
  /usr/include/xercesc/util/XMLUni.hpp \
@@ -583,6 +543,20 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /opt/geant4/11.2.2/include/Geant4/G4GDMLParameterisation.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VPVParameterisation.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VVolumeMaterialScanner.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VTouchable.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4TouchableHistory.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4NavigationHistory.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4NavigationLevel.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4NavigationLevelRep.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Allocator.hh \
+ /usr/include/c++/11/cstddef \
+ /opt/geant4/11.2.2/include/Geant4/G4AllocatorPool.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4NavigationLevelRep.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4NavigationLevel.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4NavigationHistoryPool.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4NavigationHistory.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4LogicalVolume.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4TouchableHistory.icc \
  /opt/geant4/11.2.2/include/Geant4/G4Trd.hh \
  /opt/geant4/11.2.2/include/Geant4/G4Trd.icc \
  /opt/geant4/11.2.2/include/Geant4/G4Trap.hh \
@@ -619,6 +593,8 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /opt/geant4/11.2.2/include/Geant4/G4GDMLMessenger.hh \
  /opt/geant4/11.2.2/include/Geant4/G4TransportationManager.hh \
  /opt/geant4/11.2.2/include/Geant4/G4Navigator.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4TouchableHandle.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4ReferenceCountedHandle.hh \
  /opt/geant4/11.2.2/include/Geant4/G4NormalNavigation.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VNavigation.hh \
  /opt/geant4/11.2.2/include/Geant4/G4AuxiliaryNavServices.hh \
@@ -657,6 +633,33 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /opt/geant4/11.2.2/include/Geant4/G4CollectionNameVector.hh \
  /opt/geant4/11.2.2/include/Geant4/G4HCofThisEvent.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VHitsCollection.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Step.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4StepPoint.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4SteppingControl.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4StepStatus.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4StepPoint.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4TrackVector.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Profiler.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Profiler.icc \
+ /opt/geant4/11.2.2/include/Geant4/PTL/Globals.hh \
+ /opt/geant4/11.2.2/include/Geant4/PTL/Types.hh \
+ /opt/geant4/11.2.2/include/Geant4/PTL/Utility.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Step.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4Track.hh \
+ /opt/geant4/11.2.2/include/Geant4/trkdefs.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4DynamicParticle.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4ElectronOccupancy.hh \
+ /opt/geant4/11.2.2/include/Geant4/pwdefs.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4LorentzVector.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4ParticleDefinition.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4PDefManager.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4ParticleDefinition.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4ParticleMomentum.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4DynamicParticle.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4TrackStatus.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VUserTrackInformation.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4PhysicsModelCatalog.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Track.icc \
  /opt/geant4/11.2.2/include/Geant4/G4VHit.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VReadOutGeometry.hh \
  /opt/geant4/11.2.2/include/Geant4/G4SensitiveVolumeList.hh \
@@ -676,9 +679,7 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /opt/geant4/11.2.2/include/Geant4/G4LogicalVolumeStore.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VStoreNotifier.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VNotifier.hh \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/include/EventAction.hh \
- /opt/geant4/11.2.2/include/Geant4/G4UserEventAction.hh \
- /opt/geant4/11.2.2/include/Geant4/globals.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Step.hh \
  /opt/geant4/11.2.2/include/Geant4/G4RunManager.hh \
  /opt/geant4/11.2.2/include/Geant4/G4Event.hh \
  /opt/geant4/11.2.2/include/Geant4/evtdefs.hh \
@@ -774,68 +775,9 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: \
  /opt/geant4/11.2.2/include/Geant4/G4RunManagerKernel.hh \
  /opt/geant4/11.2.2/include/Geant4/rundefs.hh /usr/include/c++/11/list \
  /usr/include/c++/11/bits/stl_list.h /usr/include/c++/11/bits/list.tcc \
- /opt/geant4/11.2.2/include/Geant4/G4AnalysisManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4GenericAnalysisManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ToolsAnalysisManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VAnalysisManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4AnalysisManagerState.hh \
- /opt/geant4/11.2.2/include/Geant4/G4AnalysisVerbose.hh \
- /opt/geant4/11.2.2/include/Geant4/G4AnalysisUtilities.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VTBaseHnManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4HnInformation.hh \
- /opt/geant4/11.2.2/include/Geant4/G4BinScheme.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Fcn.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VAnalysisManager.icc \
- /opt/geant4/11.2.2/include/Geant4/G4HnManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4BaseAnalysisManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4NtupleBookingManager.hh \
- /opt/geant4/11.2.2/include/Geant4/tools/ntuple_booking \
- /opt/geant4/11.2.2/include/Geant4/tools/cids \
- /opt/geant4/11.2.2/include/Geant4/tools/cid \
- /opt/geant4/11.2.2/include/Geant4/tools/typedefs \
- /opt/geant4/11.2.2/include/Geant4/tools/forit \
- /opt/geant4/11.2.2/include/Geant4/G4NtupleBookingManager.icc \
- /opt/geant4/11.2.2/include/Geant4/G4VNtupleManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VFileManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4BaseFileManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VTHnFileManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4TH1ToolsManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4THnToolsManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4THnManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4THnManager.icc \
- /opt/geant4/11.2.2/include/Geant4/G4THnMessenger.hh \
- /opt/geant4/11.2.2/include/Geant4/G4THnToolsManager.icc \
- /opt/geant4/11.2.2/include/Geant4/G4THnMessenger.icc \
- /opt/geant4/11.2.2/include/Geant4/G4Tokenizer.hh \
- /opt/geant4/11.2.2/include/Geant4/G4TH2ToolsManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4TH3ToolsManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4TP1ToolsManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4TP2ToolsManager.hh \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/h1d \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/h1 \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/b1 \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/base_histo \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/histo_data \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/axes \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/axis \
- /opt/geant4/11.2.2/include/Geant4/tools/eqT \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/h2d \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/h2 \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/b2 \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/h3d \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/h3 \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/b3 \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/p1d \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/p1 \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/profile_data \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/p2d \
- /opt/geant4/11.2.2/include/Geant4/tools/histo/p2 \
- /opt/geant4/11.2.2/include/Geant4/G4ToolsAnalysisManager.icc \
- /opt/geant4/11.2.2/include/Geant4/G4GenericAnalysisManager.icc \
- /opt/geant4/11.2.2/include/Geant4/G4GenericFileManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4GenericFileManager.icc \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/include/EventAction.hh \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/include/DetectorConstruction.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VTouchable.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ThreeVector.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleDefinition.hh
+ /opt/geant4/11.2.2/include/Geant4/G4ParticleDefinition.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Neutron.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Ions.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Triton.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Proton.hh

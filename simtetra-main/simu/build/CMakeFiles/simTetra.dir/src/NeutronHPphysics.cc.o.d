@@ -1,7 +1,7 @@
 CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.o: \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/src/NeutronHPphysics.cc \
+ /srv/data/Geant4/masimu/simtetra-main/simu/src/NeutronHPphysics.cc \
  /usr/include/stdc-predef.h \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/include/NeutronHPphysics.hh \
+ /srv/data/Geant4/masimu/simtetra-main/simu/include/NeutronHPphysics.hh \
  /opt/geant4/11.2.2/include/Geant4/globals.hh \
  /opt/geant4/11.2.2/include/Geant4/G4ios.hh \
  /opt/geant4/11.2.2/include/Geant4/G4Types.hh \

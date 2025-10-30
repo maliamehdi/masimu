@@ -1,7 +1,8 @@
 #include "EventAction.hh"
-#include "RunAction.hh"    
+#include "RunAction.hh"
 #include "DetectorConstruction.hh"
-#include "G4RunManager.hh"// optionnel si tu ne déréférences pas fRunAction
+
+#include "G4RunManager.hh"
 #include "G4Event.hh"
 #include "G4HCofThisEvent.hh"
 #include "G4SDManager.hh"
@@ -12,83 +13,31 @@
 #include "G4PrimaryVertex.hh"
 #include "G4PrimaryParticle.hh"
 #include "G4ParticleDefinition.hh"
-#include "G4SystemOfUnits.hh"
+
 #include <unordered_map>
 #include <map>
 #include <cmath>
 
-
-// Méthodes pour compter les hits par ring
-void MyEventAction::AddHitToRing(G4int ringNumber) {
-  switch(ringNumber) {
-    case 1: fHitsRing1++; break;
-    case 2: fHitsRing2++; break;
-    case 3: fHitsRing3++; break;
-    case 4: fHitsRing4++; break;
-    default: break;
-  }
-}
-
-void MyEventAction::ResetRingCounters() {
-  fHitsRing1 = 0;
-  fHitsRing2 = 0;
-  fHitsRing3 = 0;
-  fHitsRing4 = 0;
-}
 // ---------- Paramètres de résolution par PARIS ----------
 struct ResParams { double resA; double resPower; };
 
-// Valeurs pour le run de calib 152Eu du 05/08/2024 
-// static const std::map<std::string, ResParams> parisRes = { //run du 05/08/2024
-//     {"PARIS50",  {1.12145,  -0.441244}},
-//     {"PARIS70",  {1.80973,  -0.550685}},
-//     {"PARIS90",  {1.94868,  -0.564616}},
-//     {"PARIS110", {2.11922,  -0.582147}},
-//     {"PARIS130", {0.794233, -0.377311}},
-//     {"PARIS235", {1.30727,  -0.477402}},
-//     {"PARIS262", {1.76345,  -0.542769}},
-//     {"PARIS278", {1.98579,  -0.559095}},
-//     {"PARIS305", {1.9886,   -0.574021}}
-// };
-
-//Avec les copy number
-static const std::map<int, ResParams> parisRes = { //run du 05/08/2024
+// Avec les copy-number (ton tableau)
+static const std::map<int, ResParams> parisRes = {
     {0,  {1.12145,  -0.441244}},
     {1,  {1.80973,  -0.550685}},
     {2,  {1.94868,  -0.564616}},
-    {3, {2.11922,  -0.582147}},
-    {4, {0.794233, -0.377311}},
-    {5, {1.30727,  -0.477402}},
-    {6, {1.76345,  -0.542769}},
-    {7, {1.98579,  -0.559095}},
-    {8, {1.9886,   -0.574021}}
+    {3,  {2.11922,  -0.582147}},
+    {4,  {0.794233, -0.377311}},
+    {5,  {1.30727,  -0.477402}},
+    {6,  {1.76345,  -0.542769}},
+    {7,  {1.98579,  -0.559095}},
+    {8,  {1.9886,   -0.574021}}
 };
 
-// Pour les gamma prompt du 252Cf je prends la pire résolution dans le temps pour chaque PARIS
-// static const std::map<int, ResParams> parisRes = { //run du 05/08/2024
-//     {0,  {1.12145,  -0.441244}}, // 05/08 pour PARIS50 
-//     {1,  {1.80973,  -0.550685}}, // 05/08 pour PARIS70 je peux aussi mettre 24/09
-//     {2,  {1.65564,	-0.53887}}, //20/06 pour PARIS90
-//     {3, {1.93549	-0.564697}}, //29/08 pour PARIS110
-//     {4, {0.836128,	-0.368968}}, //17/06 pour PARIS130
-//     {5, {1.30727,  -0.477402}}, //05/08 pour PARIS235
-//     {6, {1.76345,  -0.542769}}, //05/08 pour PARIS262
-//     {7, {1.76703,	-0.536899}}, //07/10 pour PARIS278
-//     {8, {1.30165,	-0.503266}} //20/06 pour PARIS305
-// };
-//Pour les index des différentes partie des PARIS
 // ----- Assembly stride/offsets (5 sous-volumes : housing, Ce, NaI, quartz, seal)
-static constexpr int kStride   = 1;
-static constexpr int kCeOffset = 3;  // Ce = 3,8,13,...
-static constexpr int kNaIOffset= 4;  // NaI= 4,7,...
+static constexpr int kCeOffset  = 3;  // Ce = 3,8,13,...
+static constexpr int kNaIOffset = 4;  // NaI= 4,9,14,...
 
-// Renvoie l’index PARIS (0..N-1) à partir du copy number d’un sous-volume donné
-inline int ParisIndexFromCopy(int copy, int offset) {
-  if (copy < 0) return -1;
-  const int d = copy - offset;
-  //if (d < 0 || (d % kStride) != 0) return -1;
-  return d; // d/kStride;
-}
 // Petit utilitaire pour sommer une HitsMap<G4double>
 namespace {
   G4double SumHitsMap(const G4THitsMap<G4double>* hm) {
@@ -119,7 +68,7 @@ static G4double GetPrimaryGammaEnergyKeV(const G4Event* evt) {
   return 0.0;
 }
 
-// ====== ctor cohérent avec le .hh ======
+// ====== ctor ======
 MyEventAction::MyEventAction(MyRunAction* runAction)
 : fRunAction(runAction) {}
 
@@ -127,17 +76,27 @@ MyEventAction::MyEventAction(MyRunAction* runAction)
 void MyEventAction::BeginOfEventAction(const G4Event* /*evt*/) {
   // Réinitialiser les compteurs de ring au début de chaque événement
   ResetRingCounters();
-  
+  ResetDetectedNeutrons();
+  fNNeutronsEmitted = 0; 
+
+
+  // Réinitialiser les buffers neutrons (mêmes lifetime que l’évènement)
+  fThermTimes_ns.clear();
+  fDetectTimes_ns.clear();
+  fNescaped = 0;
+  // Réinitialiser le buffer des tritons
+  fTritonBirths.clear();
+  // Réinitialiser les buffers par-neutron
+  fNeutronInitE_MeV.clear();
+  fNeutronRing.clear();
+
   if (fHCID_CeEdep < 0) {
     auto* sdm = G4SDManager::GetSDMpointer();
 
-    // IMPORTANT : ces noms doivent matcher EXACTEMENT ce que tu as enregistré
-    // dans ConstructSDandField() : new G4PSEnergyDeposit("edep"), etc.
     fHCID_CeEdep  = sdm->GetCollectionID("CeSD/edep");
     fHCID_NaIEdep = sdm->GetCollectionID("NaISD/edep");
-    fHCID_CellIn  = sdm->GetCollectionID("CellSD/nThermalEnter"); // adapte si ton nom diffère
+    fHCID_CellIn  = sdm->GetCollectionID("CellSD/nThermalEnter"); // compteur (filtré)
 
-    // (Optionnel) avertir si une collection est introuvable
     if (fHCID_CeEdep < 0 || fHCID_NaIEdep < 0 || fHCID_CellIn < 0) {
       G4Exception("MyEventAction::BeginOfEventAction","MissingHCID", JustWarning,
                   "Au moins une hits collection introuvable. Vérifie les noms.");
@@ -153,122 +112,174 @@ G4double MyEventAction::GetHitsMapSum(G4int hcID, const G4Event* evt) const {
   return SumHitsMap(hm);
 }
 
+void MyEventAction::AddHitToRing(G4int ringNumber) {
+  switch(ringNumber) {
+    case 1: ++fHitsRing1; break;
+    case 2: ++fHitsRing2; break;
+    case 3: ++fHitsRing3; break;
+    case 4: ++fHitsRing4; break;
+    default: break;
+  }
+}
+
+void MyEventAction::ResetRingCounters() {
+  fHitsRing1 = fHitsRing2 = fHitsRing3 = fHitsRing4 = 0;
+}
+
 void MyEventAction::EndOfEventAction(const G4Event* evt) {
-  // Totaux par évènement
+  // Totaux par évènement (dep/compteurs)
   const G4double eCe   = GetHitsMapSum(fHCID_CeEdep,  evt);  // MeV
   const G4double eNaI  = GetHitsMapSum(fHCID_NaIEdep, evt);  // MeV
-  const G4double nIn   = GetHitsMapSum(fHCID_CellIn,  evt);  // compteur
-  // Énergie du gamma primaire de l'événement (keV)
+  //const G4double nIn   = GetHitsMapSum(fHCID_CellIn,  evt);  // compteur (filtré n<10 MeV ici)
+  // --- nIn = nb de neutrons détectés via ³He(n,p)³H (tritons)
+  const G4double nIn = static_cast<G4double>(GetDetectedNeutrons());
+
+  // Énergie gamma primaire (utile pour resp; 0 si source neutrons)
   const double Etrue_keV_evt = GetPrimaryGammaEnergyKeV(evt);
 
-   // ===== Par-PARIS (imprint) : lire les hits maps & écrire dans le ntuple #3 =====
+  // Par-PARIS (imprint) : lire les hits maps
   auto* hcevt = evt->GetHCofThisEvent();
-  //if (!hcevt) goto FILL_SUM_ONLY;
+  auto* hmCe  = hcevt ? static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_CeEdep))  : nullptr;
+  auto* hmNaI = hcevt ? static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_NaIEdep)) : nullptr;
 
-  auto* hmCe  = static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_CeEdep));
-  auto* hmNaI = static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_NaIEdep));
-
-  // Accumulateurs : parisIndex -> (eCe, eNaI) en keV (on convertit directement)
+  // Accumulateurs : parisIndex -> (eCe, eNaI) en keV
   std::unordered_map<int, std::pair<G4double,G4double>> byParisIndex;
 
   if (hmCe) {
     for (const auto& kv : *hmCe->GetMap()) {
-      const int copy = kv.first;
-      //G4cout << "DEBUG: copy number Ce = " << copy-3 << G4endl;
-      const int idx  = copy-3;//ParisIndexFromCopy(copy, kCeOffset);
-      if (idx < 0) continue; // clef inattendue
+      const int idx = kv.first - kCeOffset;
+      if (idx < 0) continue;
       const G4double eMeV = (kv.second ? *(kv.second) : 0.);
-      byParisIndex[idx].first += eMeV/keV;  // stocke en keV
+      byParisIndex[idx].first += eMeV/keV;
     }
   }
   if (hmNaI) {
     for (const auto& kv : *hmNaI->GetMap()) {
-      const int copy = kv.first;
-      //G4cout << "DEBUG: copy number NaI = " << copy-4 << G4endl;
-      const int idx  = copy - 4;//ParisIndexFromCopy(copy, kNaIOffset);
+      const int idx = kv.first - kNaIOffset;
       if (idx < 0) continue;
       const G4double eMeV = (kv.second ? *(kv.second) : 0.);
-      byParisIndex[idx].second += eMeV/keV; // keV
+      byParisIndex[idx].second += eMeV/keV;
     }
   }
 
-
-  // Récupère les labels « PARIS50 », … depuis la géométrie
-  const auto* det =static_cast<const MyDetectorConstruction*>(G4RunManager::GetRunManager()->GetUserDetectorConstruction());
-
   auto* man = G4AnalysisManager::Instance();
 
-  // Pour chaque PARIS, applique la résolution (si >0) et remplis le ntuple #3
-  for (const auto& it : byParisIndex) {
-    const int idx = it.first;
-    const std::string& parisName = det->GetParisLabel(idx);   // "PARIS50", ...
+  // ====== 1) Ntuple #0: Events (ordre qui colle à RunAction.cc) ======
+  // Colonnes:
+  // 0:EventID, 1:nThermalEnter, 2:EdepCe_keV, 3:EdepNaI_keV,
+  // 4:HitsRing1, 5:HitsRing2, 6:HitsRing3, 7:HitsRing4,
+  // 8:MeanThermTime_ns, 9:NNeutronsEscaped
+  double meanTherm_ns = -1.0;
+  if (!fThermTimes_ns.empty()) {
+    double sum = 0.0;
+    for (double x : fThermTimes_ns) sum += x;
+    meanTherm_ns = sum / fThermTimes_ns.size();
+  }
 
-    // Énergies (déjà en keV)
+  // --- Compte des neutrons primaires émis sur cet évènement
+int nEmitted = 0;
+for (G4int iv = 0; iv < evt->GetNumberOfPrimaryVertex(); ++iv) {
+  auto* vtx = evt->GetPrimaryVertex(iv);
+  if (!vtx) continue;
+  for (G4int ip = 0; ip < vtx->GetNumberOfParticle(); ++ip) {
+    auto* pp  = vtx->GetPrimary(ip);
+    if (!pp) continue;
+    auto* def = pp->GetParticleDefinition();
+    if (def && def->GetParticleName() == "neutron") ++nEmitted;
+  }
+}
+
+  man->FillNtupleIColumn(0, 0, evt->GetEventID());
+  man->FillNtupleIColumn(0, 1, nEmitted); // nombre de neutrons émis par la source
+  man->FillNtupleDColumn(0, 2, nIn);
+  man->FillNtupleDColumn(0, 3, eCe/keV);
+  man->FillNtupleDColumn(0, 4, eNaI/keV);
+  man->FillNtupleIColumn(0, 5, fHitsRing1);
+  man->FillNtupleIColumn(0, 6, fHitsRing2);
+  man->FillNtupleIColumn(0, 7, fHitsRing3);
+  man->FillNtupleIColumn(0, 8, fHitsRing4);
+  man->FillNtupleDColumn(0, 9, meanTherm_ns);
+  man->FillNtupleIColumn(0, 10, fNescaped); // Comment je le calcule ?
+  // Dernier temps de détection des neutrons de l'évènement
+  double lastDetect_ns = -1.0;
+  if (!fDetectTimes_ns.empty()) {
+    lastDetect_ns = *std::max_element(fDetectTimes_ns.begin(), fDetectTimes_ns.end());
+  }
+  man->FillNtupleDColumn(0, 11, lastDetect_ns);
+
+  man->AddNtupleRow(0);
+
+  // ====== 1bis) Ntuple #1: TritonHits (temps et coordonnées à la création)
+  // Colonnes: 0:EventID, 1:x_mm, 2:y_mm, 3:z_mm, 4:time_ns
+  for (const auto& th : fTritonBirths) {
+    man->FillNtupleIColumn(1, 0, evt->GetEventID());
+    man->FillNtupleDColumn(1, 1, th.x_mm);
+    man->FillNtupleDColumn(1, 2, th.y_mm);
+    man->FillNtupleDColumn(1, 3, th.z_mm);
+    man->FillNtupleDColumn(1, 4, th.t_ns);
+    man->AddNtupleRow(1);
+  }
+
+  // ====== 2) Ntuple #3: ParisEdep (par copie) ======
+  for (const auto& it : byParisIndex) {
+    const int idx = it.first;                 // « copy » logique
     const double Ece_keV  = it.second.first;
     const double Enai_keV = it.second.second;
 
-    // Paramètres de résolution
     auto prm = parisRes.find(idx);
     if (prm == parisRes.end()) {
-      G4Exception("MyEventAction::EndOfEventAction","ParamsNotFound", JustWarning,
-                  ("Pas de paramètres de résolution pour " + parisName).c_str());
       // même si pas de params, on peut sauver les valeurs non-smear
-      // man->FillNtupleIColumn(3, 0, evt->GetEventID());
-      // man->FillNtupleIColumn(3, 1, idx);                // index PARIS
-      // man->FillNtupleDColumn(3, 2, Ece_keV);            // sans smear
-      // man->FillNtupleDColumn(3, 3, Enai_keV);           // sans smear
-      // man->AddNtupleRow(3);
+      man->FillNtupleIColumn(3, 0, evt->GetEventID());
+      man->FillNtupleIColumn(3, 1, idx);
+      man->FillNtupleDColumn(3, 2, Ece_keV);
+      man->FillNtupleDColumn(3, 3, Enai_keV);
+      man->AddNtupleRow(3);
       continue;
     }
     const ResParams& P = prm->second;
 
-    // Smearing uniquement si E>0
+    // Smearing Ce (NaI laissé brut, comme ton code)
     double eResCe_keV  = Ece_keV;
     double eResNaI_keV = Enai_keV;
 
     if (Ece_keV > 0.0) {
-      const double fwhm_Ce  = P.resA * std::pow(Ece_keV,  P.resPower);
-      const double sigma_Ce    = (fwhm_Ce / 2.35) * Ece_keV;  // keV
-      eResCe_keV  = G4RandGauss::shoot(Ece_keV,  std::max(sigma_Ce,  0.0));
+      const double fwhm_Ce = P.resA * std::pow(Ece_keV, P.resPower);
+      const double sigma_Ce = (fwhm_Ce / 2.35) * Ece_keV;
+      eResCe_keV  = G4RandGauss::shoot(Ece_keV, std::max(sigma_Ce, 0.0));
     }
-    // if (Enai_keV > 0.0) {
-    //   const double fwhm_NaI = P.resA * std::pow(Enai_keV, P.resPower);
-    //   const double sigma_NaI   = (fwhm_NaI/ 2.35) * Enai_keV; // keV
-    //   eResNaI_keV = G4RandGauss::shoot(Enai_keV, std::max(sigma_NaI, 0.0));
-    // }
 
-    // Remplissage ntuple #3 : (eventID, parisIndex, eCe_keV_smear, eNaI_keV_smear)
     man->FillNtupleIColumn(3, 0, evt->GetEventID());
     man->FillNtupleIColumn(3, 1, idx);
-    if (eResCe_keV>0)man->FillNtupleDColumn(3, 2, eResCe_keV);
-    if (eResNaI_keV>0) man->FillNtupleDColumn(3, 3, eResNaI_keV);
+    if (eResCe_keV  > 0) man->FillNtupleDColumn(3, 2, eResCe_keV);
+    if (eResNaI_keV > 0) man->FillNtupleDColumn(3, 3, eResNaI_keV);
     man->AddNtupleRow(3);
-    // ======= NEW : Ntuple "resp" (Etrue/Emeas) =======
-    // Pour un seul PARIS à chaque fois
-    const G4int ntid = fRunAction->TruthRespNtupleId(); // ← pas de chiffre en dur
+
+    // ====== 3) Ntuple "resp" (id dynamique) ======
+    const G4int ntid = fRunAction->TruthRespNtupleId();
     if (ntid >= 0) {
       man->FillNtupleIColumn(ntid, 0, evt->GetEventID());
       man->FillNtupleIColumn(ntid, 1, idx);
-      man->FillNtupleDColumn(ntid, 2, Etrue_keV_evt);   // Etrue (mono-énergie GPS)
-      man->FillNtupleDColumn(ntid, 3, eResCe_keV);      // Emeas (Ce smearing)
-      man->FillNtupleDColumn(ntid, 4, Ece_keV);         // dépôt Ce brut
-      man->FillNtupleDColumn(ntid, 5, Enai_keV);        // dépôt NaI brut
+      man->FillNtupleDColumn(ntid, 2, Etrue_keV_evt);  // 0 si source neutrons
+      man->FillNtupleDColumn(ntid, 3, eResCe_keV);
+      man->FillNtupleDColumn(ntid, 4, Ece_keV);
+      man->FillNtupleDColumn(ntid, 5, Enai_keV);
       man->AddNtupleRow(ntid);
     }
   }
-  //FILL_SUM_ONLY: ; // étiquette pour sauter directement au remplissage des totaux si pas de HCEvt
-  // Remplissage du ntuple #0 : (eventID, nIn, eCe_keV, eNaI_keV, HitsRing1, HitsRing2, HitsRing3, HitsRing4)
-  
-  man->FillNtupleIColumn(0, 0, evt->GetEventID());
-  man->FillNtupleDColumn(0, 1, nIn);
-  man->FillNtupleDColumn(0, 2, eCe/keV);
-  man->FillNtupleDColumn(0, 3, eNaI/keV);
-  man->FillNtupleIColumn(0, 4, fHitsRing1);
-  man->FillNtupleIColumn(0, 5, fHitsRing2);
-  man->FillNtupleIColumn(0, 6, fHitsRing3);
-  man->FillNtupleIColumn(0, 7, fHitsRing4);
-  man->AddNtupleRow(0);
-  
 
+  // ====== 4) Ntuple #5: NeutronPrimaries (énergie émise et ring détecté)
+  // Colonnes: 0:EventID, 1:trackID, 2:E_emit_MeV, 3:ring
+  for (const auto& kv : fNeutronInitE_MeV) {
+    const G4int tid = kv.first;
+    const double E_MeV = kv.second;
+    G4int ring = 0;
+    auto itR = fNeutronRing.find(tid);
+    if (itR != fNeutronRing.end()) ring = itR->second;
+
+    man->FillNtupleIColumn(5, 0, evt->GetEventID());
+    man->FillNtupleIColumn(5, 1, tid);
+    man->FillNtupleDColumn(5, 2, E_MeV);
+    man->FillNtupleIColumn(5, 3, ring);
+    man->AddNtupleRow(5);
+  }
 }
-

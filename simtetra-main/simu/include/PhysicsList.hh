@@ -22,6 +22,7 @@ public:
 
 public:
 	void ConstructParticle() override;
+    void SetCuts() override;
 };
 
 #endif

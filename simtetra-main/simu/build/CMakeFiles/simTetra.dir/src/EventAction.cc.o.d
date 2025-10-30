@@ -1,7 +1,7 @@
 CMakeFiles/simTetra.dir/src/EventAction.cc.o: \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/src/EventAction.cc \
+ /srv/data/Geant4/masimu/simtetra-main/simu/src/EventAction.cc \
  /usr/include/stdc-predef.h \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/include/EventAction.hh \
+ /srv/data/Geant4/masimu/simtetra-main/simu/include/EventAction.hh \
  /opt/geant4/11.2.2/include/Geant4/G4UserEventAction.hh \
  /opt/geant4/11.2.2/include/Geant4/globals.hh \
  /opt/geant4/11.2.2/include/Geant4/G4ios.hh \
@@ -235,7 +235,7 @@ CMakeFiles/simTetra.dir/src/EventAction.cc.o: \
  /usr/include/c++/11/bits/parse_numbers.h \
  /usr/include/c++/11/bits/std_mutex.h \
  /usr/include/c++/11/bits/unique_lock.h \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/include/RunAction.hh \
+ /srv/data/Geant4/masimu/simtetra-main/simu/include/RunAction.hh \
  /opt/geant4/11.2.2/include/Geant4/G4UserRunAction.hh \
  /opt/geant4/11.2.2/include/Geant4/G4AnalysisManager.hh \
  /opt/geant4/11.2.2/include/Geant4/G4GenericAnalysisManager.hh \
@@ -338,7 +338,7 @@ CMakeFiles/simTetra.dir/src/EventAction.cc.o: \
  /opt/geant4/11.2.2/include/Geant4/PTL/Types.hh \
  /opt/geant4/11.2.2/include/Geant4/PTL/Utility.hh \
  /usr/include/c++/11/cstddef \
- /srv/data/Geant4/masimu-1/simtetra-main/simu/include/DetectorConstruction.hh \
+ /srv/data/Geant4/masimu/simtetra-main/simu/include/DetectorConstruction.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VUserDetectorConstruction.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VPhysicalVolume.hh \
  /opt/geant4/11.2.2/include/Geant4/geomdefs.hh \
