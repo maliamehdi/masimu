@@ -10,6 +10,9 @@
 
 #include <algorithm>
 #include <ctime>
+#include <cstdlib>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 MyRunAction::MyRunAction(const G4String& macroFileName)
 : G4UserRunAction(),
@@ -17,7 +20,7 @@ MyRunAction::MyRunAction(const G4String& macroFileName)
 {
     auto* man = G4AnalysisManager::Instance();
 
-  man->SetVerboseLevel(0); // reduce analysis chatter for speed
+    man->SetVerboseLevel(0); // reduce analysis chatter for speed
     #ifdef G4MULTITHREADED
     man->SetNtupleMerging(true);
     #endif
@@ -111,7 +114,31 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
 
     // 1) Priorité au TAG (fourni par le script bash)
     if (const char* tag = std::getenv("TAG"); tag && *tag) {
-        G4String outFile = "../../myanalyse/output_" + G4String(tag) + ".root";
+        const char* outdirEnv = std::getenv("OUTDIR");
+        G4String outDir = "../../myanalyse";
+        if (outdirEnv && *outdirEnv) {
+            outDir += "/" + G4String(outdirEnv);
+        } else {
+            outDir += "/" + G4String(tag);
+        }
+
+        // mkdir -p outDir
+        auto ensureDir = [](const std::string& path){
+            if (path.empty()) return;
+            std::string cur;
+            for (size_t i=0; i<path.size(); ++i) {
+                char c = path[i];
+                cur.push_back(c);
+                if (c=='/' || i==path.size()-1) {
+                    if (!cur.empty() && cur!="/") {
+                        mkdir(cur.c_str(), 0755);
+                    }
+                }
+            }
+        };
+        ensureDir(outDir);
+
+        G4String outFile = outDir + "/output_" + G4String(tag) + ".root";
         G4cout << ">>> Ouverture du fichier ROOT (via TAG): " << outFile << G4endl;
         man->OpenFile(outFile);
         return;

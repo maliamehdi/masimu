@@ -5,4 +5,4 @@
 /gun/position 0 0 -5 cm
 /gun/direction 0 0 1
 
-/run/beamOn 10000
+/run/beamOn 100000000

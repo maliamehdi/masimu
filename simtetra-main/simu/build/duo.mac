@@ -1,0 +1,6 @@
+/run/initialize
+/src/mode fixed
+/src/mult 2
+/src/equal true
+/src/neutronEnergy 2. MeV
+/run/beamOn 100000

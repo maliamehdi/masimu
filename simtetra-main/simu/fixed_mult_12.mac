@@ -1,0 +1,6 @@
+/run/numberOfThreads 8
+/src/mode fixed
+/src/mult 12
+/src/equal false
+/run/initialize
+/run/beamOn 100000

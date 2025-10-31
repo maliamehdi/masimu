@@ -1,5 +1,0 @@
-/run/numberOfThreads 8
-/random/setSeeds 1766647284 1766648148
-
-# IMPORTANT: on configure avant l'initialize de la macro PARIS
-/control/execute prompt_PARIS50.mac
