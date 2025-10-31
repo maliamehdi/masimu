@@ -1,0 +1,4 @@
+/run/initialize
+/src/mode mono
+/src/neutronEnergy 2 MeV
+/run/beamOn 100000

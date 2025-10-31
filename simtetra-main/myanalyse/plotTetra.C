@@ -2,6 +2,7 @@
 #include <TTree.h>
 #include <TCanvas.h>
 #include <TH1.h>
+#include <TEfficiency.h>
 #include <TLegend.h>
 #include <TSystem.h>
 #include <TStyle.h>
@@ -19,8 +20,8 @@
 // plotTetra("../myanalyse/output_cf252_neutron_primarygenerator.root")
 // plotTetra("path/to/output.root", "../myanalyse/plots/plotTetra")
 
-void plotTetra(const char* infile = "output_neutron_run0_smeared.root",
-               const char* outprefix = "../myanalyse/plots/150usplotTetra_analysis",
+void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
+               const char* outprefix = "../myanalyse/plots/new150usplotTetra_analysis",
                double tGate_ns = 150000.0)
 {
   gStyle->SetOptStat(1110);
@@ -32,6 +33,7 @@ void plotTetra(const char* infile = "output_neutron_run0_smeared.root",
   auto* tEvents = dynamic_cast<TTree*>(f->Get("Events"));
   auto* tHits   = dynamic_cast<TTree*>(f->Get("TritonHits"));
   auto* tParis  = dynamic_cast<TTree*>(f->Get("ParisEdep"));
+  auto* tPrim   = dynamic_cast<TTree*>(f->Get("NeutronPrimaries"));
   if (!tEvents) { std::cerr << "Missing tree 'Events' in file" << std::endl; return; }
   if (!tHits)   { std::cerr << "Missing tree 'TritonHits' in file (needed for avg detection time)" << std::endl; }
 
@@ -88,6 +90,10 @@ void plotTetra(const char* infile = "output_neutron_run0_smeared.root",
   // Totals
   long long totEvents = tEvents->GetEntries();
   long long totEmitted = 0, totDetected = 0, totEscaped = 0;
+  // Map for event-level last detection time (used for gated efficiency)
+  std::map<int,double> lastByEvt;
+  // Mean emitted multiplicity (filled if NeutronPrimaries is present)
+  double meanEmittedMultiplicity = -1.0;
   // For means
   double sumDetectedD = 0.0; // sum of measured multiplicity (as double)
   double sumLastDetect = 0.0; int cntLastDetect = 0;
@@ -112,7 +118,10 @@ void plotTetra(const char* infile = "output_neutron_run0_smeared.root",
     if (EdepCe_keV > 0) hEce->Fill(EdepCe_keV);
 
     // last detection time (ignore -1/no-detection)
-  if (lastNeutronTime_ns >= 0) { hLast->Fill(lastNeutronTime_ns); sumLastDetect += lastNeutronTime_ns; ++cntLastDetect; }
+    if (lastNeutronTime_ns >= 0) { hLast->Fill(lastNeutronTime_ns); sumLastDetect += lastNeutronTime_ns; ++cntLastDetect; }
+
+    // Store last time per event for later gating of efficiency vs E
+    lastByEvt[EventID] = lastNeutronTime_ns;
     // Count events where all detections are before the gate (using last time)
     if (nDetected > 0 && lastNeutronTime_ns >= 0 && lastNeutronTime_ns <= tGate_ns) {
       ++nEventsAllDetBeforeGate;
@@ -144,6 +153,9 @@ void plotTetra(const char* infile = "output_neutron_run0_smeared.root",
             << ( (nEventsAnyBeforeGate>=0) ? std::to_string(nEventsAnyBeforeGate) : std::string("N/A (no TritonHits)") )
             << ( (effAnyBeforeGate>=0) ? (std::string(" (eff = ") + std::to_string(effAnyBeforeGate) + " %)") : std::string("") )
             << "\n";
+  if (meanEmittedMultiplicity >= 0.0) {
+    std::cout << "  Mean emitted multiplicity: " << meanEmittedMultiplicity << "\n";
+  }
 
   // Average detection time per event from TritonHits
   TH1D* hAvgDetTime = nullptr;
@@ -224,6 +236,7 @@ void plotTetra(const char* infile = "output_neutron_run0_smeared.root",
     fprintf(fp, "Mean measured multiplicity: %.6f\n", meanMult);
     fprintf(fp, "Mean average detection time [ns]: %.6f\n", meanAvgDetTime);
     fprintf(fp, "Mean last detection time [ns]: %.6f\n", meanLast);
+    if (meanEmittedMultiplicity >= 0.0) fprintf(fp, "Mean emitted multiplicity: %.6f\n", meanEmittedMultiplicity);
     fclose(fp);
   }
 
@@ -271,6 +284,122 @@ void plotTetra(const char* infile = "output_neutron_run0_smeared.root",
   tSummary->Branch("effAnyDetectionBeforeGate_percent", &out_effAnyBeforeGate, "effAnyDetectionBeforeGate_percent/D");
     tSummary->Fill();
     tSummary->Write();
+  }
+
+  // ================= Emitted energy and multiplicity (NeutronPrimaries) =================
+  TH1D* hEemitAll = nullptr;
+  TH1D* hEemitDet = nullptr;
+  TH1D* hEemitRing[4] = {nullptr, nullptr, nullptr, nullptr};
+  TEfficiency* hEffVsE = nullptr;
+  TEfficiency* hEffVsE_gate = nullptr; // gated by event lastNeutronTime <= tGate_ns
+  TH1I* hMultEmitted = nullptr;
+
+  if (tPrim) {
+    // Branches
+    Int_t    np_eventID = 0;
+    Int_t    np_trackID = 0;
+    Double_t np_Eemit_MeV = 0.0;
+    Int_t    np_ring = 0;
+    tPrim->SetBranchAddress("eventID", &np_eventID);
+    tPrim->SetBranchAddress("trackID", &np_trackID);
+    tPrim->SetBranchAddress("Eemit_MeV", &np_Eemit_MeV);
+    tPrim->SetBranchAddress("ring", &np_ring);
+
+    // First pass: find energy range and multiplicity per event
+    std::map<int,int> multByEvent;
+    double maxEemit = 0.0;
+    const Long64_t nPrim = tPrim->GetEntries();
+    for (Long64_t i = 0; i < nPrim; ++i) {
+      tPrim->GetEntry(i);
+      multByEvent[np_eventID]++;
+      if (np_Eemit_MeV > maxEemit) maxEemit = np_Eemit_MeV;
+    }
+    if (maxEemit <= 0) maxEemit = 20.0; // default to generator max
+    const int eBinsEmit = std::clamp((int)std::ceil(maxEemit*10.0), 100, 2000); // ~0.1 MeV bins
+
+    // Create histograms
+    hEemitAll = new TH1D("hEemitAll", "Emitted neutron energy;E_{emit} [MeV];Counts", eBinsEmit, 0, maxEemit);
+    hEemitDet = new TH1D("hEemitDet", "Detected neutrons (ring>0);E_{emit} [MeV];Counts", eBinsEmit, 0, maxEemit);
+    for (int r = 0; r < 4; ++r) {
+      hEemitRing[r] = new TH1D(Form("hEemitRing%d", r+1),
+                               Form("Detected neutrons in ring %d;E_{emit} [MeV];Counts", r+1),
+                               eBinsEmit, 0, maxEemit);
+    }
+  hEffVsE = new TEfficiency("hEffVsE", "Detection efficiency vs emitted energy;E_{emit} [MeV];Efficiency", eBinsEmit, 0, maxEemit);
+  hEffVsE_gate = new TEfficiency("hEffVsE_gate", Form("Detection efficiency vs E (t_{last}  %g ns);E_{emit} [MeV];Efficiency", tGate_ns), eBinsEmit, 0, maxEemit);
+
+    // Second pass: fill
+    for (Long64_t i = 0; i < nPrim; ++i) {
+      tPrim->GetEntry(i);
+      hEemitAll->Fill(np_Eemit_MeV);
+      const bool detected = (np_ring > 0);
+      hEffVsE->Fill(detected, np_Eemit_MeV);
+      // Gated: require the event last detection time within gate
+      bool withinGate = false;
+      auto itL = lastByEvt.find(np_eventID);
+      if (itL != lastByEvt.end()) {
+        double lastT = itL->second;
+        withinGate = (lastT >= 0 && lastT <= tGate_ns);
+      }
+      hEffVsE_gate->Fill(detected && withinGate, np_Eemit_MeV);
+      if (detected) {
+        hEemitDet->Fill(np_Eemit_MeV);
+        if (np_ring >= 1 && np_ring <= 4) {
+          hEemitRing[np_ring-1]->Fill(np_Eemit_MeV);
+        }
+      }
+    }
+
+    // Emitted multiplicity distribution
+    int maxMult = 0; long long sumMult = 0; int nEvtMult = 0;
+    for (auto& kv : multByEvent) { if (kv.second > maxMult) maxMult = kv.second; sumMult += kv.second; ++nEvtMult; }
+    if (maxMult < 1) maxMult = 1;
+    hMultEmitted = new TH1I("hMultEmitted", "Emitted neutron multiplicity per event;N emitted;Events", maxMult+1, -0.5, maxMult+0.5);
+    for (auto& kv : multByEvent) hMultEmitted->Fill(kv.second);
+    if (nEvtMult > 0) meanEmittedMultiplicity = (double)sumMult / (double)nEvtMult;
+
+    // Draw emitted energy spectra (all vs detected)
+    auto cE = new TCanvas("cE", "Emitted energy spectra", 1000, 700);
+    hEemitAll->SetLineColor(kBlue+1);
+    hEemitDet->SetLineColor(kRed+1);
+    hEemitAll->Draw("HIST");
+    hEemitDet->Draw("HIST SAME");
+    auto legE = new TLegend(0.6,0.75,0.88,0.88);
+    legE->AddEntry(hEemitAll, "All emitted", "l");
+    legE->AddEntry(hEemitDet, "Detected (ring>0)", "l");
+    legE->Draw();
+    cE->SaveAs(TString::Format("%s_emitE.png", outBase.Data()));
+
+    // Per-ring spectra
+    auto cR = new TCanvas("cR", "Emitted energy per ring", 1200, 800);
+    cR->Divide(2,2);
+    int pad=1; int cols[4] = {kRed+1, kGreen+2, kOrange+7, kMagenta+1};
+    for (int r=0; r<4; ++r) { cR->cd(pad++); hEemitRing[r]->SetLineColor(cols[r]); hEemitRing[r]->Draw("HIST"); }
+    cR->SaveAs(TString::Format("%s_emitE_rings.png", outBase.Data()));
+
+  // Efficiency vs energy (ungated)
+    auto cEff = new TCanvas("cEff", "Efficiency vs E_{emit}", 1000, 700);
+    cEff->SetGrid();
+    hEffVsE->SetLineColor(kBlue+2);
+    hEffVsE->SetMarkerStyle(20);
+    hEffVsE->SetMarkerColor(kBlue+2);
+    hEffVsE->Draw("AP");
+    cEff->SaveAs(TString::Format("%s_effVsE.png", outBase.Data()));
+
+  // Efficiency vs energy (gated)
+  auto cEffG = new TCanvas("cEffG", "Efficiency vs E_{emit} (gated)", 1000, 700);
+  cEffG->SetGrid();
+  hEffVsE_gate->SetLineColor(kRed+1);
+  hEffVsE_gate->SetMarkerStyle(20);
+  hEffVsE_gate->SetMarkerColor(kRed+1);
+  hEffVsE_gate->Draw("AP");
+  cEffG->SaveAs(TString::Format("%s_effVsE_gate.png", outBase.Data()));
+
+    // Emitted multiplicity
+    auto cM = new TCanvas("cM", "Emitted multiplicity", 800, 600);
+    hMultEmitted->SetLineColor(kBlue+1);
+    hMultEmitted->Draw("HIST");
+    cM->SaveAs(TString::Format("%s_multEmitted.png", outBase.Data()));
   }
 
   // ================= PARIS per-copy spectra =================
@@ -365,5 +494,27 @@ void plotTetra(const char* infile = "output_neutron_run0_smeared.root",
     }
   }
 
-  if (fout && !fout->IsZombie()) { fout->Write(); fout->Close(); }
+  // Write NeutronPrimaries-derived objects if present
+  if (fout && !fout->IsZombie()) {
+    if (hEemitAll) hEemitAll->Write();
+    if (hEemitDet) hEemitDet->Write();
+    for (int r=0; r<4; ++r) if (hEemitRing[r]) hEemitRing[r]->Write();
+  if (hEffVsE) hEffVsE->Write();
+  if (hEffVsE_gate) hEffVsE_gate->Write();
+    if (hMultEmitted) hMultEmitted->Write();
+  }
+
+  // Optionally write a small extra summary for emitted multiplicity (separate tree)
+  if (fout && !fout->IsZombie()) {
+    fout->cd();
+    if (tPrim && meanEmittedMultiplicity >= 0.0) {
+      Double_t out_meanEmittedMultiplicity = meanEmittedMultiplicity;
+      auto* tEmit = new TTree("SummaryEmit", "Emitted multiplicity summary");
+      tEmit->Branch("meanEmittedMultiplicity", &out_meanEmittedMultiplicity, "meanEmittedMultiplicity/D");
+      tEmit->Fill();
+      tEmit->Write();
+    }
+    fout->Write();
+    fout->Close();
+  }
 }

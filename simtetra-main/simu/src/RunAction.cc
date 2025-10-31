@@ -75,6 +75,15 @@ MyRunAction::MyRunAction(const G4String& macroFileName)
     man->CreateNtupleDColumn(fTruthRespNtupleId, "EdepNaI_keV");  // dépôt NaI (optionnel)
     man->FinishNtuple();    // index 4
 
+  // 5) Neutron primaries: emitted energy and detected ring per neutron
+  man->CreateNtuple("NeutronPrimaries", "per primary neutron: E_emit and ring");
+  man->CreateNtupleIColumn("eventID");
+  man->CreateNtupleIColumn("trackID");
+  man->CreateNtupleDColumn("Eemit_MeV");
+  man->CreateNtupleIColumn("ring"); // 0 if not detected
+  man->CreateNtupleDColumn("detectTime_ns"); // -1 if not detected
+  man->FinishNtuple();    // index 5
+
 }
 
 MyRunAction::~MyRunAction() {}
@@ -117,7 +126,7 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
     std::stringstream tag2;
     tag2 << "_run" << run->GetRunID();        // _run0, _run1, ...
 
-    G4String outFile = "../../myanalyse/output_" + base + tag2.str() + "_smeared.root";
+    G4String outFile = "../../myanalyse/output_" + base + tag2.str() + "ultime.root";
     G4cout << ">>> Ouverture du fichier ROOT (fallback): " << outFile << G4endl;
     man->OpenFile(outFile);
 }

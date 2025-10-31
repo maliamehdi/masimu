@@ -67,6 +67,13 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
   {
     const auto* trk = step->GetTrack();
     if (IsNeutron(trk)) {
+      // Enregistrer l'énergie initiale UNIQUEMENT pour les primaires (émis par la source)
+      if (trk->GetCurrentStepNumber() == 1 && trk->GetParentID() == 0 && fEventAction) {
+        const G4int tid0 = trk->GetTrackID();
+        const double Eemit_MeV = trk->GetVertexKineticEnergy()/MeV;
+        fEventAction->RegisterNeutronInitEnergy(tid0, Eemit_MeV);
+      }
+
       const G4int tid = trk->GetTrackID();
       if (fThermRecorded.find(tid) == fThermRecorded.end() && IsBelow1eV(trk)) {
         fThermRecorded.insert(tid);
@@ -141,6 +148,11 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
 
       if (ring > 0 && fEventAction) {
         fEventAction->AddHitToRing(ring);
+        // Associer le ring au neutron parent du triton
+        const G4int parentNeutronID = trk->GetParentID();
+        if (parentNeutronID > 0) {
+          fEventAction->RegisterNeutronDetectedRing(parentNeutronID, ring);
+        }
       }
     }
   }

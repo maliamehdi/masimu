@@ -5,7 +5,6 @@ CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o: \
  /opt/geant4/11.2.2/include/Geant4/G4VUserActionInitialization.hh \
  /srv/data/Geant4/masimu/simtetra-main/simu/include/PrimaryGenerator.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VUserPrimaryGeneratorAction.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleGun.hh \
  /opt/geant4/11.2.2/include/Geant4/globals.hh \
  /opt/geant4/11.2.2/include/Geant4/G4ios.hh \
  /opt/geant4/11.2.2/include/Geant4/G4Types.hh \
@@ -62,13 +61,16 @@ CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+ /usr/include/x86_64-linux-gnu/bits/select2.h \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
  /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib.h \
  /usr/include/c++/11/bits/specfun.h \
  /usr/include/c++/11/bits/stl_algobase.h \
  /usr/include/c++/11/bits/functexcept.h \
@@ -106,6 +108,7 @@ CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar2.h \
  /usr/include/c++/11/exception /usr/include/c++/11/bits/exception.h \
  /usr/include/c++/11/bits/exception_ptr.h \
  /usr/include/c++/11/bits/cxxabi_init_exception.h \
@@ -158,9 +161,10 @@ CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/c++/11/cerrno /usr/include/errno.h \
- /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
- /usr/include/x86_64-linux-gnu/asm/errno.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/c++/11/cerrno \
+ /usr/include/errno.h /usr/include/x86_64-linux-gnu/bits/errno.h \
+ /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
@@ -209,6 +213,8 @@ CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o: \
  /usr/include/c++/11/pstl/execution_defs.h \
  /opt/geant4/11.2.2/include/Geant4/G4String.hh \
  /usr/include/c++/11/cstring /usr/include/string.h /usr/include/strings.h \
+ /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+ /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
  /opt/geant4/11.2.2/include/Geant4/G4String.icc \
  /opt/geant4/11.2.2/include/Geant4/templates.hh \
  /usr/include/c++/11/climits \
@@ -238,14 +244,19 @@ CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o: \
  /usr/include/c++/11/bits/parse_numbers.h \
  /usr/include/c++/11/bits/std_mutex.h \
  /usr/include/c++/11/bits/unique_lock.h \
- /opt/geant4/11.2.2/include/Geant4/G4VPrimaryGenerator.hh \
  /opt/geant4/11.2.2/include/Geant4/G4ThreeVector.hh \
+ /opt/geant4/11.2.2/include/Geant4/globals.hh \
  /opt/geant4/11.2.2/include/Geant4/CLHEP/Vector/ThreeVector.h \
  /opt/geant4/11.2.2/include/Geant4/CLHEP/Utility/defs.h \
  /opt/geant4/11.2.2/include/Geant4/CLHEP/Vector/ThreeVector.icc \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleDefinition.hh \
- /opt/geant4/11.2.2/include/Geant4/G4PDefManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4AutoLock.hh \
+ /srv/data/Geant4/masimu/simtetra-main/simu/include/RunAction.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4UserRunAction.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4AnalysisManager.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4GenericAnalysisManager.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4ToolsAnalysisManager.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VAnalysisManager.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4AnalysisManagerState.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4AnalysisVerbose.hh \
  /opt/geant4/11.2.2/include/Geant4/G4Threading.hh \
  /usr/include/c++/11/condition_variable \
  /usr/include/c++/11/bits/shared_ptr.h \
@@ -257,92 +268,16 @@ CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o: \
  /usr/include/c++/11/bits/atomic_futex.h \
  /usr/include/c++/11/bits/std_thread.h /usr/include/c++/11/thread \
  /usr/include/c++/11/bits/this_thread_sleep.h \
- /opt/geant4/11.2.2/include/Geant4/pwdefs.hh /usr/include/c++/11/stdlib.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Units/PhysicalConstants.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Units/SystemOfUnits.h \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleDefinition.icc \
- /opt/geant4/11.2.2/include/Geant4/G4PrimaryVertex.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Allocator.hh \
- /usr/include/c++/11/cstddef \
- /opt/geant4/11.2.2/include/Geant4/G4AllocatorPool.hh \
- /opt/geant4/11.2.2/include/Geant4/G4PrimaryParticle.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleMomentum.hh \
- /opt/geant4/11.2.2/include/Geant4/G4SystemOfUnits.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleTable.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleTableIterator.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleTable.icc \
- /opt/geant4/11.2.2/include/Geant4/G4Geantino.hh \
- /opt/geant4/11.2.2/include/Geant4/G4IonTable.hh \
- /opt/geant4/11.2.2/include/Geant4/G4Ions.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleTable.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleDefinition.hh \
- /opt/geant4/11.2.2/include/Geant4/Randomize.hh \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/Randomize.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/DualRand.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandomEngine.h \
- /usr/include/c++/11/fstream \
- /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
- /usr/include/c++/11/bits/fstream.tcc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandomEngine.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/JamesRandom.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/MixMaxRng.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/MTwistEngine.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RanecuEngine.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RanluxEngine.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/Ranlux64Engine.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RanluxppEngine.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RanshiEngine.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandBinomial.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/Random.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/Random.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Utility/memory.h \
+ /opt/geant4/11.2.2/include/Geant4/G4AnalysisUtilities.hh \
  /usr/include/c++/11/memory \
  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
  /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
  /usr/include/c++/11/bits/shared_ptr_atomic.h \
  /usr/include/c++/11/backward/auto_ptr.h \
- /usr/include/c++/11/pstl/glue_memory_defs.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandBinomial.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandBreitWigner.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandFlat.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Utility/thread_local.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandFlat.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandBreitWigner.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandChiSquare.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandChiSquare.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandExponential.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandExponential.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandExpZiggurat.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandBit.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandBit.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandGamma.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandGamma.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandGauss.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandGauss.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandGaussQ.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandGaussQ.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandGaussZiggurat.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandGeneral.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandGeneral.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandLandau.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandLandau.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandPoissonQ.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandPoisson.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandPoisson.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandPoissonQ.icc \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandStudentT.h \
- /opt/geant4/11.2.2/include/Geant4/CLHEP/Random/RandStudentT.icc \
- /opt/geant4/11.2.2/include/Geant4/globals.hh \
- /srv/data/Geant4/masimu/simtetra-main/simu/include/RunAction.hh \
- /opt/geant4/11.2.2/include/Geant4/G4UserRunAction.hh \
- /opt/geant4/11.2.2/include/Geant4/G4AnalysisManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4GenericAnalysisManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ToolsAnalysisManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4VAnalysisManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4AnalysisManagerState.hh \
- /opt/geant4/11.2.2/include/Geant4/G4AnalysisVerbose.hh \
- /opt/geant4/11.2.2/include/Geant4/G4AnalysisUtilities.hh \
+ /usr/include/c++/11/pstl/glue_memory_defs.h /usr/include/c++/11/fstream \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+ /usr/include/c++/11/bits/fstream.tcc \
  /opt/geant4/11.2.2/include/Geant4/G4VTBaseHnManager.hh \
  /opt/geant4/11.2.2/include/Geant4/G4HnInformation.hh \
  /opt/geant4/11.2.2/include/Geant4/G4BinScheme.hh \
@@ -367,11 +302,13 @@ CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o: \
  /opt/geant4/11.2.2/include/Geant4/G4THnToolsManager.hh \
  /opt/geant4/11.2.2/include/Geant4/G4THnManager.hh \
  /opt/geant4/11.2.2/include/Geant4/G4THnManager.icc \
+ /opt/geant4/11.2.2/include/Geant4/G4AutoLock.hh \
  /opt/geant4/11.2.2/include/Geant4/G4THnMessenger.hh \
  /opt/geant4/11.2.2/include/Geant4/G4UImessenger.hh \
  /opt/geant4/11.2.2/include/Geant4/G4UIdirectory.hh \
  /opt/geant4/11.2.2/include/Geant4/G4UIcommand.hh \
  /opt/geant4/11.2.2/include/Geant4/G4ApplicationState.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4ThreeVector.hh \
  /opt/geant4/11.2.2/include/Geant4/G4UIparameter.hh \
  /opt/geant4/11.2.2/include/Geant4/G4UItokenNum.hh \
  /opt/geant4/11.2.2/include/Geant4/G4THnToolsManager.icc \
@@ -410,6 +347,7 @@ CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o: \
  /opt/geant4/11.2.2/include/Geant4/PTL/Globals.hh \
  /opt/geant4/11.2.2/include/Geant4/PTL/Types.hh \
  /opt/geant4/11.2.2/include/Geant4/PTL/Utility.hh \
+ /usr/include/c++/11/cstddef \
  /srv/data/Geant4/masimu/simtetra-main/simu/include/EventAction.hh \
  /opt/geant4/11.2.2/include/Geant4/G4UserEventAction.hh \
  /srv/data/Geant4/masimu/simtetra-main/simu/include/SteppingAction.hh \

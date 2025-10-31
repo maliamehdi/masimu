@@ -89,6 +89,7 @@ void MyEventAction::BeginOfEventAction(const G4Event* /*evt*/) {
   // Réinitialiser les buffers par-neutron
   fNeutronInitE_MeV.clear();
   fNeutronRing.clear();
+  fNeutronDetectTime_ns.clear();
 
   if (fHCID_CeEdep < 0) {
     auto* sdm = G4SDManager::GetSDMpointer();
@@ -268,18 +269,22 @@ for (G4int iv = 0; iv < evt->GetNumberOfPrimaryVertex(); ++iv) {
   }
 
   // ====== 4) Ntuple #5: NeutronPrimaries (énergie émise et ring détecté)
-  // Colonnes: 0:EventID, 1:trackID, 2:E_emit_MeV, 3:ring
+  // Colonnes: 0:EventID, 1:trackID, 2:E_emit_MeV, 3:ring, 4:detectTime_ns
   for (const auto& kv : fNeutronInitE_MeV) {
     const G4int tid = kv.first;
     const double E_MeV = kv.second;
     G4int ring = 0;
     auto itR = fNeutronRing.find(tid);
     if (itR != fNeutronRing.end()) ring = itR->second;
+    double detT_ns = -1.0;
+    auto itT = fNeutronDetectTime_ns.find(tid);
+    if (itT != fNeutronDetectTime_ns.end()) detT_ns = itT->second;
 
     man->FillNtupleIColumn(5, 0, evt->GetEventID());
     man->FillNtupleIColumn(5, 1, tid);
     man->FillNtupleDColumn(5, 2, E_MeV);
     man->FillNtupleIColumn(5, 3, ring);
+    man->FillNtupleDColumn(5, 4, detT_ns);
     man->AddNtupleRow(5);
   }
 }

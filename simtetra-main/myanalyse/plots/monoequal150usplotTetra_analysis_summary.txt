@@ -1,0 +1,13 @@
+Input: output_neutron_run02monoequal.root
+Total events: 100000
+Total emitted: 200000
+Total detected: 38210
+Total escaped: 96876 (48.438 %)
+Emitted - Detected: 161790
+Check (Em-Det vs Esc): 161790 vs 96876
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 31483 (eff = 31.483000 %)
+Events (any detection <= gate): 32035 (eff = -1.000000 %)
+Mean measured multiplicity: 0.345810
+Mean average detection time [ns]: 59575.279559
+Mean last detection time [ns]: 62955.079071

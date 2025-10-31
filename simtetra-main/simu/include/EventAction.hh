@@ -3,6 +3,7 @@
 #include "G4UserEventAction.hh"
 #include "globals.hh"
 #include <vector>
+#include <unordered_map>
 
 class MyRunAction;
 
@@ -23,9 +24,11 @@ public:
   void RegisterNeutronThermalization(G4int /*trackID*/, double t_ns) {
     fThermTimes_ns.push_back(t_ns);
   }
-  void RegisterNeutronDetection(G4int /*trackID*/, double t_ns) {
+  void RegisterNeutronDetection(G4int trackID, double t_ns) {
     // enregistre le temps de détection (une fois par neutron)
     fDetectTimes_ns.push_back(t_ns);
+    // et le mémorise par neutron primaire pour l'analyse fine
+    fNeutronDetectTime_ns[trackID] = t_ns;
   }
   void RegisterNeutronEscaped(G4int /*trackID*/) { ++fNescaped; }
   inline void ResetDetectedNeutrons() { fNDetectedNeutrons = 0; }
@@ -83,4 +86,5 @@ private:
   // Buffers énergies/rings par neutron primaire (clé = TrackID du neutron)
   std::unordered_map<G4int, double> fNeutronInitE_MeV; // énergie initiale émise
   std::unordered_map<G4int, G4int>  fNeutronRing;      // ring 1..4, 0 si non détecté
+  std::unordered_map<G4int, double> fNeutronDetectTime_ns; // temps de détection (ns), -1 si non détecté
 };

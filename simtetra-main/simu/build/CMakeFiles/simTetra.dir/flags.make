@@ -6,5 +6,5 @@ CXX_DEFINES = -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_O
 
 CXX_INCLUDES = -I/srv/data/Geant4/masimu/simtetra-main/simu/include -isystem /opt/geant4/11.2.2/include/Geant4 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets
 
-CXX_FLAGS = -fPIC
+CXX_FLAGS = -O3 -DNDEBUG -fPIC
 
