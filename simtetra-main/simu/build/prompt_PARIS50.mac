@@ -1,4 +1,5 @@
 # prompt_PARIS50_gun.mac
+/run/numberOfThreads 10
 /process/em/fluo true
 /process/em/auger true
 /process/em/pixe true
