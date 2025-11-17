@@ -92,23 +92,27 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
 {
     auto* man = G4AnalysisManager::Instance();
 
-    // Construit le nom du fichier de sortie à partir du nom du macro
-    G4String base = fMacroName;
+    // 1) Priorité au TAG (fourni par le script bash)
+    if (const char* tag = std::getenv("TAG"); tag && *tag) {
+        G4String outFile = "../../myanalyse/output_" + G4String(tag) + ".root";
+        G4cout << ">>> Ouverture du fichier ROOT (via TAG): " << outFile << G4endl;
+        man->OpenFile(outFile);
+        return;
+    }
+
+    // 2) Fallback: nommage basé sur le macro + runID
+    G4String base = fMacroName;               // ex: "run_0.mac"
     if (base.empty()) base = "interactive.mac";
-    base = StripPath(base);
-    base = StripExtension(base, ".mac");
+    base = StripPath(base);                   // "run_0.mac"
+    base = StripExtension(base, ".mac");      // "run_0"
 
-    // Ajoute _run<id> si tu veux distinguer plusieurs runs avec la même macro
-    std::stringstream tag;
-    tag << "_run" << run->GetRunID();
+    std::stringstream tag2;
+    tag2 << "_run" << run->GetRunID();        // _run0, _run1, ...
 
-    // Construit le chemin final (adapte le répertoire si besoin)
-    G4String outFile = "../../myanalyse/output_" + base + tag.str() + "_smeared.root";
-
-    G4cout << ">>> Ouverture du fichier ROOT : " << outFile << G4endl;
+    G4String outFile = "../../myanalyse/output_" + base + tag2.str() + "_smeared.root";
+    G4cout << ">>> Ouverture du fichier ROOT (fallback): " << outFile << G4endl;
     man->OpenFile(outFile);
 }
-
 void MyRunAction::EndOfRunAction(const G4Run*)
 {
     auto* man = G4AnalysisManager::Instance();

@@ -192,6 +192,9 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
     const double Ece_keV  = it.second.first;
     const double Enai_keV = it.second.second;
 
+    // Énergie du gamma primaire de l'événement (keV)
+    const double Etrue_keV_evt = GetPrimaryGammaEnergyKeV(evt);
+
     // Paramètres de résolution
     auto prm = parisRes.find(idx);
     if (prm == parisRes.end()) {
