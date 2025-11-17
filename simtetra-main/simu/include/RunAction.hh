@@ -18,11 +18,17 @@ public:
     virtual void EndOfRunAction(const G4Run*);
      // → exposer l'ID de l'ntuple "resp"
   inline G4int TruthRespNtupleId() const { return fTruthRespNtupleId; }
+  inline G4int TruthAllNtupleId() const { return fTruthAllNtupleId; }
 
 private:
 // Utilisé pour nommer le fichier ROOT de sortie
   G4String fMacroName;
   G4int fTruthRespNtupleId = -1; // id de l'ntuple (Etrue/Emeas)
+  G4int fTruthAllNtupleId = -1;  // id de l'ntuple (Etrue par event, pour debug)
+
+  // Gestion d'ouverture unique du fichier de sortie sur plusieurs /run/beamOn
+  G4bool   fFileOpened = false;
+  G4String fOutFileName;
 };
 
 #endif

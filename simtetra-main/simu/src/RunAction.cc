@@ -10,6 +10,8 @@
 
 #include <algorithm>
 #include <ctime>
+#include <cstdlib>
+#include <unistd.h>
 
 MyRunAction::MyRunAction(const G4String& macroFileName)
 : G4UserRunAction(),
@@ -17,7 +19,7 @@ MyRunAction::MyRunAction(const G4String& macroFileName)
 {
     auto* man = G4AnalysisManager::Instance();
 
-    man->SetVerboseLevel(1);
+  man->SetVerboseLevel(0);
     #ifdef G4MULTITHREADED
     man->SetNtupleMerging(true);
     #endif
@@ -67,6 +69,12 @@ MyRunAction::MyRunAction(const G4String& macroFileName)
     man->CreateNtupleDColumn(fTruthRespNtupleId, "EdepCe_keV");   // dépôt Ce (avant smearing)
     man->CreateNtupleDColumn(fTruthRespNtupleId, "EdepNaI_keV");  // dépôt NaI (optionnel)
     man->FinishNtuple();    // index 4
+
+  // 5) Ntuple "truthAll" : Etrue par événement (rempli à chaque event, pour debug/validation)
+  fTruthAllNtupleId = man->CreateNtuple("truthAll", "Etrue per event (all events)");
+  man->CreateNtupleIColumn(fTruthAllNtupleId, "eventID");
+  man->CreateNtupleDColumn(fTruthAllNtupleId, "Etrue_keV");
+  man->FinishNtuple(); // index 5
 }
 
 MyRunAction::~MyRunAction() {}
@@ -95,22 +103,29 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
     // 1) Priorité au TAG (fourni par le script bash)
     if (const char* tag = std::getenv("TAG"); tag && *tag) {
         G4String outFile = "../../myanalyse/output_" + G4String(tag) + ".root";
-        G4cout << ">>> Ouverture du fichier ROOT (via TAG): " << outFile << G4endl;
+        if (!std::getenv("QUIET")) {
+          G4cout << ">>> Ouverture du fichier ROOT (via TAG): " << outFile << G4endl;
+        }
         man->OpenFile(outFile);
         return;
     }
 
-    // 2) Fallback: nommage basé sur le macro + runID
+    // 2) Fallback: nommage basé sur le macro + runID + timestamp + pid (évite tout overwrite)
     G4String base = fMacroName;               // ex: "run_0.mac"
     if (base.empty()) base = "interactive.mac";
     base = StripPath(base);                   // "run_0.mac"
     base = StripExtension(base, ".mac");      // "run_0"
 
+    std::time_t t = std::time(nullptr);
     std::stringstream tag2;
-    tag2 << "_run" << run->GetRunID();        // _run0, _run1, ...
+    tag2 << "_run" << run->GetRunID()
+         << "_t" << static_cast<long long>(t)
+         << "_p" << static_cast<long long>(getpid());
 
     G4String outFile = "../../myanalyse/output_" + base + tag2.str() + "_smeared.root";
-    G4cout << ">>> Ouverture du fichier ROOT (fallback): " << outFile << G4endl;
+    if (!std::getenv("QUIET")) {
+      G4cout << ">>> Ouverture du fichier ROOT (fallback): " << outFile << G4endl;
+    }
     man->OpenFile(outFile);
 }
 
