@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Minimal wrapper: run the same command with different PARIS IDs.
+# Executes sequentially:
+#   ./run_energy_list.sh PARIS50 energies_list_PARIS50.mac 100000 32
+#   ... for 70 90 110 130 235 262 278 305
+# Usage (defaults EVENTS=100000 MAX_PROCS=32):
+#   ./run_selected_paris.scr
+#   EVENTS=50000 MAX_PROCS=16 ./run_selected_paris.scr
+# Assumes you are in simu/build and files energies_list_PARIS<ID>.mac exist here (or set LIST_DIR).
+
+set -euo pipefail
+
+EVENTS=${EVENTS:-1000000}
+MAX_PROCS=${MAX_PROCS:-32}
+LIST_DIR=${LIST_DIR:-.}
+
+IDS=(50 70 90 110 130 235 262 278 305)
+
+for id in "${IDS[@]}"; do
+  PARIS_ID="PARIS${id}"
+  MAC="${LIST_DIR}/energies_list_${PARIS_ID}.mac"
+  if [[ ! -f "$MAC" ]]; then
+    echo "[SKIP] Missing macro: $MAC" >&2
+    continue
+  fi
+  echo "[RUN] $PARIS_ID -> $MAC (EVENTS=$EVENTS MAX_PROCS=$MAX_PROCS)" >&2
+  ./run_energy_list.sh "$PARIS_ID" "$MAC" "$EVENTS" "$MAX_PROCS"
+done
+
+echo "[DONE] All requested PARIS runs attempted." >&2

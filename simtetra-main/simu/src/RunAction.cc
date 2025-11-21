@@ -101,17 +101,38 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
     auto* man = G4AnalysisManager::Instance();
 
     // 1) Priorité au TAG (fourni par le script bash)
-    if (const char* tag = std::getenv("TAG"); tag && *tag) {
-        G4String outFile = "../../myanalyse/output_" + G4String(tag) + ".root";
-        if (!std::getenv("QUIET")) {
-          G4cout << ">>> Ouverture du fichier ROOT (via TAG): " << outFile << G4endl;
+      if (const char* tag = std::getenv("TAG"); tag && *tag) {
+        // Déterminer le répertoire PARIS: priorité à PARIS_ID env, sinon extraire de TAG
+        std::string parisDir = "misc";
+        if (const char* p = std::getenv("PARIS_ID"); p && *p) {
+          parisDir = p;
+        } else {
+          std::string t(tag);
+          auto pos = t.find("PARIS");
+          if (pos != std::string::npos) {
+            std::string digits;
+            size_t i = pos + 5; // après "PARIS"
+            while (i < t.size() && std::isdigit(static_cast<unsigned char>(t[i]))) { digits.push_back(t[i]); ++i; }
+            if (!digits.empty()) parisDir = std::string("PARIS") + digits;
+          }
         }
-        man->OpenFile(outFile);
+
+        // créer le répertoire de sortie
+        std::string outdir = std::string("../../myanalyse/") + parisDir;
+        std::string cmd = std::string("mkdir -p ") + outdir;
+        std::system(cmd.c_str());
+
+        fOutFileName = outdir + std::string("/output_") + std::string(tag) + std::string(".root");
+        if (!std::getenv("QUIET")) {
+          G4cout << ">>> Ouverture du fichier ROOT (via TAG, une seule fois): " << fOutFileName << G4endl;
+        }
+        man->OpenFile(fOutFileName);
+        fFileOpened = true;
         return;
-    }
+      }
 
     // 2) Fallback: nommage basé sur le macro + runID + timestamp + pid (évite tout overwrite)
-    G4String base = fMacroName;               // ex: "run_0.mac"
+    G4String base = fMacroName;               // ex: "PARIS50_E5p5kev.mac"
     if (base.empty()) base = "interactive.mac";
     base = StripPath(base);                   // "run_0.mac"
     base = StripExtension(base, ".mac");      // "run_0"
@@ -122,11 +143,33 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
          << "_t" << static_cast<long long>(t)
          << "_p" << static_cast<long long>(getpid());
 
-    G4String outFile = "../../myanalyse/output_" + base + tag2.str() + "_smeared.root";
-    if (!std::getenv("QUIET")) {
-      G4cout << ">>> Ouverture du fichier ROOT (fallback): " << outFile << G4endl;
-    }
-    man->OpenFile(outFile);
+      // Create per-base directory under myanalyse to keep outputs organized
+      // Prefer explicit PARIS_ID env; otherwise, extract "PARIS<digits>" from macro base name
+      std::string parisDir;
+      if (const char* p = std::getenv("PARIS_ID"); p && *p) {
+        parisDir = p;
+      } else {
+        std::string b = base;
+        auto pos = b.find("PARIS");
+        if (pos != std::string::npos) {
+          std::string digits;
+          size_t i = pos + 5; // after "PARIS"
+          while (i < b.size() && std::isdigit(static_cast<unsigned char>(b[i]))) { digits.push_back(b[i]); ++i; }
+          if (!digits.empty()) {
+            parisDir = std::string("PARIS") + digits; // e.g. PARIS50
+          }
+        }
+        if (parisDir.empty()) parisDir = base; // fallback to full base
+      }
+      std::string outdir = std::string("../../myanalyse/") + parisDir;
+      std::string cmd = std::string("mkdir -p ") + outdir;
+      std::system(cmd.c_str());
+
+      fOutFileName = outdir + std::string("/output_") + base + tag2.str() + std::string("_smeared.root");
+      if (!std::getenv("QUIET")) {
+        G4cout << ">>> Ouverture du fichier ROOT (fallback, une seule fois): " << fOutFileName << G4endl;
+      }
+      man->OpenFile(fOutFileName);
 }
 
 void MyRunAction::EndOfRunAction(const G4Run*)

@@ -51,6 +51,7 @@ struct ResParams { double resA; double resPower; };
 //     {"PARIS305", {1.9886,   -0.574021}}
 // };
 
+
 //Avec les copy number
 static const std::map<int, ResParams> parisRes = { //run du 05/08/2024
     {0,  {1.12145,  -0.441244}},
@@ -63,7 +64,6 @@ static const std::map<int, ResParams> parisRes = { //run du 05/08/2024
     {7, {1.98579,  -0.559095}},
     {8, {1.9886,   -0.574021}}
 };
-
 // Pour les gamma prompt du 252Cf je prends la pire résolution dans le temps pour chaque PARIS
 // static const std::map<int, ResParams> parisRes = { //run du 05/08/2024
 //     {0,  {1.12145,  -0.441244}}, // 05/08 pour PARIS50 
@@ -158,15 +158,13 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
   const G4double eCe   = GetHitsMapSum(fHCID_CeEdep,  evt);  // MeV
   const G4double eNaI  = GetHitsMapSum(fHCID_NaIEdep, evt);  // MeV
   const G4double nIn   = GetHitsMapSum(fHCID_CellIn,  evt);  // compteur
-  // Énergie du gamma primaire de l'événement (keV)
-  const double Etrue_keV_evt = GetPrimaryGammaEnergyKeV(evt);
 
    // ===== Par-PARIS (imprint) : lire les hits maps & écrire dans le ntuple #3 =====
   auto* hcevt = evt->GetHCofThisEvent();
   //if (!hcevt) goto FILL_SUM_ONLY;
 
-  auto* hmCe  = static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_CeEdep));
-  auto* hmNaI = static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_NaIEdep));
+  auto* hmCe  = (fHCID_CeEdep  >= 0) ? static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_CeEdep))  : nullptr;
+  auto* hmNaI = (fHCID_NaIEdep >= 0) ? static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_NaIEdep)) : nullptr;
 
   // Accumulateurs : parisIndex -> (eCe, eNaI) en keV (on convertit directement)
   std::unordered_map<int, std::pair<G4double,G4double>> byParisIndex;
@@ -175,7 +173,10 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
     for (const auto& kv : *hmCe->GetMap()) {
       const int copy = kv.first;
       //G4cout << "DEBUG: copy number Ce = " << copy-3 << G4endl;
-      const int idx  = copy-3;//ParisIndexFromCopy(copy, kCeOffset);
+      
+      int idx  = copy-3;//ParisIndexFromCopy(copy, kCeOffset);
+      if (idx==20) idx =8; // cas particulier du 10e module (copy=23 pour Ce)
+      //G4cout << "DEBUG: copy number Ce = " << idx << G4endl;
       if (idx < 0) continue; // clef inattendue
       const G4double eMeV = (kv.second ? *(kv.second) : 0.);
       byParisIndex[idx].first += eMeV/keV;  // stocke en keV
@@ -184,9 +185,11 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
   if (hmNaI) {
     for (const auto& kv : *hmNaI->GetMap()) {
       const int copy = kv.first;
-      //G4cout << "DEBUG: copy number NaI = " << copy-4 << G4endl;
-      const int idx  = copy - 4;//ParisIndexFromCopy(copy, kNaIOffset);
+      //G4cout << "DEBUG: copy number NaI = " << copy << G4endl;
+      int idx  = copy-4;// - 4;//ParisIndexFromCopy(copy, kNaIOffset);
       if (idx < 0) continue;
+      if (idx==20) idx =8; // cas particulier du 10e module (copy=24 pour NaI)
+      //G4cout << "DEBUG: copy number NaI = " << idx << G4endl;
       const G4double eMeV = (kv.second ? *(kv.second) : 0.);
       byParisIndex[idx].second += eMeV/keV; // keV
     }
@@ -206,6 +209,9 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
     // Énergies (déjà en keV)
     const double Ece_keV  = it.second.first;
     const double Enai_keV = it.second.second;
+
+    // Énergie du gamma primaire de l'événement (keV)
+    const double Etrue_keV_evt = GetPrimaryGammaEnergyKeV(evt);
 
     // Paramètres de résolution
     auto prm = parisRes.find(idx);
@@ -227,9 +233,21 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
     double eResNaI_keV = Enai_keV;
 
     if (Ece_keV > 0.0) {
-      const double fwhm_Ce  = P.resA * std::pow(Ece_keV,  P.resPower);
-      const double sigma_Ce    = (fwhm_Ce / 2.35) * Ece_keV;  // keV
-      eResCe_keV  = G4RandGauss::shoot(Ece_keV,  std::max(sigma_Ce,  0.0));
+      // === DEBUG print pour vérifier les paramètres et le smear ===
+      // G4cout << "[DEBUG] EventID=" << evt->GetEventID()
+      //       << " | idx=" << idx << " (" << parisName << ")"
+      //       << " | Ece_keV=" << Ece_keV
+      //       << " | A=" << P.resA
+      //       << " | power=" << P.resPower
+      //       << G4endl;
+      const double resolution_Ce  = P.resA * std::pow(Ece_keV,  P.resPower);
+      const double sigma_Ce    = (resolution_Ce / 2.35) * Ece_keV;  // keV
+      eResCe_keV  = G4RandGauss::shoot(Ece_keV,  sigma_Ce);
+      // --- debug : impression du résultat smearé ---
+      // G4cout << "  resolution=" << resolution_Ce
+      //       << " keV, sigma=" << sigma_Ce
+      //       << " → EresCe=" << eResCe_keV
+      //       << " keV" << G4endl;
     }
     // if (Enai_keV > 0.0) {
     //   const double fwhm_NaI = P.resA * std::pow(Enai_keV, P.resPower);

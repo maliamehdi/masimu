@@ -1,0 +1,13 @@
+Found 9 PARIS sets: PARIS50 PARIS70 PARIS90 PARIS110 PARIS130 PARIS235 PARIS262 PARIS278 PARIS305
+=== Running PARIS50 from /srv/data/Geant4/masimu-1/simtetra-main/simu/bincenters_out_res/energies_list_PARIS50.mac (EVENTS=1000, MAX_PROCS=8) ===
+/srv/data/Geant4/masimu-1/simtetra-main/simu/build/extract_alias_to_list.sh: ligne 16: outbox : variable sans liaison
+Found 9 PARIS sets: PARIS50 PARIS70 PARIS90 PARIS110 PARIS130 PARIS235 PARIS262 PARIS278 PARIS305
+=== Running PARIS50 from /srv/data/Geant4/masimu-1/simtetra-main/simu/bincenters_out_res/energies_list_PARIS50.mac (EVENTS=1000, MAX_PROCS=8) ===
+Wrote energy list to /tmp/tmp.7GyAZ37FMC
+Running 482 energies for PARIS50 with 1000 events each (max 8 parallel)
+Run failed: PARIS50_E5.5keV
+Found 9 PARIS sets: PARIS50 PARIS70 PARIS90 PARIS110 PARIS130 PARIS235 PARIS262 PARIS278 PARIS305
+=== Running PARIS50 from /srv/data/Geant4/masimu-1/simtetra-main/simu/bincenters_out_res/energies_list_PARIS50.mac (EVENTS=1000, MAX_PROCS=8) ===
+Wrote energy list to /tmp/tmp.46L2544XqV
+Running 482 energies for PARIS50 with 1000 events each (max 8 parallel)
+Run failed: PARIS50_E5.5keV

@@ -7,6 +7,7 @@
 #include "globals.hh"
 #include <sstream>
 #include <string>
+#include <atomic>
 
 class MyRunAction : public G4UserRunAction
 {
@@ -27,7 +28,8 @@ private:
   G4int fTruthAllNtupleId = -1;  // id de l'ntuple (Etrue par event, pour debug)
 
   // Gestion d'ouverture unique du fichier de sortie sur plusieurs /run/beamOn
-  G4bool   fFileOpened = false;
+  // Utiliser atomic<bool> pour sécurité minimale entre threads (lecture/écriture simple)
+  std::atomic<bool> fFileOpened{false};
   G4String fOutFileName;
 };
 

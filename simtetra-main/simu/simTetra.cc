@@ -34,7 +34,8 @@ int main(int argc, char** argv)
   // Detector / Physics / Actions
   runManager->SetUserInitialization(new MyDetectorConstruction());
   runManager->SetUserInitialization(new MyPhysicsList());
-  G4String macroName = "137Cs.mac";
+  // Pass the actual macro name (argv[1]) to actions for proper output naming
+  G4String macroName = (argc > 1 ? G4String(argv[1]) : G4String("vis.mac"));
   runManager->SetUserInitialization(new MyActionInitialization(macroName));
 
   // Réglages HP (ok ici, avant /run/initialize)

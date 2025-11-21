@@ -1,0 +1,30 @@
+# prompt_PARIS50_debug.mac — petit test d'acceptance sur 5 énergies
+
+/control/verbose 0
+/run/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+/run/numberOfThreads 20
+
+# initialisation
+/run/initialize
+
+# Particle gun
+/gun/particle gamma
+/gun/position 0 0 0 mm
+
+# Échantillon d'énergies (faible → forte)
+/gun/energy 50 keV
+/run/beamOn 5000
+
+/gun/energy 500 keV
+/run/beamOn 5000
+
+/gun/energy 2000 keV
+/run/beamOn 5000
+
+/gun/energy 10000 keV
+/run/beamOn 5000
+
+/gun/energy 20000 keV
+/run/beamOn 5000
