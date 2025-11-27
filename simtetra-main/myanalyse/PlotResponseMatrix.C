@@ -64,21 +64,21 @@ static const std::map<std::string, ResParams> parisRes = { // run du 05/08/2024
   {"PARIS305", {1.9886,   -0.574021}}
 };
 
-void PlotResponseMatrix(const char* fname = "PARIS70/output_PARIS70_million.root",
+void PlotResponseMatrix(const char* fname = "PARIS50/output_PARIS50_12million.root",
                         int  parisIndex   = 1,
-                        int  nbinsTrue    = 197,
+                        int  nbinsTrue    = 155,
                         double trueMin    = 0.0,
                         double trueMax    = 15000.0,
-                        int  nbinsMeas    = 197,
+                        int  nbinsMeas    = 155,
                         double measMin    = 0.0,
                         double measMax    = 15000.0,
-                        bool normRows     = true,
-                        const char* savePrefix = "plot_Response",
+                        bool normRows     = false,
+                        const char* savePrefix = "plot_Response12M",
                         bool useDraw      = true,
                         bool logz         = false,
                         bool smooth       = false,
                         bool resolutionbin = true,
-                        const char* detName = "PARIS70")
+                        const char* detName = "PARIS50")
 {
   // --- Ouverture du fichier et de l'arbre ---
   TFile* f = TFile::Open(fname, "READ");

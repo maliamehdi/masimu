@@ -2,9 +2,9 @@
 /run/verbose 0
 /event/verbose 0
 /tracking/verbose 0
-/run/numberOfThreads 32
+/run/numberOfThreads 6
 /run/initialize 
 /gun/particle gamma
 /gun/position 0 0 -31.8 mm
-/gun/energy 816.166 keV
-/run/beamOn 1000000
+/gun/energy 16699.4 keV
+/run/beamOn 100000

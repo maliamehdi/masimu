@@ -1,24 +1,26 @@
 // RunUnfolding.C
 //
-// Driver pour lancer DEUX unfoldings en parallèle :
+// Driver pour lancer TROIS unfoldings en parallèle :
 //   1) Méthode linéaire itérative (IterativeUnfoldLinear)
 //   2) Méthode bayésienne itérative (IterativeUnfoldBayes)
+//   3) Méthode directe (type "spectral data", DirectSpectralUnfold)
 //
 // + Comparaison :
-//   - g_mesuré (rebinné) vs g_replié_lin vs g_replié_bayes
-//   - f_unfold_lin vs f_unfold_bayes
+//   - g_mesuré (tronqué / "histo fille") vs g_replié_lin vs g_replié_bayes vs g_replié_direct
+//   - f_unfold_lin vs f_unfold_bayes vs f_unfold_direct
 //   - χ²/point vs itération (lin vs bayes)
 //
 // Prérequis :
 //   .L IterativeUnfoldLinear.C+
 //   .L IterativeUnfoldBayes.C+
+//   .L DirectSpectralUnfold.C+
 //   .L RunUnfolding.C+
 //
 // Usage typique :
-//   RunUnfolding("Response_PARIS70.root", "hResp",
-//                "resolution_bckgndsub_promptsumEvents_PARIS_corrected.root",
-//                "sum_Res11keVGamma_PARIS70",
-//                "UnfoldCompare_PARIS70.root");
+//   RunUnfolding("Response_PARIS50.root", "hResp",
+//                "resolution0508_bckgndsub_promptsumEvents_PARIS_corrected.root",
+//                "sum_Res11keVGamma_PARIS50",
+//                "UnfoldCompare_PARIS50.root");
 //
 // ----------------------------------------------------------------------
 
@@ -30,6 +32,7 @@
 #include <TGraph.h>
 #include <TSystem.h>
 #include <TAxis.h>
+#include <TArrayD.h>
 #include <TString.h>
 #include <iostream>
 #include <vector>
@@ -37,7 +40,6 @@
 
 // ----------------------------------------------------------------------
 // Déclarations des fonctions d'unfolding (implémentées ailleurs)
-// ⚠️ PAS d'arguments par défaut ici, juste les signatures exactes.
 // ----------------------------------------------------------------------
 
 // Méthode linéaire itérative
@@ -61,10 +63,20 @@ TH1D* IterativeUnfoldBayes(const TH1*  hMeas,
                            TGraph** gChi2,
                            TGraph** gChi2NDF);
 
+// Méthode directe (spectral data) – implémentée dans DirectSpectralUnfold.C
+TH1D* DirectSpectralUnfold(const TH1*  hMeas,
+                           const TH2D* hResp,
+                           const char* nameOut,
+                           bool        enforcePos,
+                           bool        verbose,
+                           TH1D**      hResidualOut,
+                           TH1D**      hRefoldOut);
+
 // ----------------------------------------------------------------------
 // Helper : reconstruire le spectre replié g’(Emeas) = Σ_j R_ij f_j
 // à partir de hUnfold (axe Y de hResp) et de la matrice de réponse hResp.
-// On renormalise les colonnes comme dans la méthode bayésienne.
+// On normalise colonne par colonne : PDF(Emeas | Etrue_j).
+// (Utilisé pour la méthode bayésienne, quand on n’a pas déjà le g’ en sortie.)
 // ----------------------------------------------------------------------
 static TH1D* BuildRefoldedFromUnfold(const TH1D* hUnfold,
                                      const TH2D* hResp,
@@ -95,7 +107,7 @@ static TH1D* BuildRefoldedFromUnfold(const TH1D* hUnfold,
   }
   hRef->SetDirectory(nullptr);
 
-  // Construire R_ij normalisé colonne par colonne
+  // Construire R_ij normalisé colonne par colonne (PDF(Emeas | Etrue_j))
   std::vector< std::vector<double> > R(nbinsX, std::vector<double>(nbinsY, 0.0));
   std::vector<double> colSum(nbinsY, 0.0);
 
@@ -137,21 +149,67 @@ static TH1D* BuildRefoldedFromUnfold(const TH1D* hUnfold,
 }
 
 // ----------------------------------------------------------------------
+// Helper : construire un "histo fille" hMeas_used qui contient
+// les N premiers bins de hMeasOrig, avec le binning X de la matrice hResp.
+// N = nbins X de hResp.
+// ----------------------------------------------------------------------
+static TH1D* MakeMeasuredChildFirstNBins(const TH1*  hMeasOrig,
+                                         const TH2D* hResp,
+                                         const char* name = "hMeas_used")
+{
+  if (!hMeasOrig || !hResp) return nullptr;
+
+  const TAxis* axResp = hResp->GetXaxis();
+  int    Nresp  = axResp->GetNbins();
+  const TArrayD* edges = axResp->GetXbins();
+
+  TH1D* h = nullptr;
+
+  // Cas binning variable pour la réponse
+  if (edges && edges->GetSize() == Nresp+1) {
+    h = new TH1D(name,
+                 "Measured (first N bins, response X-binning);E_{meas};Counts",
+                 Nresp, edges->GetArray());
+  } else {
+    // Cas binning uniforme
+    h = new TH1D(name,
+                 "Measured (first N bins, response X-binning);E_{meas};Counts",
+                 Nresp, axResp->GetXmin(), axResp->GetXmax());
+  }
+  h->SetDirectory(nullptr);
+
+  int Nmother = hMeasOrig->GetNbinsX();
+  int Ncopy   = std::min(Nresp, Nmother);
+
+  std::cout << "[INFO] Building measured child histo: Nresp = " << Nresp
+            << ", Nmother = " << Nmother
+            << ", copying first Ncopy = " << Ncopy << " bins." << std::endl;
+
+  for (int ib = 1; ib <= Ncopy; ++ib) {
+    h->SetBinContent(ib, hMeasOrig->GetBinContent(ib));
+    h->SetBinError  (ib, hMeasOrig->GetBinError  (ib));
+  }
+  // Les bins au-delà de Ncopy (si Nresp > Nmother) restent à 0.
+
+  return h;
+}
+
+// ----------------------------------------------------------------------
 // Driver principal
 // ----------------------------------------------------------------------
-void RunUnfolding(const char* responseFile      = "Response_PARIS70.root",
+void RunUnfolding(const char* responseFile      = "Response_PARIS50.root",
                   const char* hRespName         = "hResp",
-                  const char* dataFile          = "resolution_bckgndsub_promptsumEvents_PARIS_corrected.root",
-                  const char* hMeasName         = "sum_Res11keVGamma_PARIS70",
-                  const char* outFile           = "UnfoldCompare_PARIS70.root",
+                  const char* dataFile          = "resolution0508_bckgndsub_promptsumEvents_PARIS_corrected.root",
+                  const char* hMeasName         = "sum_Res11keVGamma_PARIS50",
+                  const char* outFile           = "UnfoldCompare_PARIS50.root",
                   // paramètres linéaire
-                  int   maxIterLin              = 50,
+                  int   maxIterLin              = 100,
                   int   minIterLin              = 3,
                   double relChi2TolLin          = 1e-3,
                   bool  normalizeResponseLin    = true,
                   bool  enforcePosLin           = true,
                   // paramètres bayésien
-                  int   maxIterBay              = 30,
+                  int   maxIterBay              = 100,
                   double tolRelChi2Bay          = 1e-4,
                   bool  enforcePosBay           = true,
                   bool  verboseBay              = true)
@@ -190,45 +248,20 @@ void RunUnfolding(const char* responseFile      = "Response_PARIS70.root",
   std::cout << "[INFO] Loaded response '" << hRespName << "' from " << responseFile << std::endl;
   std::cout << "[INFO] Loaded measured (original) '" << hMeasName << "' from " << dataFile << std::endl;
 
-  // ------------------ 2) Rebin + coupure du spectre mesuré ------------------
-  //
-  // On projette hMeasOrig sur le binning X de la matrice de réponse (E_meas).
-  // -> même nbins, mêmes bords, et coupure automatique à [Xmin, Xmax] de hResp.
-
-  TAxis* axResp = hResp->GetXaxis();
-  int    nMeasBins = axResp->GetNbins();
-  double xMinResp  = axResp->GetXmin();
-  double xMaxResp  = axResp->GetXmax();
-
-  const TArrayD* xb = axResp->GetXbins();
-  TH1D* hMeas = nullptr;
-
-  if (xb && xb->GetSize() == nMeasBins+1) {
-    hMeas = new TH1D("hMeas_used",
-                     "Measured (rebinned to response X);E_{meas};Counts",
-                     nMeasBins, xb->GetArray());
-  } else {
-    hMeas = new TH1D("hMeas_used",
-                     "Measured (rebinned to response X);E_{meas};Counts",
-                     nMeasBins, xMinResp, xMaxResp);
-  }
-  hMeas->SetDirectory(nullptr);
-
-  // copie complète pour info/sortie
+  // Histo complet original (pour sortir)
   TH1* hMeasFull = (TH1*)hMeasOrig->Clone("hMeas_full");
   hMeasFull->SetDirectory(nullptr);
 
-  // Projection de hMeasOrig sur le binning X de la réponse
-  for (int ib = 1; ib <= hMeasOrig->GetNbinsX(); ++ib) {
-    double c = hMeasOrig->GetBinContent(ib);
-    double x = hMeasOrig->GetBinCenter(ib);
-    if (c <= 0.0) continue;
-    if (x < xMinResp || x >= xMaxResp) continue; // coupe explicite
-    hMeas->Fill(x, c);
+  // ------------------ 2) Construire l’histo "fille" hMeas ------------------
+  TH1D* hMeas = MakeMeasuredChildFirstNBins(hMeasOrig, hResp, "hMeas_used");
+  if (!hMeas) {
+    std::cerr << "[ERROR] Failed to build child measured histogram." << std::endl;
+    fResp->Close();
+    fData->Close();
+    return;
   }
 
-  std::cout << "[INFO] Measured spectrum rebinned:"
-            << " nbins = " << hMeas->GetNbinsX()
+  std::cout << "[INFO] Final hMeas : nbins = " << hMeas->GetNbinsX()
             << ", Xmin = " << hMeas->GetXaxis()->GetXmin()
             << ", Xmax = " << hMeas->GetXaxis()->GetXmax()
             << std::endl;
@@ -268,17 +301,42 @@ void RunUnfolding(const char* responseFile      = "Response_PARIS70.root",
     std::cerr << "[ERROR] Bayesian unfolding failed (hUnfoldBay is null)." << std::endl;
   }
 
-  // Repliage bayésien (matrix * f_bayes)
+  // Repliage bayésien (R * f_bayes, colonnes normalisées)
   TH1D* hRefoldBay = nullptr;
   if (hUnfoldBay) {
     hRefoldBay = BuildRefoldedFromUnfold(hUnfoldBay, hResp, "hRefold_bayes");
   }
 
-  // ------------------ 5) Dessins de comparaison ------------------
+  // Version "par fission" pour Bayes (scaling a posteriori)
+  TH1D* hUnfoldBayScaled = nullptr;
+  if (hUnfoldBay) {
+    hUnfoldBayScaled = (TH1D*)hUnfoldBay->Clone("Scaled_hUnfold_Bayes_perFission");
+    hUnfoldBayScaled->SetDirectory(nullptr);
+    // À adapter si tu changes le nombre de fissions
+    hUnfoldBayScaled->Scale(1.0 / 2.882315e+09);
+  }
 
-  // 5.1 Mesuré (rebinné) vs replié linéaire et bayésien
+  // ------------------ 5) Unfolding direct (spectral data) ------------------
+  TH1D* hResDirect    = nullptr;
+  TH1D* hRefoldDirect = nullptr;
+
+  std::cout << "[INFO] Running DIRECT spectral unfolding..." << std::endl;
+  TH1D* hUnfoldDirect = DirectSpectralUnfold(hMeas, hResp,
+                                             "hUnfold_Direct",
+                                             true,   // enforcePos
+                                             true,   // verbose
+                                             &hResDirect,
+                                             &hRefoldDirect);
+
+  if (!hUnfoldDirect) {
+    std::cerr << "[ERROR] Direct unfolding failed (hUnfoldDirect is null)." << std::endl;
+  }
+
+  // ------------------ 6) Dessins de comparaison ------------------
+
+  // 6.1 Mesuré (fille) vs repliés
   TCanvas* c1 = new TCanvas("cUnfold_MeasVsRefold",
-                            "Measured vs Refolded (Linear vs Bayesian)",
+                            "Measured(child) vs Refolded (Linear / Bayesian / Direct)",
                             900, 700);
   c1->SetGrid();
 
@@ -287,7 +345,7 @@ void RunUnfolding(const char* responseFile      = "Response_PARIS70.root",
   hMeasClone->SetLineColor(kBlack);
   hMeasClone->SetLineWidth(2);
 
-  hMeasClone->SetTitle("Measured vs Refolded;E_{meas};Counts");
+  hMeasClone->SetTitle("Measured (child N bins) vs Refolded;E_{meas};Counts");
   hMeasClone->Draw("HIST");
 
   if (hRefoldLin) {
@@ -301,42 +359,66 @@ void RunUnfolding(const char* responseFile      = "Response_PARIS70.root",
     hRefoldBay->SetLineStyle(2);
     hRefoldBay->Draw("HIST SAME");
   }
+  if (hRefoldDirect) {
+    hRefoldDirect->SetLineColor(kGreen+2);
+    hRefoldDirect->SetLineWidth(2);
+    hRefoldDirect->SetLineStyle(7);
+    hRefoldDirect->Draw("HIST SAME");
+  }
 
-  TLegend* leg1 = new TLegend(0.60,0.70,0.88,0.88);
-  leg1->AddEntry(hMeasClone, "Measured (rebinned)", "l");
-  if (hRefoldLin) leg1->AddEntry(hRefoldLin, "Refolded (Linear)", "l");
-  if (hRefoldBay) leg1->AddEntry(hRefoldBay, "Refolded (Bayesian)", "l");
+  TLegend* leg1 = new TLegend(0.55,0.68,0.88,0.88);
+  leg1->AddEntry(hMeasClone,    "Measured (child, N first bins)", "l");
+  if (hRefoldLin)    leg1->AddEntry(hRefoldLin,    "Refolded (Linear)",  "l");
+  if (hRefoldBay)    leg1->AddEntry(hRefoldBay,    "Refolded (Bayesian)","l");
+  if (hRefoldDirect) leg1->AddEntry(hRefoldDirect, "Refolded (Direct)",  "l");
   leg1->Draw();
 
-  // 5.2 Spectres unfolded linéaire vs bayésien
+  // 6.2 Spectres unfolded linéaire vs bayésien vs direct
   TCanvas* c2 = new TCanvas("cUnfold_Spectra",
-                            "Unfolded spectra (Linear vs Bayesian)",
+                            "Unfolded spectra (Linear / Bayesian / Direct)",
                             900, 700);
   c2->SetGrid();
 
+  bool first = true;
   if (hUnfoldLin) {
     hUnfoldLin->SetLineColor(kRed+1);
     hUnfoldLin->SetLineWidth(2);
     hUnfoldLin->SetTitle("Unfolded spectra;E_{true};Counts");
     hUnfoldLin->Draw("HIST");
+    first = false;
   }
   if (hUnfoldBay) {
     hUnfoldBay->SetLineColor(kBlue+1);
     hUnfoldBay->SetLineWidth(2);
     hUnfoldBay->SetLineStyle(2);
-    if (hUnfoldLin) hUnfoldBay->Draw("HIST SAME");
-    else {
-      hUnfoldBay->SetTitle("Unfolded spectrum (Bayesian);E_{true};Counts");
+    if (first) {
+      hUnfoldBay->SetTitle("Unfolded spectra;E_{true};Counts");
       hUnfoldBay->Draw("HIST");
+      first = false;
+    } else {
+      hUnfoldBay->Draw("HIST SAME");
+    }
+  }
+  if (hUnfoldDirect) {
+    hUnfoldDirect->SetLineColor(kGreen+2);
+    hUnfoldDirect->SetLineWidth(2);
+    hUnfoldDirect->SetLineStyle(7);
+    if (first) {
+      hUnfoldDirect->SetTitle("Unfolded spectra;E_{true};Counts");
+      hUnfoldDirect->Draw("HIST");
+      first = false;
+    } else {
+      hUnfoldDirect->Draw("HIST SAME");
     }
   }
 
-  TLegend* leg2 = new TLegend(0.60,0.75,0.88,0.88);
-  if (hUnfoldLin) leg2->AddEntry(hUnfoldLin, "Linear unfolding", "l");
-  if (hUnfoldBay) leg2->AddEntry(hUnfoldBay, "Bayesian unfolding", "l");
+  TLegend* leg2 = new TLegend(0.55,0.68,0.88,0.88);
+  if (hUnfoldLin)    leg2->AddEntry(hUnfoldLin,    "Linear unfolding",   "l");
+  if (hUnfoldBay)    leg2->AddEntry(hUnfoldBay,    "Bayesian unfolding", "l");
+  if (hUnfoldDirect) leg2->AddEntry(hUnfoldDirect, "Direct unfolding",   "l");
   leg2->Draw();
 
-  // 5.3 χ²/point vs itération
+  // 6.3 χ²/point vs itération (uniquement lin & bayes, direct n'est pas itératif)
   TCanvas* c3 = new TCanvas("cUnfold_Chi2",
                             "Chi2/point vs iteration (Linear vs Bayesian)",
                             900, 700);
@@ -349,15 +431,10 @@ void RunUnfolding(const char* responseFile      = "Response_PARIS70.root",
     gChi2Lin->SetMarkerStyle(20);
     gChi2Lin->SetMarkerColor(kRed+1);
     gChi2Lin->SetLineColor(kRed+1);
-    if (firstDraw) {
-      gChi2Lin->Draw("ALP");
-      firstDraw = false;
-    } else {
-      gChi2Lin->Draw("LP SAME");
-    }
+    gChi2Lin->Draw("ALP");
+    firstDraw = false;
   }
 
-  // Pour le bayésien on trace χ²/point (gChi2NDFBay)
   if (gChi2NDFBay) {
     gChi2NDFBay->SetName("gChi2PerPoint_Bayes");
     gChi2NDFBay->SetMarkerStyle(21);
@@ -372,12 +449,12 @@ void RunUnfolding(const char* responseFile      = "Response_PARIS70.root",
     }
   }
 
-  TLegend* leg3 = new TLegend(0.60,0.75,0.88,0.88);
-  if (gChi2Lin)     leg3->AddEntry(gChi2Lin,     "Linear (chi2/point)", "lp");
-  if (gChi2NDFBay)  leg3->AddEntry(gChi2NDFBay,  "Bayesian (chi2/point)", "lp");
+  TLegend* leg3 = new TLegend(0.55,0.75,0.88,0.88);
+  if (gChi2Lin)     leg3->AddEntry(gChi2Lin,     "Linear (chi2/point)",  "lp");
+  if (gChi2NDFBay)  leg3->AddEntry(gChi2NDFBay,  "Bayesian (chi2/point)","lp");
   leg3->Draw();
 
-  // ------------------ 6) Sauvegarde dans un fichier ROOT ------------------
+  // ------------------ 7) Sauvegarde dans un fichier ROOT ------------------
   TFile* fOut = TFile::Open(outFile, "RECREATE");
   if (!fOut || fOut->IsZombie()) {
     std::cerr << "[WARN] Cannot create output file: " << outFile << std::endl;
@@ -387,11 +464,16 @@ void RunUnfolding(const char* responseFile      = "Response_PARIS70.root",
     hMeasFull->Write("hMeas_full");
     hMeasClone->Write("hMeas_used");
     // Unfolded
-    if (hUnfoldLin) hUnfoldLin->Write("hUnfold_Linear");
-    if (hUnfoldBay) hUnfoldBay->Write("hUnfold_Bayes");
+    if (hUnfoldLin)      hUnfoldLin->Write("hUnfold_Linear");
+    if (hUnfoldBay)      hUnfoldBay->Write("hUnfold_Bayes");
+    if (hUnfoldDirect)   hUnfoldDirect->Write("hUnfold_Direct");
+    if (hUnfoldBayScaled) hUnfoldBayScaled->Write("Scaled_hUnfold_Bayes_perFission");
     // Refolded
-    if (hRefoldLin) hRefoldLin->Write("hRefold_Linear");
-    if (hRefoldBay) hRefoldBay->Write("hRefold_Bayes");
+    if (hRefoldLin)      hRefoldLin->Write("hRefold_Linear");
+    if (hRefoldBay)      hRefoldBay->Write("hRefold_Bayes");
+    if (hRefoldDirect)   hRefoldDirect->Write("hRefold_Direct");
+    // Résiduel direct
+    if (hResDirect)      hResDirect->Write("hResidual_Direct");
     // Graphes chi2
     if (gChi2Lin)     gChi2Lin->Write("gChi2PerPoint_Linear");
     if (gChi2Bay)     gChi2Bay->Write("gChi2_Bayes_total");
@@ -400,7 +482,7 @@ void RunUnfolding(const char* responseFile      = "Response_PARIS70.root",
     std::cout << "[INFO] Results written to " << outFile << std::endl;
   }
 
-  // ------------------ 7) Sauvegarde des PNG ------------------
+  // ------------------ 8) Sauvegarde des PNG ------------------
   TString outBase = outFile;
   outBase.ReplaceAll(".root","");
 
@@ -410,7 +492,7 @@ void RunUnfolding(const char* responseFile      = "Response_PARIS70.root",
 
   std::cout << "[INFO] PNGs saved with base: " << outBase << "_*.png" << std::endl;
 
-  // ------------------ 8) Nettoyage des fichiers d'entrée ------------------
+  // ------------------ 9) Nettoyage des fichiers d'entrée ------------------
   fResp->Close();
   fData->Close();
 }

@@ -80,10 +80,11 @@ do_one() {
 /gun/energy ${E} keV
 /run/beamOn ${EVENTS}
 EOF
+  local run_rc=0
   if [[ -n "${QUIET:-}" ]]; then
-    PARIS_ID="$PARIS_ID" TAG="$TAG" "$APP" "$MAC" >/dev/null 2>&1 || echo "Run failed: $TAG" >&2
+    PARIS_ID="$PARIS_ID" TAG="$TAG" "$APP" "$MAC" >/dev/null 2>&1 || run_rc=$?
   else
-    PARIS_ID="$PARIS_ID" TAG="$TAG" "$APP" "$MAC" >"$LOGDIR/${TAG}.log" 2>&1 || echo "Run failed: $TAG" >&2
+    PARIS_ID="$PARIS_ID" TAG="$TAG" "$APP" "$MAC" >"$LOGDIR/${TAG}.log" 2>&1 || run_rc=$?
   fi
   # Move output file into per-PARIS directory if present
   local SRC="../../myanalyse/output_${TAG}.root"
@@ -92,18 +93,29 @@ EOF
   fi
   # Done message
   if [[ -n "${QUIET:-}" ]]; then
-    echo "[DONE][quiet] $TAG" >&2
-  else
-    if [[ -f "$OUTDIR/output_${TAG}.root" ]]; then
-      echo "[DONE] $TAG -> $OUTDIR/output_${TAG}.root" >&2
+    if (( run_rc == 0 )); then
+      echo "[DONE][quiet] $TAG" >&2
     else
-      echo "[DONE] $TAG (no output found)" >&2
+      echo "[FAIL][quiet][$run_rc] $TAG" >&2
+    fi
+  else
+    if (( run_rc == 0 )); then
+      if [[ -f "$OUTDIR/output_${TAG}.root" ]]; then
+        echo "[DONE] $TAG -> $OUTDIR/output_${TAG}.root" >&2
+      else
+        echo "[WARN] $TAG terminé sans fichier ROOT (rc=$run_rc)" >&2
+      fi
+    else
+      echo "[FAIL][$run_rc] $TAG (voir log: $LOGDIR/${TAG}.log)" >&2
     fi
   fi
+  # Enregistrer statut dans tableau global
+  echo "${TAG};${run_rc}" >> run_status_${PARIS_ID}.csv
   rm -f "$MAC"
 }
 
 # Parallel dispatcher (portable, avoids 'wait -n' requirement)
+echo "TAG;rc" > run_status_${PARIS_ID}.csv
 for E in "${ENERGIES[@]}"; do
   # Throttle to MAX_PROCS concurrent background jobs
   while true; do
@@ -117,4 +129,7 @@ for E in "${ENERGIES[@]}"; do
 done
 wait
 
+fails=$(grep -c ';' run_status_${PARIS_ID}.csv || true)
+bad=$(grep -c ';[1-9][0-9]*$' run_status_${PARIS_ID}.csv || true)
 echo "All runs complete. Output files in ../../myanalyse/${PARIS_ID}/ output_${PARIS_ID}_E*.root" >&2
+echo "Status summary: entries=$fails, failures=$bad (details: run_status_${PARIS_ID}.csv)" >&2

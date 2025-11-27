@@ -44,17 +44,17 @@ static const std::map<std::string, ResParams> parisRes_MR = { // MR = MakeRespon
   {"PARIS305", {1.9886,   -0.574021}}
 };
 
-void MakeResponseForUnfolding(const char* inFile  = "PARIS70/output_PARIS70_million.root",
-                              const char* outFile = "Response_PARIS70.root",
-                              int nbinsTrue       = 197,
+void MakeResponseForUnfolding(const char* inFile  = "PARIS50/output_PARIS50_12million.root",
+                              const char* outFile = "Response_PARIS50.root",
+                              int nbinsTrue       = 155,
                               double trueMin      = 0.0,
                               double trueMax      = 15000.0,
-                              int nbinsMeas       = 197,
+                              int nbinsMeas       = 155,
                               double measMin      = 0.0,
                               double measMax      = 15000.0,
                               bool resolutionbin  = true,
-                              const char* detName = "PARIS70",
-                              int parisIndex      = 1)
+                              const char* detName = "PARIS50",
+                              int parisIndex      = 0)
 {
   // Ouvrir fichier d'entrée
   TFile* fIn = TFile::Open(inFile, "READ");
