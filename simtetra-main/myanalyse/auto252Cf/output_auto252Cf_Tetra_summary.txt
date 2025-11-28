@@ -1,0 +1,15 @@
+Input: auto252Cf/output_auto252Cf.root
+Total events: 100000
+Total emitted: 376113
+Total detected: 72290
+Total escaped: 178905 (47.567 %)
+Emitted - Detected: 303823
+Check (Em-Det vs Esc): 303823 vs 178905
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 47760 (eff = 47.760000 %)
+Events (any detection <= gate): 50380 (eff = -1.000000 %)
+Mean measured multiplicity: 0.631320
+Mean average detection time [ns]: 59608.064572
+Mean last detection time [ns]: 70327.081621
+Budget (MeV): 14.000
+Events over budget: 0

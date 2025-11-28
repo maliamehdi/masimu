@@ -6,7 +6,8 @@ set -euo pipefail
 #   - auto252Cf_neutrons.mac
 #   - mono_n.mac
 #   - duo.mac
-# Organizes outputs into myanalyse/mult1..mult12 without touching C++ code.
+# Organizes outputs into myanalyse/mult1..mult12 (and auto252Cf/mono/duo) by using
+# TAG/OUTDIR so Geant4 writes directly to distinct paths per run (no move needed).
 #
 # Usage:
 #   ./run_all_fixed_mult.sh [-j NTHREADS] [--timestamp] [--build DIR]
@@ -22,11 +23,10 @@ set -euo pipefail
 #   Geant4 MT picks it up early. Macros also set /run/numberOfThreads 8,
 #   but the CLI/env settings are applied earlier and are preferred here.
 # - We run from the build directory so relative paths used by the code resolve correctly.
-# - After each run, we move the produced ROOT file into a tidy subfolder:
-#   * fixed_mult_N  -> myanalyse/multN/output_fixed_mult_N[+timestamp].root
-#   * auto252Cf     -> myanalyse/auto252Cf/output_auto252Cf[+timestamp].root
-#   * mono_n        -> myanalyse/mono/output_mono_n[+timestamp].root
-#   * duo           -> myanalyse/duo/output_duo[+timestamp].root
+# - We set:
+#   * OUTDIR to choose subfolder under myanalyse/
+#   * TAG to choose output filename: output_${TAG}.root
+#   Paths will look like: myanalyse/${OUTDIR}/output_${TAG}.root
 
 HERE=$(cd "$(dirname "$0")" && pwd)
 # Auto-detect layout so the script works from simu/ or simu/build/
@@ -74,11 +74,11 @@ echo "Using $NTHREADS thread(s). Binary: $BIN"
 # Ensure we execute from the build directory so relative paths in the code are valid
 pushd "$BUILD_DIR" >/dev/null
 
-# Helper: run a macro by base name and move the latest output into a named folder/file
-run_and_move() {
-  local base="$1"       # e.g. auto252Cf_neutrons
-  local dest_dir_name="$2"  # e.g. auto252Cf
-  local dest_basename="$3"  # e.g. auto252Cf
+# Helper: run a macro by base name using OUTDIR/TAG so RunAction writes to dedicated path
+run_with_tag() {
+  local base="$1"            # e.g. auto252Cf_neutrons (macro basename without .mac)
+  local outdir_name="$2"     # e.g. auto252Cf (subfolder under myanalyse/)
+  local tag_base="$3"        # e.g. auto252Cf (filename stem)
 
   local macro_path="$ROOT_DIR/${base}.mac"
   if [[ ! -f "$macro_path" ]]; then
@@ -89,73 +89,41 @@ run_and_move() {
     return 0
   fi
 
-  echo "\n=== Running macro ${base}.mac ==="
+  echo "\n=== Running macro ${base}.mac -> myanalyse/${outdir_name}/output_${tag_base}${STAMP}.root ==="
   local status=0
   (
     export G4NUM_THREADS="$NTHREADS"
+    export OUTDIR="$outdir_name"
+    export TAG="${tag_base}${STAMP}"
     "$BIN" "$macro_path" "$NTHREADS"
   ) || status=$?
   if [[ $status -ne 0 ]]; then
     echo "Run for macro ${base}.mac failed with code $status" >&2
     return $status
   fi
-
-  # Move latest output for this base
-  local src
-  src=$(ls -t ../../myanalyse/output_${base}_run*.root 2>/dev/null | head -n1 || true)
-  if [[ -z "$src" ]]; then
-    echo "Warning: could not find output for ${base} in ../../myanalyse" >&2
-    return 0
-  fi
-  local dest_dir="../../myanalyse/${dest_dir_name}"
-  mkdir -p "$dest_dir"
-  local dest_file="$dest_dir/output_${dest_basename}${STAMP}.root"
-  echo "Moving $src -> $dest_file"
-  mv -f "$src" "$dest_file"
 }
 
 status=0
-for n in $(seq -w 1 12); do
-  macro="$ROOT_DIR/fixed_mult_${n}.mac"
-  if [[ ! -f "$macro" ]]; then
-    echo "Warning: missing macro $macro, skipping" >&2
-    continue
-  fi
-  echo "\n=== Running multiplicity ${n} ==="
-  (
-    export G4NUM_THREADS="$NTHREADS"
-    # Pass threads as 2nd CLI arg too (applied before macro is read)
-    "$BIN" "$macro" "$NTHREADS"
-  ) || status=$?
+for n in $(seq -w 3 12); do
+  n_short=${n#0}
+  # base macro name without .mac
+  base="fixed_mult_${n}"
+  # OUTDIR = multN, TAG = fixed_mult_N
+  run_with_tag "$base" "mult${n_short}" "fixed_mult_${n_short}" || status=$?
   if [[ $status -ne 0 ]]; then
     echo "Run for multiplicity ${n} failed with code $status" >&2
     break
   fi
-
-  # After successful run, move the newest produced ROOT file for this macro
-  base="fixed_mult_${n}"
-  src=$(ls -t ../../myanalyse/output_${base}_run*.root 2>/dev/null | head -n1 || true)
-  if [[ -z "$src" ]]; then
-    echo "Warning: could not find output for ${base} in ../../myanalyse" >&2
-    continue
-  fi
-  # Convert 01 -> 1 for directory naming
-  n_short=${n#0}
-  dest_dir=../../myanalyse/mult${n_short}
-  mkdir -p "$dest_dir"
-  dest_file="$dest_dir/output_fixed_mult_${n_short}${STAMP}.root"
-  echo "Moving $src -> $dest_file"
-  mv -f "$src" "$dest_file"
 done
 
 # Extra macros after the fixed multiplicities
-run_and_move auto252Cf_neutrons auto252Cf auto252Cf || status=$?
+run_with_tag auto252Cf_neutrons auto252Cf auto252Cf || status=$?
 if [[ $status -ne 0 ]]; then popd >/dev/null; exit $status; fi
 
-run_and_move mono_n mono mono_n || status=$?
+run_with_tag mono_n mono mono_n || status=$?
 if [[ $status -ne 0 ]]; then popd >/dev/null; exit $status; fi
 
-run_and_move duo duo duo || status=$?
+run_with_tag duo duo duo || status=$?
 if [[ $status -ne 0 ]]; then popd >/dev/null; exit $status; fi
 
 popd >/dev/null

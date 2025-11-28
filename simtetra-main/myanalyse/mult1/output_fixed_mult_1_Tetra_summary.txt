@@ -1,0 +1,15 @@
+Input: mult1/output_fixed_mult_1.root
+Total events: 100000
+Total emitted: 100000
+Total detected: 18815
+Total escaped: 47730 (47.730 %)
+Emitted - Detected: 81185
+Check (Em-Det vs Esc): 81185 vs 47730
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 17304 (eff = 17.304000 %)
+Events (any detection <= gate): 17304 (eff = -1.000000 %)
+Mean measured multiplicity: 0.173040
+Mean average detection time [ns]: 59644.484419
+Mean last detection time [ns]: 59644.484419
+Budget (MeV): 14.000
+Events over budget: 17

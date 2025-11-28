@@ -1,8 +1,8 @@
+/run/numberOfThreads 32
 /run/initialize
-/run/numberOfThreads 8
 # spectre de Watt et multiplicité moyenne de 3.76
 /src/mode auto 
 # somme total des énergies
 /src/budgetMEV 14
 /src/enforceBudgetAuto true
-/run/beamOn 1000000
+/run/beamOn 100000

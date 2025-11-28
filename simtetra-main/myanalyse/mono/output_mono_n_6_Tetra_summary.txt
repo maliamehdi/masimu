@@ -1,0 +1,15 @@
+Input: mono/output_mono_n_6.root
+Total events: 100000
+Total emitted: 100000
+Total detected: 13357
+Total escaped: 50951 (50.951 %)
+Emitted - Detected: 86643
+Check (Em-Det vs Esc): 86643 vs 50951
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 12177 (eff = 12.177000 %)
+Events (any detection <= gate): 12177 (eff = -1.000000 %)
+Mean measured multiplicity: 0.121770
+Mean average detection time [ns]: 62396.338603
+Mean last detection time [ns]: 62396.338603
+Budget (MeV): 14.000
+Events over budget: 0

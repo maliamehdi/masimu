@@ -34,6 +34,18 @@ static const std::map<int, ResParams> parisRes = {
     {8,  {1.9886,   -0.574021}}
 };
 
+// Pour les gamma prompt du 252Cf je prends la pire résolution dans le temps pour chaque PARIS
+// static const std::map<int, ResParams> parisRes = { //run du 05/08/2024
+//     {0,  {1.12145,  -0.441244}}, // 05/08 pour PARIS50 
+//     {1,  {1.80973,  -0.550685}}, // 05/08 pour PARIS70 je peux aussi mettre 24/09
+//     {2,  {1.65564,	-0.53887}}, //20/06 pour PARIS90
+//     {3, {1.93549	-0.564697}}, //29/08 pour PARIS110
+//     {4, {0.836128,	-0.368968}}, //17/06 pour PARIS130
+//     {5, {1.30727,  -0.477402}}, //05/08 pour PARIS235
+//     {6, {1.76345,  -0.542769}}, //05/08 pour PARIS262
+//     {7, {1.76703,	-0.536899}}, //07/10 pour PARIS278
+//     {8, {1.30165,	-0.503266}} //20/06 pour PARIS305
+// };
 // ----- Assembly stride/offsets (5 sous-volumes : housing, Ce, NaI, quartz, seal)
 static constexpr int kCeOffset  = 3;  // Ce = 3,8,13,...
 static constexpr int kNaIOffset = 4;  // NaI= 4,9,14,...

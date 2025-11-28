@@ -176,18 +176,24 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event* evt)
       for (int i=0; i<mult; ++i) E_MeV[i] = SampleWattMeV();
     };
 
-    if (fMode==Mode::kAuto && fEnforceBudgetAuto) {
-      // Rejet si dépasse le budget (AUCUNE normalisation)
+    if (fEnforceBudgetAuto && ((fMode==Mode::kAuto) || (fMode==Mode::kFixed && !fEqualEnergy))) {
+      // Rejet si dépasse le budget (appliqué maintenant aussi au mode fixed quand !equal)
       int guard = 0;
       while (true) {
         draw_watt();
         double sum = 0.0; for (double e: E_MeV) sum += e;
         if (sum <= fBudget_MeV) break;
-        if (++guard > 64) { break; } // éviter une boucle infinie
+        if (++guard > 128) { // éviter une boucle infinie (un peu plus de tentatives)
+          G4cout << "[Budget] Echec: sumE=" << sum << " MeV > " << fBudget_MeV
+                 << " MeV après " << guard << " tentatives (mode="
+                 << (fMode==Mode::kAuto?"auto":"fixed") << ")" << G4endl;
+          break;
+        }
       }
     } else {
-      // Tirage simple (auto sans contrainte, ou fixed+!equal sans contrainte)
       draw_watt();
+      // E_MeV[0] = 2.0; // SampleWattMeV(); --- IGNORE ---
+      // E_MeV[1] = 4.0;
     }
   }
 

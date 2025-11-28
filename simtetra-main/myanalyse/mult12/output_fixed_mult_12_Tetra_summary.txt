@@ -1,0 +1,15 @@
+Input: mult12/output_fixed_mult_12.root
+Total events: 100000
+Total emitted: 1200000
+Total detected: 225211
+Total escaped: 573089 (47.757 %)
+Emitted - Detected: 974789
+Check (Em-Det vs Esc): 974789 vs 573089
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 74737 (eff = 74.737000 %)
+Events (any detection <= gate): 89733 (eff = -1.000000 %)
+Mean measured multiplicity: 1.739010
+Mean average detection time [ns]: 59888.620542
+Mean last detection time [ns]: 98776.933997
+Budget (MeV): 14.000
+Events over budget: 99602

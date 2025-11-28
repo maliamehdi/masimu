@@ -4,6 +4,7 @@
 #include <TH1.h>
 #include <TEfficiency.h>
 #include <TLegend.h>
+#include <TLine.h>
 #include <TSystem.h>
 #include <TStyle.h>
 #include <TString.h>
@@ -14,15 +15,19 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
+#include <cmath>  // pour std::sqrt
 
 // Usage in ROOT:
-// .L plotTetra.C
+// .L plotTetra.C+
 // plotTetra("../myanalyse/output_cf252_neutron_primarygenerator.root")
-// plotTetra("path/to/output.root", "../myanalyse/plots/plotTetra")
+// plotTetra("path/to/output.root")
 
 void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
-               const char* outprefix = "../myanalyse/plots/new150usplotTetra_analysis",
-               double tGate_ns = 150000.0)
+               const char* /*outprefix*/ = "../myanalyse/plots/plotTetra_analysis",
+               double tGate_ns = 150000.0,
+               double budgetMEV = 14.0)
 {
   gStyle->SetOptStat(1110);
 
@@ -105,13 +110,12 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
   for (Long64_t i = 0; i < totEvents; ++i) {
     tEvents->GetEntry(i);
 
-  // multiplicity (gate: fill only if detections occur before tGate_ns using lastNeutronTime_ns)
-  if (nDetected == 0 || ( nDetected > 0 && lastNeutronTime_ns >= 0 && lastNeutronTime_ns <= tGate_ns)) {
-    hMult->Fill((int)std::llround(nDetected));
-    sumDetectedD += nDetected;
-  }
-  // keep overall mean multiplicity on all events (not gated)
-  
+    // multiplicity (gate: fill only if detections occur before tGate_ns using lastNeutronTime_ns)
+    if (nDetected == 0 || ( nDetected > 0 && lastNeutronTime_ns >= 0 && lastNeutronTime_ns <= tGate_ns)) {
+      hMult->Fill((int)std::llround(nDetected));
+      sumDetectedD += nDetected;
+    }
+
     hR1->Fill(HitsRing1); hR2->Fill(HitsRing2); hR3->Fill(HitsRing3); hR4->Fill(HitsRing4);
 
     // Ce spectrum (ignore zeros)
@@ -135,27 +139,6 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
 
   double percentEscaped = (totEmitted > 0) ? (100.0 * (double)totEscaped / (double)totEmitted) : 0.0;
   long long diffEmDet = totEmitted - totDetected;
-  const double effAllDetBeforeGate = (totEvents > 0) ? (100.0 * (double)nEventsAllDetBeforeGate / (double)totEvents) : 0.0;
-  const double effAnyBeforeGate = (tHits && totEvents > 0 && nEventsAnyBeforeGate >= 0)
-                                  ? (100.0 * (double)nEventsAnyBeforeGate / (double)totEvents) : -1.0;
-
-  std::cout << "Summary:\n"
-            << "  Total events         : " << totEvents << "\n"
-            << "  Total emitted        : " << totEmitted << "\n"
-            << "  Total detected       : " << nEventsAllDetBeforeGate <<"\n"//totDetected << "\n"
-            << "  Total escaped        : " << totEscaped << " (" << percentEscaped << " %)\n"
-            << "  Emitted-Detected     : " << diffEmDet << "\n"
-            << "  Check (Em-Det vs Esc): " << diffEmDet << " vs " << totEscaped << "\n"
-            << "  Gate t <= " << tGate_ns << " ns\n"
-            << "    Events with all detections <= gate : " << nEventsAllDetBeforeGate
-            << " (eff = " << effAllDetBeforeGate << " %)\n"
-            << "    Events with any detection <= gate  : "
-            << ( (nEventsAnyBeforeGate>=0) ? std::to_string(nEventsAnyBeforeGate) : std::string("N/A (no TritonHits)") )
-            << ( (effAnyBeforeGate>=0) ? (std::string(" (eff = ") + std::to_string(effAnyBeforeGate) + " %)") : std::string("") )
-            << "\n";
-  if (meanEmittedMultiplicity >= 0.0) {
-    std::cout << "  Mean emitted multiplicity: " << meanEmittedMultiplicity << "\n";
-  }
 
   // Average detection time per event from TritonHits
   TH1D* hAvgDetTime = nullptr;
@@ -195,9 +178,70 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
     if (cntAvg > 0) meanAvgDetTime = sumAvg / (double)cntAvg;
   }
 
-  // Draw canvases
-  TString outBase(outprefix);
-  gSystem->Exec(TString::Format("mkdir -p %s", gSystem->DirName(outBase)));
+  // ================= Efficiences + erreurs (binomial) =================
+  double effAllDetBeforeGate_frac = 0.0;
+  double effAllDetBeforeGate_percent = 0.0;
+  double errEffAllDetBeforeGate_percent = 0.0;
+
+  if (totEvents > 0) {
+    effAllDetBeforeGate_frac = (double)nEventsAllDetBeforeGate / (double)totEvents;
+    effAllDetBeforeGate_percent = 100.0 * effAllDetBeforeGate_frac;
+    double errFrac = std::sqrt(effAllDetBeforeGate_frac * (1.0 - effAllDetBeforeGate_frac) / (double)totEvents);
+    errEffAllDetBeforeGate_percent = 100.0 * errFrac;
+  }
+
+  double effAnyBeforeGate_frac = -1.0;
+  double effAnyBeforeGate_percent = -1.0;
+  double errEffAnyBeforeGate_percent = -1.0;
+
+  if (nEventsAnyBeforeGate >= 0 && totEvents > 0) {
+    effAnyBeforeGate_frac = (double)nEventsAnyBeforeGate / (double)totEvents;
+    effAnyBeforeGate_percent = 100.0 * effAnyBeforeGate_frac;
+    double errFrac = std::sqrt(effAnyBeforeGate_frac * (1.0 - effAnyBeforeGate_frac) / (double)totEvents);
+    errEffAnyBeforeGate_percent = 100.0 * errFrac;
+  }
+
+  // ================= Summary sur stdout =================
+  std::cout << "Summary:\n"
+            << "  Total events         : " << totEvents << "\n"
+            << "  Total emitted        : " << totEmitted << "\n"
+            << "  Total detected       : " << nEventsAllDetBeforeGate << "\n" // ou totDetected si tu préfères
+            << "  Total escaped        : " << totEscaped << " (" << percentEscaped << " %)\n"
+            << "  Emitted-Detected     : " << diffEmDet << "\n"
+            << "  Check (Em-Det vs Esc): " << diffEmDet << " vs " << totEscaped << "\n"
+            << "  Gate t <= " << tGate_ns << " ns\n"
+            << "    Events with all detections <= gate : " << nEventsAllDetBeforeGate
+            << " (eff = " << effAllDetBeforeGate_percent
+            << " +/- " << errEffAllDetBeforeGate_percent << " %)\n";
+
+  std::cout << "    Events with any detection <= gate  : ";
+  if (nEventsAnyBeforeGate >= 0) {
+    std::cout << nEventsAnyBeforeGate;
+    if (effAnyBeforeGate_percent >= 0.0) {
+      std::cout << " (eff = " << effAnyBeforeGate_percent;
+      if (errEffAnyBeforeGate_percent >= 0.0)
+        std::cout << " +/- " << errEffAnyBeforeGate_percent;
+      std::cout << " %)";
+    }
+    std::cout << "\n";
+  } else {
+    std::cout << "N/A (no TritonHits)\n";
+  }
+
+  if (meanEmittedMultiplicity >= 0.0) {
+    std::cout << "  Mean emitted multiplicity: " << meanEmittedMultiplicity << "\n";
+  }
+
+  // ================= Construction automatique du nom de sortie =================
+  // /path/to/file.root -> /path/to/plot_file
+  TString tin(infile);
+  TString dir  = gSystem->DirName(tin);
+  TString base = gSystem->BaseName(tin);
+  if (base.EndsWith(".root")) base.ReplaceAll(".root", "");
+  TString outBase = Form("%s/plot_%s", dir.Data(), base.Data());
+
+  // Création du dossier du fichier input au cas où
+  gSystem->Exec(TString::Format("mkdir -p %s", dir.Data()));
 
   // Canvas 1: multiplicities
   auto c1 = new TCanvas("c1", "Multiplicities", 1200, 900);
@@ -227,10 +271,24 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
     fprintf(fp, "Total detected: %lld\n", totDetected);
     fprintf(fp, "Total escaped: %lld (%.3f %%)\n", totEscaped, percentEscaped);
     fprintf(fp, "Emitted - Detected: %lld\n", diffEmDet);
-  fprintf(fp, "Check (Em-Det vs Esc): %lld vs %lld\n", diffEmDet, totEscaped);
-  fprintf(fp, "Gate t <= %.3f ns\n", tGate_ns);
-  fprintf(fp, "Events (all detections <= gate): %lld (eff = %.6f %%)\n", nEventsAllDetBeforeGate, effAllDetBeforeGate);
-  if (nEventsAnyBeforeGate >= 0) fprintf(fp, "Events (any detection <= gate): %lld (eff = %.6f %%)\n", nEventsAnyBeforeGate, effAnyBeforeGate);
+    fprintf(fp, "Check (Em-Det vs Esc): %lld vs %lld\n", diffEmDet, totEscaped);
+    fprintf(fp, "Gate t <= %.3f ns\n", tGate_ns);
+    fprintf(fp, "Events (all detections <= gate): %lld (eff = %.6f +/- %.6f %%)\n",
+            nEventsAllDetBeforeGate,
+            effAllDetBeforeGate_percent,
+            errEffAllDetBeforeGate_percent);
+
+    if (nEventsAnyBeforeGate >= 0 && effAnyBeforeGate_percent >= 0.0) {
+      fprintf(fp, "Events (any detection <= gate): %lld (eff = %.6f",
+              nEventsAnyBeforeGate,
+              effAnyBeforeGate_percent);
+      if (errEffAnyBeforeGate_percent >= 0.0)
+        fprintf(fp, " +/- %.6f", errEffAnyBeforeGate_percent);
+      fprintf(fp, " %%)\n");
+    } else {
+      fprintf(fp, "Events (any detection <= gate): N/A (no TritonHits)\n");
+    }
+
     const double meanMult = (totEvents > 0) ? (sumDetectedD / (double)totEvents) : 0.0;
     const double meanLast = (cntLastDetect > 0) ? (sumLastDetect / (double)cntLastDetect) : -1.0;
     fprintf(fp, "Mean measured multiplicity: %.6f\n", meanMult);
@@ -261,7 +319,7 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
     Double_t out_meanAvgDetTime = meanAvgDetTime;
     Double_t out_meanLastDetTime = (cntLastDetect > 0) ? (sumLastDetect / (double)cntLastDetect) : -1.0;
 
-  auto* tSummary = new TTree("Summary", "Run summary and means");
+    auto* tSummary = new TTree("Summary", "Run summary and means");
     tSummary->Branch("totEvents", &out_totEvents, "totEvents/L");
     tSummary->Branch("totEmitted", &out_totEmitted, "totEmitted/L");
     tSummary->Branch("totDetected", &out_totDetected, "totDetected/L");
@@ -270,18 +328,23 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
     tSummary->Branch("diffEmDet", &out_diffEmDet, "diffEmDet/L");
     tSummary->Branch("meanMeasuredMultiplicity", &out_meanMult, "meanMeasuredMultiplicity/D");
     tSummary->Branch("meanAvgDetectionTime_ns", &out_meanAvgDetTime, "meanAvgDetectionTime_ns/D");
-  tSummary->Branch("meanLastDetectionTime_ns", &out_meanLastDetTime, "meanLastDetectionTime_ns/D");
-  // Gate outputs
-  Double_t out_tGate_ns = tGate_ns;
-  Long64_t out_nEventsAllDetBeforeGate = nEventsAllDetBeforeGate;
-  Double_t out_effAllDetBeforeGate = effAllDetBeforeGate;
-  Long64_t out_nEventsAnyBeforeGate = (nEventsAnyBeforeGate>=0 ? nEventsAnyBeforeGate : -1);
-  Double_t out_effAnyBeforeGate = (effAnyBeforeGate>=0 ? effAnyBeforeGate : -1.0);
-  tSummary->Branch("tGate_ns", &out_tGate_ns, "tGate_ns/D");
-  tSummary->Branch("eventsAllDetectionsBeforeGate", &out_nEventsAllDetBeforeGate, "eventsAllDetectionsBeforeGate/L");
-  tSummary->Branch("effAllDetectionsBeforeGate_percent", &out_effAllDetBeforeGate, "effAllDetectionsBeforeGate_percent/D");
-  tSummary->Branch("eventsAnyDetectionBeforeGate", &out_nEventsAnyBeforeGate, "eventsAnyDetectionBeforeGate/L");
-  tSummary->Branch("effAnyDetectionBeforeGate_percent", &out_effAnyBeforeGate, "effAnyDetectionBeforeGate_percent/D");
+    tSummary->Branch("meanLastDetectionTime_ns", &out_meanLastDetTime, "meanLastDetectionTime_ns/D");
+    // Gate outputs
+    Double_t out_tGate_ns = tGate_ns;
+    Long64_t out_nEventsAllDetBeforeGate = nEventsAllDetBeforeGate;
+    Double_t out_effAllDetBeforeGate = effAllDetBeforeGate_percent;
+    Long64_t out_nEventsAnyBeforeGate = (nEventsAnyBeforeGate>=0 ? nEventsAnyBeforeGate : -1);
+    Double_t out_effAnyBeforeGate = effAnyBeforeGate_percent;
+    tSummary->Branch("tGate_ns", &out_tGate_ns, "tGate_ns/D");
+    tSummary->Branch("eventsAllDetectionsBeforeGate", &out_nEventsAllDetBeforeGate, "eventsAllDetectionsBeforeGate/L");
+    tSummary->Branch("effAllDetectionsBeforeGate_percent", &out_effAllDetBeforeGate, "effAllDetectionsBeforeGate_percent/D");
+    tSummary->Branch("eventsAnyDetectionBeforeGate", &out_nEventsAnyBeforeGate, "eventsAnyDetectionBeforeGate/L");
+    tSummary->Branch("effAnyDetectionBeforeGate_percent", &out_effAnyBeforeGate, "effAnyDetectionBeforeGate_percent/D");
+    // Budget information
+    Double_t out_budgetMEV = budgetMEV;
+    Long64_t out_eventsOverBudget = -1;
+    tSummary->Branch("budgetMEV", &out_budgetMEV, "budgetMEV/D");
+    tSummary->Branch("eventsOverBudget", &out_eventsOverBudget, "eventsOverBudget/L");
     tSummary->Fill();
     tSummary->Write();
   }
@@ -293,6 +356,8 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
   TEfficiency* hEffVsE = nullptr;
   TEfficiency* hEffVsE_gate = nullptr; // gated by event lastNeutronTime <= tGate_ns
   TH1I* hMultEmitted = nullptr;
+  TH1D* hSumEemit = nullptr; // sum emitted energy per event
+  int overBudgetEvents = -1; // count events whose sum energy > budgetMEV
 
   if (tPrim) {
     // Branches
@@ -307,12 +372,15 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
 
     // First pass: find energy range and multiplicity per event
     std::map<int,int> multByEvent;
+    std::map<int,double> sumEperEvt;
     double maxEemit = 0.0;
+
     const Long64_t nPrim = tPrim->GetEntries();
     for (Long64_t i = 0; i < nPrim; ++i) {
       tPrim->GetEntry(i);
       multByEvent[np_eventID]++;
       if (np_Eemit_MeV > maxEemit) maxEemit = np_Eemit_MeV;
+      sumEperEvt[np_eventID] += np_Eemit_MeV;
     }
     if (maxEemit <= 0) maxEemit = 20.0; // default to generator max
     const int eBinsEmit = std::clamp((int)std::ceil(maxEemit*10.0), 100, 2000); // ~0.1 MeV bins
@@ -325,8 +393,22 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
                                Form("Detected neutrons in ring %d;E_{emit} [MeV];Counts", r+1),
                                eBinsEmit, 0, maxEemit);
     }
-  hEffVsE = new TEfficiency("hEffVsE", "Detection efficiency vs emitted energy;E_{emit} [MeV];Efficiency", eBinsEmit, 0, maxEemit);
-  hEffVsE_gate = new TEfficiency("hEffVsE_gate", Form("Detection efficiency vs E (t_{last}  %g ns);E_{emit} [MeV];Efficiency", tGate_ns), eBinsEmit, 0, maxEemit);
+
+    // Sum energy per event histogram (axis up to 1.5*budget or observed max)
+    double maxSum = 0.0;
+    for (auto &kv : sumEperEvt) if (kv.second > maxSum) maxSum = kv.second;
+    double sumMaxAxis = std::max(maxSum*1.1, budgetMEV*1.5);
+    hSumEemit = new TH1D("hSumEemit", "Sum emitted energy per event;Sum E [MeV];Events", 120, 0, sumMaxAxis);
+    overBudgetEvents = 0;
+    for (auto &kv : sumEperEvt) {
+      hSumEemit->Fill(kv.second);
+      if (kv.second > budgetMEV) ++overBudgetEvents;
+    }
+
+    hEffVsE = new TEfficiency("hEffVsE", "Detection efficiency vs emitted energy;E_{emit} [MeV];Efficiency", eBinsEmit, 0, maxEemit);
+    hEffVsE_gate = new TEfficiency("hEffVsE_gate",
+                                   Form("Detection efficiency vs E (t_{last} <= %g ns);E_{emit} [MeV];Efficiency", tGate_ns),
+                                   eBinsEmit, 0, maxEemit);
 
     // Second pass: fill
     for (Long64_t i = 0; i < nPrim; ++i) {
@@ -373,11 +455,11 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
     // Per-ring spectra
     auto cR = new TCanvas("cR", "Emitted energy per ring", 1200, 800);
     cR->Divide(2,2);
-    int pad=1; int cols[4] = {kRed+1, kGreen+2, kOrange+7, kMagenta+1};
-    for (int r=0; r<4; ++r) { cR->cd(pad++); hEemitRing[r]->SetLineColor(cols[r]); hEemitRing[r]->Draw("HIST"); }
+    int padR=1; int colsR[4] = {kRed+1, kGreen+2, kOrange+7, kMagenta+1};
+    for (int r=0; r<4; ++r) { cR->cd(padR++); hEemitRing[r]->SetLineColor(colsR[r]); hEemitRing[r]->Draw("HIST"); }
     cR->SaveAs(TString::Format("%s_emitE_rings.png", outBase.Data()));
 
-  // Efficiency vs energy (ungated)
+    // Efficiency vs energy (ungated)
     auto cEff = new TCanvas("cEff", "Efficiency vs E_{emit}", 1000, 700);
     cEff->SetGrid();
     hEffVsE->SetLineColor(kBlue+2);
@@ -386,20 +468,56 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
     hEffVsE->Draw("AP");
     cEff->SaveAs(TString::Format("%s_effVsE.png", outBase.Data()));
 
-  // Efficiency vs energy (gated)
-  auto cEffG = new TCanvas("cEffG", "Efficiency vs E_{emit} (gated)", 1000, 700);
-  cEffG->SetGrid();
-  hEffVsE_gate->SetLineColor(kRed+1);
-  hEffVsE_gate->SetMarkerStyle(20);
-  hEffVsE_gate->SetMarkerColor(kRed+1);
-  hEffVsE_gate->Draw("AP");
-  cEffG->SaveAs(TString::Format("%s_effVsE_gate.png", outBase.Data()));
+    // Efficiency vs energy (gated)
+    auto cEffG = new TCanvas("cEffG", "Efficiency vs E_{emit} (gated)", 1000, 700);
+    cEffG->SetGrid();
+    hEffVsE_gate->SetLineColor(kRed+1);
+    hEffVsE_gate->SetMarkerStyle(20);
+    hEffVsE_gate->SetMarkerColor(kRed+1);
+    hEffVsE_gate->Draw("AP");
+    cEffG->SaveAs(TString::Format("%s_effVsE_gate.png", outBase.Data()));
 
     // Emitted multiplicity
     auto cM = new TCanvas("cM", "Emitted multiplicity", 800, 600);
     hMultEmitted->SetLineColor(kBlue+1);
     hMultEmitted->Draw("HIST");
     cM->SaveAs(TString::Format("%s_multEmitted.png", outBase.Data()));
+
+    // Sum emitted energy canvas
+    auto cS = new TCanvas("cS", "Sum emitted energy per event", 900, 600);
+    hSumEemit->SetLineColor(kGreen+2);
+    hSumEemit->Draw("HIST");
+    // Budget line using TLine
+    auto lineB = new TLine(budgetMEV, 0, budgetMEV, hSumEemit->GetMaximum()*1.05);
+    lineB->SetLineColor(kRed+1); lineB->SetLineStyle(2); lineB->Draw();
+    TLatex lat; lat.SetNDC(); lat.SetTextSize(0.036);
+    lat.DrawLatex(0.60,0.82,Form("Budget = %.2f MeV", budgetMEV));
+    lat.DrawLatex(0.60,0.76,Form("Events over budget: %d", overBudgetEvents));
+    cS->SaveAs(TString::Format("%s_sumEemit.png", outBase.Data()));
+
+    // Append budget info to summary text file (safe: new FILE* in append mode)
+    if (tPrim && hSumEemit) {
+      TString sumName = TString::Format("%s_summary.txt", outBase.Data());
+      FILE* fp2 = fopen(sumName.Data(), "a"); // append
+      if (fp2) {
+        fprintf(fp2, "Budget (MeV): %.3f\n", budgetMEV);
+        fprintf(fp2, "Events over budget: %d\n", overBudgetEvents);
+        fclose(fp2);
+      }
+    }
+
+    // Budget information: dedicated summary tree
+    if (fout && !fout->IsZombie()) {
+      fout->cd();
+      Double_t out_budgetMEV = budgetMEV;
+      Long64_t out_overBudgetEvents = (overBudgetEvents>=0? overBudgetEvents : -1);
+      auto* tBudget = new TTree("SummaryBudget", "Budget summary");
+      tBudget->Branch("budgetMEV", &out_budgetMEV, "budgetMEV/D");
+      tBudget->Branch("eventsOverBudget", &out_overBudgetEvents, "eventsOverBudget/L");
+      tBudget->Fill();
+      tBudget->Write();
+      fout->cd();
+    }
   }
 
   // ================= PARIS per-copy spectra =================
@@ -448,12 +566,12 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
       if (pe_eNaI > 0) hNaIByCopy[pe_copy]->Fill(pe_eNaI);
     }
 
-  // Draw Ce per-copy in a grid
+    // Draw Ce per-copy in a grid
     int N = (int)copies.size();
-    int cols = (N >= 9 ? 3 : (N >= 6 ? 3 : std::min(3, N > 0 ? N : 1)));
-    int rows = (N + cols - 1) / cols;
-    auto c3 = new TCanvas("c3", "PARIS Ce per copy", 1200, 400*rows);
-    c3->Divide(cols, rows);
+    int colsC = (N >= 9 ? 3 : (N >= 6 ? 3 : std::min(3, N > 0 ? N : 1)));
+    int rowsC = (N + colsC - 1) / colsC;
+    auto c3 = new TCanvas("c3", "PARIS Ce per copy", 1200, 400*rowsC);
+    c3->Divide(colsC, rowsC);
     int pad = 1;
     int colorBase = 600; // kBlue
     for (int c : copies) {
@@ -482,8 +600,8 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
     bool anyNaI = false;
     for (auto& kv : hNaIByCopy) if (kv.second->GetEntries() > 0) { anyNaI = true; break; }
     if (anyNaI) {
-      auto c4 = new TCanvas("c4", "PARIS NaI per copy", 1200, 400*rows);
-      c4->Divide(cols, rows);
+      auto c4 = new TCanvas("c4", "PARIS NaI per copy", 1200, 400*rowsC);
+      c4->Divide(colsC, rowsC);
       pad = 1;
       for (int c : copies) {
         c4->cd(pad++);
@@ -499,8 +617,8 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
     if (hEemitAll) hEemitAll->Write();
     if (hEemitDet) hEemitDet->Write();
     for (int r=0; r<4; ++r) if (hEemitRing[r]) hEemitRing[r]->Write();
-  if (hEffVsE) hEffVsE->Write();
-  if (hEffVsE_gate) hEffVsE_gate->Write();
+    if (hEffVsE) hEffVsE->Write();
+    if (hEffVsE_gate) hEffVsE_gate->Write();
     if (hMultEmitted) hMultEmitted->Write();
   }
 
@@ -517,4 +635,86 @@ void plotTetra(const char* infile = "output_neutron_run01_smeared.root",
     fout->Write();
     fout->Close();
   }
+}
+
+// ----------------------------------------------------------------------
+// Wrapper : lire une file-list et lancer plotTetra pour chaque fichier
+// Format de la file-list (txt) :
+//   chemin/vers/fichier1.root   [tGate_ns]  [budgetMEV]
+//   chemin/vers/fichier2.root   [tGate_ns]  [budgetMEV]
+// Les colonnes entre [] sont optionnelles.
+// Si non présentes, on utilise les valeurs par défaut passées à plotTetraFromList.
+//
+// Usage ROOT :
+//   .L plotTetra.C+
+//   plotTetraFromList("filelist.txt");
+// ----------------------------------------------------------------------
+void plotTetraFromList(const char* listfile,
+                       double default_tGate_ns = 150000.0,
+                       double default_budgetMEV = 14.0)
+{
+  std::ifstream fin(listfile);
+  if (!fin.is_open()) {
+    std::cerr << "Cannot open list file: " << listfile << std::endl;
+    return;
+  }
+
+  std::cout << "Reading file list: " << listfile << std::endl;
+
+  std::string line;
+  int lineNumber = 0;
+
+  while (std::getline(fin, line)) {
+    ++lineNumber;
+
+    // trim grossier + skip lignes vides ou commentaires
+    if (line.empty()) continue;
+    // ignorer les lignes qui commencent par # ou //
+    std::string trimmed = line;
+    // remove leading spaces
+    trimmed.erase(0, trimmed.find_first_not_of(" \t\r\n"));
+    if (trimmed.empty()) continue;
+    if (trimmed[0] == '#' || (trimmed.size() > 1 && trimmed[0] == '/' && trimmed[1] == '/'))
+      continue;
+
+    std::istringstream iss(trimmed);
+    std::string infile;
+    double tGate_ns = default_tGate_ns;
+    double budgetMEV = default_budgetMEV;
+
+    // 1ère colonne : chemin ROOT obligatoire
+    if (!(iss >> infile)) {
+      std::cerr << "Line " << lineNumber << ": cannot read input file path, skipping.\n";
+      continue;
+    }
+
+    // 2ème colonne optionnelle : tGate_ns
+    if (!(iss >> tGate_ns)) {
+      tGate_ns = default_tGate_ns;
+    }
+
+    // 3ème colonne optionnelle : budgetMEV
+    if (!(iss >> budgetMEV)) {
+      budgetMEV = default_budgetMEV;
+    }
+
+    // Construire le prefix de sortie "plot_<basename>" (juste pour affichage)
+    TString tin(infile.c_str());
+    TString dir  = gSystem->DirName(tin);
+    TString base = gSystem->BaseName(tin);
+    if (base.EndsWith(".root")) base.ReplaceAll(".root", "");
+    TString outprefix = Form("%s/plot_%s", dir.Data(), base.Data());
+
+    std::cout << "--------------------------------------------------\n";
+    std::cout << "Line " << lineNumber << " :\n"
+              << "  infile   = " << infile << "\n"
+              << "  tGate_ns = " << tGate_ns << "\n"
+              << "  budget   = " << budgetMEV << " MeV\n"
+              << "  outpref  = " << outprefix << " (automatically used inside plotTetra)\n";
+
+    // Appel de la macro d'analyse pour ce fichier
+    plotTetra(infile.c_str(), /*outprefix ignored*/ outprefix.Data(), tGate_ns, budgetMEV);
+  }
+
+  std::cout << "Done processing list: " << listfile << std::endl;
 }

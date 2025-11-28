@@ -1,0 +1,17 @@
+# Energy(MeV)  Efficiency(%)  TotalEvents  EventsAllDet  File
+0.1  20.077  100000  20077  ./output_mono_n_100keV_Tetra_summary.txt
+0.5  20.056  100000  20056  ./output_mono_n_500keV_Tetra_summary.txt
+1  19.088  100000  19088  ./output_mono_n_1_Tetra_summary.txt
+2  17.414  100000  17414  ./output_mono_n_2_Tetra_summary.txt
+3  15.584  100000  15584  ./output_mono_n_3_Tetra_summary.txt
+4  14.603  100000  14603  ./output_mono_n_4_Tetra_summary.txt
+5  12.893  100000  12893  ./output_mono_n_5_Tetra_summary.txt
+6  12.177  100000  12177  ./output_mono_n_6_Tetra_summary.txt
+7  10.997  100000  10997  ./output_mono_n_7_Tetra_summary.txt
+8  10.387  100000  10387  ./output_mono_n_8_Tetra_summary.txt
+9  9.117  100000  9117  ./output_mono_n_9_Tetra_summary.txt
+10  8.363  100000  8363  ./output_mono_n_10_Tetra_summary.txt
+11  8.426  100000  8426  ./output_mono_n_11_Tetra_summary.txt
+12  7.859  100000  7859  ./output_mono_n_12_Tetra_summary.txt
+13  7.469  100000  7469  ./output_mono_n_13_Tetra_summary.txt
+14  7.337  100000  7337  ./output_mono_n_14_Tetra_summary.txt

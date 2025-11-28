@@ -29,6 +29,7 @@ int main(int argc, char** argv)
      if (const char* envN = std::getenv("G4NUM_THREADS")) {
        try { nThreads = std::max(1, std::stoi(envN)); } catch (...) {}
      }
+     // If launched as: ./simTetra <macro> <nThreads>
      if (argc >= 3) {
        try { nThreads = std::max(1, std::stoi(argv[2])); } catch (...) {}
      }
@@ -43,7 +44,9 @@ int main(int argc, char** argv)
   // Detector / Physics / Actions
   runManager->SetUserInitialization(new MyDetectorConstruction());
   runManager->SetUserInitialization(new MyPhysicsList());
+  // Use the provided macro filename for output naming (fallback), defaults to neutron.mac
   G4String macroName = "neutron.mac";
+  if (argc >= 1) { macroName = argv[1]; }
   runManager->SetUserInitialization(new MyActionInitialization(macroName));
 
   // Réglages HP (ok ici, avant /run/initialize)

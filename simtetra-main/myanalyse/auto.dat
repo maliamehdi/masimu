@@ -1,0 +1,4 @@
+# infile    tGate_ns    budgetMEV
+auto252Cf/output_auto252Cf.root  150000  14
+mono/output_mono.root  150000  14
+mult3/output_duo.root  150000  14

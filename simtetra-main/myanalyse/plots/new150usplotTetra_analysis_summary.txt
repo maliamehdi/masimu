@@ -1,13 +1,13 @@
-Input: output_neutron_run01_smeared.root
+Input: output_auto252Cf_neutrons_run0ultime.root
 Total events: 100000
 Total emitted: 376113
-Total detected: 71554
-Total escaped: 185761 (49.390 %)
-Emitted - Detected: 304559
-Check (Em-Det vs Esc): 304559 vs 185761
+Total detected: 72290
+Total escaped: 178905 (47.567 %)
+Emitted - Detected: 303823
+Check (Em-Det vs Esc): 303823 vs 178905
 Gate t <= 150000.000 ns
-Events (all detections <= gate): 47536 (eff = 47.536000 %)
-Events (any detection <= gate): 50021 (eff = -1.000000 %)
-Mean measured multiplicity: 0.627130
-Mean average detection time [ns]: 59492.730065
-Mean last detection time [ns]: 69957.119710
+Events (all detections <= gate): 47760 (eff = 47.760000 %)
+Events (any detection <= gate): 50380 (eff = -1.000000 %)
+Mean measured multiplicity: 0.631320
+Mean average detection time [ns]: 59608.064572
+Mean last detection time [ns]: 70327.081621
