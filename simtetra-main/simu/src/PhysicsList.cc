@@ -21,6 +21,7 @@ MyPhysicsList::MyPhysicsList()
 
     //RegisterPhysics(new G4EmPenelopePhysics());
     RegisterPhysics( new NeutronHPphysics("neutronHP"));
+    
 }
 
 void MyPhysicsList::SetCuts()

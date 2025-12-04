@@ -1180,4 +1180,6 @@ CMakeFiles/simTetra.dir/simTetra.cc.o: \
  /usr/include/c++/11/unordered_set \
  /usr/include/c++/11/bits/unordered_set.h \
  /opt/geant4/11.2.2/include/Geant4/G4ParticleHPManager.hh \
- /opt/geant4/11.2.2/include/Geant4/G4ParticleHPReactionWhiteBoard.hh
+ /opt/geant4/11.2.2/include/Geant4/G4ParticleHPReactionWhiteBoard.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4PhysListFactory.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VModularPhysicsList.hh

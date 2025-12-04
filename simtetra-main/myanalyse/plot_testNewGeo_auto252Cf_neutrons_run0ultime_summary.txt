@@ -1,0 +1,15 @@
+Input: testNewGeo_auto252Cf_neutrons_run0ultime.root
+Total events: 100000
+Total emitted: 376113
+Total detected (nDetected field): 72413
+Total escaped: 177974 (47.319 %)
+Emitted - Detected: 303700
+Check (Em-Det vs Esc): 303700 vs 177974
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 47817 (eff = 47.817000 +/- 0.157963 %)
+Events (any detection <= gate): 50439 (eff = 50.439000 +/- 0.158108 %)
+Mean measured multiplicity in gate: 0.632070
+Mean average detection time [ns]: 59720.146870
+Mean last detection time [ns]: 70486.441967
+Budget (MeV): 14.000
+Events over budget: 0

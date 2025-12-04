@@ -1,0 +1,15 @@
+Input: testFTFP_auto252Cf_neutrons_run0ultime.root
+Total events: 100000
+Total emitted: 376113
+Total detected (nDetected field): 72094
+Total escaped: 178007 (47.328 %)
+Emitted - Detected: 304019
+Check (Em-Det vs Esc): 304019 vs 178007
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 47483 (eff = 47.483000 +/- 0.157913 %)
+Events (any detection <= gate): 50113 (eff = 50.113000 +/- 0.158113 %)
+Mean measured multiplicity in gate: 0.627770
+Mean average detection time [ns]: 59900.808957
+Mean last detection time [ns]: 70607.088469
+Budget (MeV): 14.000
+Events over budget: 0

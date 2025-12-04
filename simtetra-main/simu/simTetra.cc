@@ -15,6 +15,10 @@
 
 #include "G4ParticleHPManager.hh"
 
+#include "G4PhysListFactory.hh" 
+#include "PhysicsList.hh"
+
+
 // Si tu fermes l’analyse ici, dé-commente les deux includes suivants
 // #include "g4analysis.hh"     // fabrique d’AnalysisManager (Geant4 11.x)
 // #include "G4AutoDelete.hh"
@@ -43,7 +47,13 @@ int main(int argc, char** argv)
 
   // Detector / Physics / Actions
   runManager->SetUserInitialization(new MyDetectorConstruction());
-  runManager->SetUserInitialization(new MyPhysicsList());
+  //runManager->SetUserInitialization(new MyPhysicsList()); // Version custom avec NeutronHP
+  // Physique (FTFP_BERT_HPT) pré-faite :
+  G4PhysListFactory factory;
+  auto physList = factory.GetReferencePhysList("FTFP_BERT_HPT");
+  physList->RegisterPhysics(new G4RadioactiveDecayPhysics());
+  physList->RegisterPhysics(new G4EmPenelopePhysics());
+  runManager->SetUserInitialization(physList);
   // Use the provided macro filename for output naming (fallback), defaults to neutron.mac
   G4String macroName = "neutron.mac";
   if (argc >= 1) { macroName = argv[1]; }
