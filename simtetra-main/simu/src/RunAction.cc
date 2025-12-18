@@ -153,7 +153,7 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
     std::stringstream tag2;
     tag2 << "_run" << run->GetRunID();        // _run0, _run1, ...
 
-    G4String outFile = "../../myanalyse/testFTFP_" + base + tag2.str() + "ultime.root";
+    G4String outFile = "../../myanalyse/FTFP_" + base + tag2.str() + "ultime.root";
     G4cout << ">>> Ouverture du fichier ROOT (fallback): " << outFile << G4endl;
     man->OpenFile(outFile);
 }

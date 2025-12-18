@@ -1,13 +1,13 @@
 # infile    tGate_ns    budgetMEV
-mult1/output_fixed_mult_1.root  150000  14
-mult2/output_fixed_mult_2.root  150000  14
-mult3/output_fixed_mult_3.root  150000  14
-mult4/output_fixed_mult_4.root  150000  14
-mult5/output_fixed_mult_5.root  150000  14
-mult6/output_fixed_mult_6.root  150000  14
-mult7/output_fixed_mult_7.root  150000  14
-mult8/output_fixed_mult_8.root  150000  14
-mult9/output_fixed_mult_9.root  150000  14
-mult10/output_fixed_mult_10.root    150000  14
-mult11/output_fixed_mult_11.root    150000  14
-mult12/output_fixed_mult_12.root    150000  14
+FTFP_BERT_HTP/mult1/FTFP_fixed_mult_01_run0ultime.root  150000  14
+FTFP_BERT_HTP/mult2/FTFP_fixed_mult_02_run0ultime.root  150000  14
+FTFP_BERT_HTP/mult3/FTFP_fixed_mult_03_run0ultime.root  150000  14
+FTFP_BERT_HTP/mult4/FTFP_fixed_mult_04_run0ultime.root  150000  14
+FTFP_BERT_HTP/mult5/FTFP_fixed_mult_05_run0ultime.root  150000  14
+FTFP_BERT_HTP/mult6/FTFP_fixed_mult_06_run0ultime.root  150000  14
+FTFP_BERT_HTP/mult7/FTFP_fixed_mult_07_run0ultime.root  150000  14
+FTFP_BERT_HTP/mult8/FTFP_fixed_mult_08_run0ultime.root  150000  14
+FTFP_BERT_HTP/mult9/FTFP_fixed_mult_09_run0ultime.root  150000  14
+FTFP_BERT_HTP/mult10/FTFP_fixed_mult_10_run0ultime.root    150000  14
+FTFP_BERT_HTP/mult11/FTFP_fixed_mult_11_run0ultime.root    150000  14
+FTFP_BERT_HTP/mult12/FTFP_fixed_mult_12_run0ultime.root    150000  14

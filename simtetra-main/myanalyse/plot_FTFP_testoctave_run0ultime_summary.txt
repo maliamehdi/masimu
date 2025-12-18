@@ -1,0 +1,15 @@
+Input: FTFP_testoctave_run0ultime.root
+Total events: 1000000
+Total emitted: 8000000
+Total detected (nDetected field): 1543332
+Total escaped: 3728005 (46.600 %)
+Emitted - Detected: 6456668
+Check (Em-Det vs Esc): 6456668 vs 3728005
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 700882 (eff = 70.088200 +/- 0.045787 %)
+Events (any detection <= gate): 790277 (eff = 79.027700 +/- 0.040711 %)
+Mean measured multiplicity in gate: 1.267930
+Mean average detection time [ns]: 59876.771394
+Mean last detection time [ns]: 84957.716735
+Budget (MeV): 14.000
+Events over budget: 1000000

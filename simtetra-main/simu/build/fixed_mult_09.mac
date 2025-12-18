@@ -3,4 +3,4 @@
 /src/mode fixed
 /src/mult 9
 /src/equal false
-/run/beamOn 100000
+/run/beamOn 1000000

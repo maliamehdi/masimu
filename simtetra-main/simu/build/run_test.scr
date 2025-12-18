@@ -1,0 +1,35 @@
+#!/bin/bash
+# Nombre maximum de jobs en parallèle
+MAX_JOBS=2
+
+# List of runlist arguments
+runlists=(
+    #testtrio.mac
+    testquatior.mac
+    testquinte.mac
+    testsixte.mac
+    testseptuor.mac
+    testoctave.mac
+    testneuf.mac
+    testdeca.mac
+    #testonze.mac
+)
+# Fonction pour attendre si trop de jobs sont lancés
+wait_for_jobs() {
+    while [ "$(jobs -r | wc -l)" -ge "$MAX_JOBS" ]; do
+        sleep 0.5
+    done
+}
+
+# Boucle d’exécution
+for runlist in "${runlists[@]}"; do
+    wait_for_jobs
+    echo "Lancement de ./simTetra ${runlist}..."
+    ./simTetra "$runlist" &
+done
+
+# Attendre que tous les jobs restants finissent
+wait
+
+echo "✅ Tous les traitements sont terminés."
+  

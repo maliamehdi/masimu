@@ -20,7 +20,7 @@
 // Multiplicité moyenne Cf-252
 static const double kMeanNu  = 3.76;
 // Écart-type ~RMS de la multiplicité Cf-252 (voir explications)
-static const double kSigmaNu = 1.20;
+static const double kSigmaNu = 1.24;
 
 // Spectre de Watt pour 252Cf: f(E) ~ exp(-E/a) * sinh(sqrt(bE))
 static const double kWattA_MeV     = 1.025;
@@ -175,6 +175,8 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event* evt)
     auto draw_watt = [&](){
       for (int i=0; i<mult; ++i) E_MeV[i] = SampleWattMeV();
     };
+    // E_MeV[0] = 1.0; // SampleWattMeV(); --- IGNORE ---
+    // for (int i=1; i<mult; ++i) E_MeV[i] +=1.0; // à commenter plus tard
 
     if (fEnforceBudgetAuto && ((fMode==Mode::kAuto) || (fMode==Mode::kFixed && !fEqualEnergy))) {
       // Rejet si dépasse le budget (appliqué maintenant aussi au mode fixed quand !equal)
@@ -191,9 +193,10 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event* evt)
         }
       }
     } else {
-      draw_watt();
-      // E_MeV[0] = 2.0; // SampleWattMeV(); --- IGNORE ---
-      // E_MeV[1] = 4.0;
+       draw_watt();
+      //  E_MeV[0] = 1.0; // SampleWattMeV(); --- IGNORE ---
+      //  for (int i=1; i<mult; ++i) E_MeV[i] +=1.0;
+
     }
   }
 

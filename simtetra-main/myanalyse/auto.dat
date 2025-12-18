@@ -1,4 +1,13 @@
 # infile    tGate_ns    budgetMEV
-auto252Cf/output_auto252Cf.root  150000  14
-mono/output_mono.root  150000  14
-mult3/output_duo.root  150000  14
+FTFP_BERT_HTP/auto252Cf/testFTFP_auto252Cf_neutrons_run0ultime.root  150000  14
+#FTFP_BERT_HTP/FTFP_mono_n_run0ultime.root  150000  14
+#FTFP_BERT_HTP/test_indep/testFTFP_testdeca_run0ultime.root    150000  14
+#FTFP_BERT_HTP/test_indep/testFTFP_testneuf_run0ultime.root    150000  14
+#FTFP_BERT_HTP/test_indep/testFTFP_testoctave_run0ultime.root    150000  14
+#FTFP_BERT_HTP/test_indep/testFTFP_testonze_run0ultime.root    150000  14
+#FTFP_BERT_HTP/test_indep/testFTFP_testquatior_run0ultime.root    150000  14
+#FTFP_BERT_HTP/test_indep/testFTFP_testquinte_run0ultime.root    150000  14
+#FTFP_BERT_HTP/test_indep/testFTFP_testseptuor_run0ultime.root    150000  14
+#FTFP_BERT_HTP/test_indep/testFTFP_testsixte_run0ultime.root    150000  14
+#FTFP_BERT_HTP/test_indep/testFTFP_testtrio_run0ultime.root    150000  14
+#FTFP_BERT_HTP/test_indep/FTFP_duo_run0ultime.root    150000  14  

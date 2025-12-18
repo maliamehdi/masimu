@@ -1,0 +1,17 @@
+#E_MeV	eff_percent	eff_unc_percent	TotalEvents	EventsAllDet	File
+0.1	20.106	0.126742	100000	20106	./plot_output_mono_n_100keV_summary.txt
+0.5	20.063	0.12664	100000	20063	./plot_output_mono_n_500keV_summary.txt
+1	19.078	0.124251	100000	19078	./plot_output_mono_n_1_summary.txt
+2	17.391	0.11986	100000	17391	./plot_output_mono_n_2_summary.txt
+3	15.599	0.114742	100000	15599	./plot_output_mono_n_3_summary.txt
+4	14.657	0.111842	100000	14657	./plot_output_mono_n_4_summary.txt
+5	12.888	0.105958	100000	12888	./plot_output_mono_n_5_summary.txt
+6	12.251	0.103683	100000	12251	./plot_output_mono_n_6_summary.txt
+7	10.979	0.098862	100000	10979	./plot_output_mono_n_7_summary.txt
+8	10.428	0.096647	100000	10428	./plot_output_mono_n_8_summary.txt
+9	9.141	0.091134	100000	9141	./plot_output_mono_n_9_summary.txt
+10	8.408	0.087756	100000	8408	./plot_output_mono_n_10_summary.txt
+11	8.364	0.087547	100000	8364	./plot_output_mono_n_11_summary.txt
+12	7.91	0.085348	100000	7910	./plot_output_mono_n_12_summary.txt
+13	7.411	0.082836	100000	7411	./plot_output_mono_n_13_summary.txt
+14	7.46	0.083087	100000	7460	./plot_output_mono_n_14_summary.txt

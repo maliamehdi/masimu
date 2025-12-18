@@ -1,0 +1,15 @@
+Input: FTFP_testneuf_run0ultime.root
+Total events: 1000000
+Total emitted: 9000000
+Total detected (nDetected field): 1735183
+Total escaped: 4192977 (46.589 %)
+Emitted - Detected: 7264817
+Check (Em-Det vs Esc): 7264817 vs 4192977
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 720796 (eff = 72.079600 +/- 0.044861 %)
+Events (any detection <= gate): 826745 (eff = 82.674500 +/- 0.037847 %)
+Mean measured multiplicity in gate: 1.402164
+Mean average detection time [ns]: 59838.504964
+Mean last detection time [ns]: 88560.316350
+Budget (MeV): 14.000
+Events over budget: 1000000

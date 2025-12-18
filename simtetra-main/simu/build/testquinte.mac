@@ -1,0 +1,7 @@
+/run/numberOfThreads 6
+/run/initialize
+/src/mode fixed
+/src/mult 5
+/src/equal false
+/src/enforceBudgetAuto false
+/run/beamOn 1000000

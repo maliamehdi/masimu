@@ -1,0 +1,15 @@
+Input: FTFP_testonze_run0ultime.root
+Total events: 1000000
+Total emitted: 11000000
+Total detected (nDetected field): 2117632
+Total escaped: 5123881 (46.581 %)
+Emitted - Detected: 8882368
+Check (Em-Det vs Esc): 8882368 vs 5123881
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 744331 (eff = 74.433100 +/- 0.043624 %)
+Events (any detection <= gate): 882499 (eff = 88.249900 +/- 0.032202 %)
+Mean measured multiplicity in gate: 1.657312
+Mean average detection time [ns]: 59794.343763
+Mean last detection time [ns]: 95785.310327
+Budget (MeV): 14.000
+Events over budget: 1000000

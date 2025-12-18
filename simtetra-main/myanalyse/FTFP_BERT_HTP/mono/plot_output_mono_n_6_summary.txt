@@ -1,0 +1,15 @@
+Input: FTFP_BERT_HTP/mono/output_mono_n_6.root
+Total events: 100000
+Total emitted: 100000
+Total detected (nDetected field): 13432
+Total escaped: 50786 (50.786 %)
+Emitted - Detected: 86568
+Check (Em-Det vs Esc): 86568 vs 50786
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 12251 (eff = 12.251000 +/- 0.103683 %)
+Events (any detection <= gate): 12251 (eff = 12.251000 +/- 0.103683 %)
+Mean measured multiplicity in gate: 0.122510
+Mean average detection time [ns]: 62116.783943
+Mean last detection time [ns]: 62116.783943
+Budget (MeV): 14.000
+Events over budget: 0

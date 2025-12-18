@@ -149,14 +149,14 @@ for n in $(seq -w 1 12); do
 done
 
 # Extra macros after the fixed multiplicities
-run_and_move auto252Cf_neutrons auto252Cf auto252Cf || status=$?
-if [[ $status -ne 0 ]]; then popd >/dev/null; exit $status; fi
+#run_and_move auto252Cf_neutrons auto252Cf auto252Cf || status=$?
+#if [[ $status -ne 0 ]]; then popd >/dev/null; exit $status; fi
 
-run_and_move mono_n mono mono_n || status=$?
-if [[ $status -ne 0 ]]; then popd >/dev/null; exit $status; fi
+#run_and_move mono_n mono mono_n || status=$?
+#if [[ $status -ne 0 ]]; then popd >/dev/null; exit $status; fi
 
-run_and_move duo duo duo || status=$?
-if [[ $status -ne 0 ]]; then popd >/dev/null; exit $status; fi
+#run_and_move duo duo duo || status=$?
+#if [[ $status -ne 0 ]]; then popd >/dev/null; exit $status; fi
 
 popd >/dev/null
 exit $status

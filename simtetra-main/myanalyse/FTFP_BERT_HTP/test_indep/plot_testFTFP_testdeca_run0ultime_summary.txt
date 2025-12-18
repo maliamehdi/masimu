@@ -1,0 +1,15 @@
+Input: FTFP_BERT_HTP/test_indep/testFTFP_testdeca_run0ultime.root
+Total events: 1000000
+Total emitted: 10000000
+Total detected (nDetected field): 2088974
+Total escaped: 4715009 (47.150 %)
+Emitted - Detected: 7911026
+Check (Em-Det vs Esc): 7911026 vs 4715009
+Gate t <= 150000.000 ns
+Events (all detections <= gate): 748149 (eff = 74.814900 +/- 0.043408 %)
+Events (any detection <= gate): 881395 (eff = 88.139500 +/- 0.032332 %)
+Mean measured multiplicity in gate: 1.649625
+Mean average detection time [ns]: 59341.429845
+Mean last detection time [ns]: 94649.429008
+Budget (MeV): 14.000
+Events over budget: 0

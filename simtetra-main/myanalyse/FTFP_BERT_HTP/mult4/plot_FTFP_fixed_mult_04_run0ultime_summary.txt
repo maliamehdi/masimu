@@ -1,0 +1,14 @@
+Input: FTFP_BERT_HTP/mult4/FTFP_fixed_mult_04_run0ultime.root
+Total events: 100000
+Total emitted: 400000
+Total detected (nDetected field): 75231
+Total escaped: 190465 (47.616 %)
+Emitted - Detected: 324769
+Check (Em-Det vs Esc): 324769 vs 190465
+Gate t <= 150000.000 ns
+Events (all detections in gate): 49271 (eff = 49.271000 +/- 0.158097 %)
+Events (any detection in gate): 51724 (eff = 51.724000 +/- 0.158020 %)
+Mean measured multiplicity in gate: 0.665020
+Mean average detection time [ns]: 60066.053374
+Mean last detection time [ns]: 70212.895015
+Mean emitted multiplicity: 4.000000
