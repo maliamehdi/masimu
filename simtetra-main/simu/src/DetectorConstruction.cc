@@ -640,14 +640,14 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     int copyNo = 0;
     const G4RotationMatrix RA_top = *rotY;
     const G4ThreeVector Cworld(0.,0.,0.);
-    const G4double D_frontCe = 233.0*mm; //+6.656mm peut-être à ajuster selon le GDML
+    const G4double D_frontCe = 233.0 * mm;//233.0*mm; //+6.656mm peut-être à ajuster selon le GDML
     //const G4double D_frontCe = 207.5*mm; // test d'après le GDML fourni
     const G4double Rtarget   = 300.0*mm;
     for (auto theta : thetas) {
         const G4double phi_loc = theta;
         G4ThreeVector r_local(std::cos(phi_loc), std::sin(phi_loc), 0.);
         G4ThreeVector w = RA_top * r_local;  w = w.unit();
-        const G4ThreeVector pos = Cworld + ((Rtarget - D_frontCe) * w) + arcCenter;
+        const G4ThreeVector pos = Cworld + (Rtarget + D_frontCe) * w;   // pas de +arcCenter
         //const G4ThreeVector pos = Cworld + (Rtarget + D_frontCe) * w;        // test(sans arcCenter)
         //const G4ThreeVector pos = Cworld - arcCenter + (Rtarget + D_frontCe) * w;
         const G4ThreeVector k(0.,0.,1.);
