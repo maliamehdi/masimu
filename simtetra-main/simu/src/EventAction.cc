@@ -155,8 +155,8 @@ G4double MyEventAction::GetHitsMapSum(G4int hcID, const G4Event* evt) const {
 
 void MyEventAction::EndOfEventAction(const G4Event* evt) {
   // Totaux par évènement
-  const G4double eCe   = GetHitsMapSum(fHCID_CeEdep,  evt);  // MeV
-  const G4double eNaI  = GetHitsMapSum(fHCID_NaIEdep, evt);  // MeV
+  const G4double eCe_tot   = GetHitsMapSum(fHCID_CeEdep,  evt);  // MeV
+  const G4double eNaI_tot  = GetHitsMapSum(fHCID_NaIEdep, evt);  // MeV
   const G4double nIn   = GetHitsMapSum(fHCID_CellIn,  evt);  // compteur
 
    // ===== Par-PARIS (imprint) : lire les hits maps & écrire dans le ntuple #3 =====
@@ -179,7 +179,7 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
       //G4cout << "DEBUG: copy number Ce = " << idx << G4endl;
       if (idx < 0) continue; // clef inattendue
       const G4double eMeV = (kv.second ? *(kv.second) : 0.);
-      byParisIndex[idx].first += eMeV/keV;  // stocke en keV
+      byParisIndex[idx].first = eMeV/keV;  // stocke en keV avant c'était += mais normalement vvu comment je récupère l'énergie, pas besoin 
     }
   }
   if (hmNaI) {
@@ -191,7 +191,7 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
       if (idx==21) idx =8; // cas particulier du 10e module (copy=24 pour NaI)
       //G4cout << "DEBUG: copy number NaI = " << idx << G4endl;
       const G4double eMeV = (kv.second ? *(kv.second) : 0.);
-      byParisIndex[idx].second += eMeV/keV; // keV
+      byParisIndex[idx].second = eMeV/keV; // keV
     }
   }
 
@@ -275,8 +275,8 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
     // Remplissage ntuple #3 : (eventID, parisIndex, eCe_keV_smear, eNaI_keV_smear)
     man->FillNtupleIColumn(3, 0, evt->GetEventID());
     man->FillNtupleIColumn(3, 1, idx);
-    if (eResCe_keV>0)man->FillNtupleDColumn(3, 2, eResCe_keV);
-    if (eResNaI_keV>0) man->FillNtupleDColumn(3, 3, eResNaI_keV);
+    man->FillNtupleDColumn(3, 2, eResCe_keV);
+    man->FillNtupleDColumn(3, 3, eResNaI_keV);
     man->AddNtupleRow(3);
     // ======= NEW : Ntuple "resp" (Etrue/Emeas) =======
     // Pour un seul PARIS à chaque fois
@@ -296,8 +296,8 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
   
   man->FillNtupleIColumn(0, 0, evt->GetEventID());
   man->FillNtupleDColumn(0, 1, nIn);
-  man->FillNtupleDColumn(0, 2, eCe/keV);
-  man->FillNtupleDColumn(0, 3, eNaI/keV);
+  man->FillNtupleDColumn(0, 2, eCe_tot/keV);
+  man->FillNtupleDColumn(0, 3, eNaI_tot/keV);
   man->FillNtupleIColumn(0, 4, fHitsRing1);
   man->FillNtupleIColumn(0, 5, fHitsRing2);
   man->FillNtupleIColumn(0, 6, fHitsRing3);
