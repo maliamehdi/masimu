@@ -333,7 +333,12 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         G4Box* norcandepth = new G4Box("norcanshort", 40.*mm, 40*mm, 235*mm);
         G4Box* norcanheight = new G4Box("norcanheight", 40.*mm, 375*mm, 40*mm);
         G4Box* norcandepthrenfo = new G4Box("norcanrenfo", 40.*mm, 40*mm, 195*mm);
-        G4Box* norcanlengthrenfo = new G4Box("norcanlengthrenfo", 710.*mm, 40*mm, 40*mm);
+        G4Box* norcanlengthrenfo = new G4Box("norcanlengthrenfo", 670.*mm, 40*mm, 40*mm);
+        //Pieds du support en aluminium NORCAN
+        // G4Box* pied_norcan1 = new G4Box("pied_norcan1", 40.*mm, 375*mm, 40*mm);
+        // G4Box* renfort_norcan_long = new G4Box("renfort_norcan_long", 670.*mm, 40*mm, 40*mm);
+        
+
         //Translations pour les différentes parties du support
         G4ThreeVector ztransback = G4ThreeVector((750.-40)*mm, 0.*mm, -235.*mm); //translation pour le dos
         G4ThreeVector ztransfront = G4ThreeVector((750.-40)*mm, 0.*mm, 235.*mm); //translation pour le devant
@@ -363,7 +368,8 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         G4UnionSolid* norcanrenfo_4 = new G4UnionSolid("norcanrenfo_4", norcanrenfo_3, norcandepthrenfo,nullptr, trans_renfo_bas_droit);
 
         //G4UnionSolid* norcanTETRA = ;
-        G4LogicalVolume* logicChassis = new G4LogicalVolume(norcan1234, aluminium, "logicChassis");
+        //G4LogicalVolume* logicChassis = new G4LogicalVolume(norcan1234, aluminium, "logicChassis");
+        G4LogicalVolume* logicChassis = new G4LogicalVolume(norcan12345678, aluminium, "logicChassis");
         G4PVPlacement* physChassis = new G4PVPlacement(0, G4ThreeVector(-710.*mm, -660.*mm, 0.*mm), logicChassis, "physChassis", logicWorld, false, 0, checkOverlaps);
         // //---------------------------------------------------
         // // Support châssis NORCAN en aluminium de la chambre d'ionisation + PARIS
@@ -399,6 +405,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         auto s_barre_7 = new G4Box("s_barre_7", 30*mm, 30*mm, 74.7*mm);  // 60x149.4
         auto s_barre_8 = new G4Box("s_barre_8", 20*mm, 20*mm, 115.25*mm); // 40x190.5 (sous la chambre)
         auto s_barre_9 = new G4Box("s_barre_9", 30*mm, 30*mm, 82.5*mm);  // 60x165 (exterieur du support)
+        auto s_barre_10 = new G4Box("s_barre_10", 20*mm, 40*mm, 195*mm);  // renfort court sous la chambre
         // logicals (alu)
         auto lv_barre_1 = new G4LogicalVolume(s_barre_1, aluminium, "lv_barre_1");
         auto lv_barre_2 = new G4LogicalVolume(s_barre_2, aluminium, "lv_barre_2");
@@ -409,6 +416,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         auto lv_barre_7 = new G4LogicalVolume(s_barre_7, aluminium, "lv_barre_7");
         auto lv_barre_8 = new G4LogicalVolume(s_barre_8, aluminium, "lv_barre_8");
         auto lv_barre_9 = new G4LogicalVolume(s_barre_9, aluminium, "lv_barre_9");
+        auto lv_barre_10 = new G4LogicalVolume(s_barre_10, aluminium, "lv_barre_10");
 
         // base = ancien offset du mother : (0, +590, 0) + (115-20, 0, 0) rayon du support chambre ABS
         const G4ThreeVector base(115-20*mm, 430.*mm, 0.); //115mm rayon deu support ABS chambre - 33.5mm j'ai suivi le schéma
@@ -440,6 +448,8 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         //barre de renforcement sous la chambre
         new G4PVPlacement(nullptr, base + G4ThreeVector(0,  -930*mm, 5.*mm),
                         lv_barre_8, "pv_barre_8", logicWorld, false, 0, checkOverlaps);
+        new G4PVPlacement(nullptr, base + G4ThreeVector(0,  -1090*mm, 0.*mm),
+                        lv_barre_10, "pv_barre_10", logicWorld, false, 0, checkOverlaps);
         //barre de renforcement exterieure
                 new G4PVPlacement(nullptr, base + G4ThreeVector(0,  -860*mm, -417.5*mm),
                         lv_barre_9, "pv_barre_9_L", logicWorld, false, 0, checkOverlaps);
@@ -575,6 +585,21 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     physSP   = new G4PVPlacement(0, G4ThreeVector(0., -2.*cm, 10.*cm), logicSP, "physSP", logicWorld, false, 0, true);
     fSPVolume = logicSP;
 
+
+    // ====== Détecteurs PARIS ======
+    //=========== Chariots PARIS ===================
+    G4Box* solidChariot = new G4Box("solidChariot", 44.5*mm, 39.*mm, 6.*mm);
+    G4LogicalVolume* logicChariot = new G4LogicalVolume(solidChariot, aluminium, "logicChariot");
+    G4double chariotHalfThickness = 6.*mm;   // demi-épaisseur dans la direction radiale
+    G4double radialCenter = rmax_arc - chariotHalfThickness; // position radiale du centre du chariot
+
+    //=========== Berceaux en ABS PARIS ===================
+    G4Box* solidBerceau = new G4Box("solidBerceau", 39.*mm, 39.*mm, 39.*mm);
+    //Creuser un cube dans le berceau
+    G4Box* solidTrouBerceau = new G4Box("solidTrouBerceau", 40.*mm, 31.*mm, 31.*mm);
+    G4SubtractionSolid* solidBerceauFinal = new G4SubtractionSolid("solidBerceauFinal", solidBerceau, solidTrouBerceau, nullptr, G4ThreeVector(0.,0.,0.));
+    G4LogicalVolume* logicBerceau = new G4LogicalVolume(solidBerceauFinal, ABS, "logicBerceau");
+
     // ====== PARIS GDML (inchangé) ======
     G4GDMLParser parser;
     parser.Read("../PARISMalia.gdml");
@@ -607,7 +632,11 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
     //const G4ThreeVector arcCenter(-60.5*4*mm, 0., 0.);
     const G4ThreeVector arcCenter(-40*4-33*mm, 0., 0.);
+    const G4ThreeVector Chariot_offset(-137.5*mm -(chariotHalfThickness * 2),0.,0.);
+    const G4ThreeVector Berceau_offset(-137.5*mm - 57*mm ,0.,0.);
+
     const std::array<G4double,9> thetas = {50.*deg, 70.*deg, 90.*deg, 110.*deg, 130.*deg, 235.*deg, 262.*deg, 278.*deg, 305.*deg};
+    int chariotCopy = 0;
     int copyNo = 0;
     const G4RotationMatrix RA_top = *rotY;
     const G4ThreeVector Cworld(0.,0.,0.);
@@ -633,12 +662,62 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
         const int degLab = (int) std::round(theta/deg);
         SetParisLabel(copyNo,"PARIS" + std::to_string(degLab)); // ex: PARIS50, PARIS90, ...
+
+        // ==== Position du CHARIOT sur l’arc ====
+
+            G4ThreeVector w_world = w;
+
+            // 1) direction radiale dans le plan XY (pas de RA_top ici)
+            G4double phi = theta;  // theta est déjà en radian (50*deg, etc.)
+            G4ThreeVector r_unit(0.0, std::sin(phi), -std::cos(phi)); // vecteur unitaire radial
+
+            // 2) position du centre du chariot sur le cercle
+            G4ThreeVector posChariot = Chariot_offset -arcCenter + radialCenter * r_unit;
+
+            // 3) rotation : on aligne X_local du chariot sur le rayon
+            auto rotChariot = new G4RotationMatrix();
+            rotChariot->rotateX(90*deg);  // X→radial, Y→tangent
+            rotChariot->rotateY(90.*deg); 
+            //rotChariot->rotateX(-90*deg);     // pour que X_local suive le rayon
+            rotChariot->rotateY(180*deg);        
+            rotChariot->rotateZ(90*deg-phi);
+
+            new G4PVPlacement(
+                rotChariot,
+                posChariot,
+                logicChariot,
+                "physChariot",
+                logicWorld,
+                false,
+                chariotCopy++,
+                checkOverlaps
+            );
+        // ==== Position du BERCEAU en ABS ====
+        G4ThreeVector posBerceau = Berceau_offset -arcCenter + radialCenter * r_unit;
+        auto rotBerceau = new G4RotationMatrix();
+        rotBerceau->rotateX(90*deg);  // X→radial,
+        rotBerceau->rotateY(90.*deg);
+        rotBerceau->rotateY(180*deg);
+        rotBerceau->rotateZ(90*deg-phi);
+
+        new G4PVPlacement(
+            rotBerceau,
+            posBerceau,
+            logicBerceau,
+            "physBerceau",
+            logicWorld,
+            false,
+            copyNo,
+            checkOverlaps
+        );
+
         copyNo++;
 
         G4ThreeVector zplus_world = R * k;
         G4ThreeVector faceCe = pos - D_frontCe * zplus_world;
         G4double dist = faceCe.mag();
         G4cout << "θ=" << theta/deg << "°  dist(faceCe->world) = " << dist/mm << " mm" << G4endl;
+        
     }
 
     // ====== Retour ======

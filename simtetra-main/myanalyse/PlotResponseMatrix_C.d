@@ -3,6 +3,7 @@
 
 ./PlotResponseMatrix_C.so: /usr/include/root/TFile.h
 ./PlotResponseMatrix_C.so: /usr/include/root/TTree.h /usr/include/root/TH2D.h
+./PlotResponseMatrix_C.so: /usr/include/root/TH1D.h
 ./PlotResponseMatrix_C.so: /usr/include/root/TCanvas.h
 ./PlotResponseMatrix_C.so: /usr/include/root/TStyle.h
 ./PlotResponseMatrix_C.so: /usr/include/root/TSystem.h

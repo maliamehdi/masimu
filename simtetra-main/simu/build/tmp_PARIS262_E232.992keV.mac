@@ -6,5 +6,5 @@
 /run/initialize 
 /gun/particle gamma
 /gun/position 0 0 -31.8 mm
-/gun/energy 11964.4 keV
+/gun/energy 232.992 keV
 /run/beamOn 10000000

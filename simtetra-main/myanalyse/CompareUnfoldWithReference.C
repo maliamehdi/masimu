@@ -33,13 +33,13 @@
 #include <string>
 #include <cmath>
 
-void CompareUnfoldWithReference(const char* unfoldFile   = "UnfoldCompareScaled_PARIS50.root",
-                                const char* hBayesName   = "hUnfold_Bayes_perFission",
-                                const char* hDirectName  = "hUnfold_Direct",
-                                double nFissionsDirect   = 2.882315e9,
+void CompareUnfoldWithReference(const char* unfoldFile   = "new_PARIS235_Bayes_SpectrumProperties.root",
+                                const char* hBayesName   = "final_spectrum_per_fission_per_MeV",
+                                const char* hDirectName  = "final_spectrum_per_fission_per_MeV",
+                                double nFissionsDirect   = 1.926593664e+09,
                                 const char* refFile      = "252Cf_PFG_ref.txt",
                                 bool refEnergyInMeV      = true,
-                                const char* outPrefix    = "Cf252_Compare_PARIS50")
+                                const char* outPrefix    = "Cf252_Compare_new_PARIS235")
 {
   // ------------------ 1) Ouvrir le fichier ROOT d’unfolding ------------------
   TFile* fUnfold = TFile::Open(unfoldFile, "READ");
@@ -169,7 +169,7 @@ void CompareUnfoldWithReference(const char* unfoldFile   = "UnfoldCompareScaled_
   c->SetLogy(); // souvent utile pour les spectres en énergie
 
   // On commence par Bayes pour définir le cadre
-  hBayesClone->SetTitle("Cf-252 neutron spectrum;E_{true} [keV];(arb. units or per fission)");
+  hBayesClone->SetTitle("Cf-252 reference PFG  spectrum;E_{true} [keV];(arb. units or per fission)");
   hBayesClone->Draw("HIST");
 
   // Pour être sûr que le graphe soit visible

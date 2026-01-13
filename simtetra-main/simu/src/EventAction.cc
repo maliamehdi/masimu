@@ -175,7 +175,7 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
       //G4cout << "DEBUG: copy number Ce = " << copy-3 << G4endl;
       
       int idx  = copy-3;//ParisIndexFromCopy(copy, kCeOffset);
-      if (idx==20) idx =8; // cas particulier du 10e module (copy=23 pour Ce)
+      if (idx==21) idx =8; // cas particulier du 10e module (copy=23 pour Ce)
       //G4cout << "DEBUG: copy number Ce = " << idx << G4endl;
       if (idx < 0) continue; // clef inattendue
       const G4double eMeV = (kv.second ? *(kv.second) : 0.);
@@ -185,17 +185,34 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
   if (hmNaI) {
     for (const auto& kv : *hmNaI->GetMap()) {
       const int copy = kv.first;
-      //G4cout << "DEBUG: copy number NaI = " << copy << G4endl;
+      //G4cout << "DEBUG: copy number NaI = " << copy-4 << G4endl;
       int idx  = copy-4;// - 4;//ParisIndexFromCopy(copy, kNaIOffset);
       if (idx < 0) continue;
-      if (idx==20) idx =8; // cas particulier du 10e module (copy=24 pour NaI)
+      if (idx==21) idx =8; // cas particulier du 10e module (copy=24 pour NaI)
       //G4cout << "DEBUG: copy number NaI = " << idx << G4endl;
       const G4double eMeV = (kv.second ? *(kv.second) : 0.);
       byParisIndex[idx].second += eMeV/keV; // keV
     }
   }
 
+  // // ===== DEBUG : vérifier les clés Ce / NaI =====
+  // if (hmCe) {
+  //   for (const auto& kv : *hmCe->GetMap()) {
+  //     G4cout << "[DEBUG] Event " << evt->GetEventID()
+  //           << "  Ce key = " << kv.first
+  //           << "  E = " << (kv.second ? *(kv.second)/keV : 0.) << " keV"
+  //           << G4endl;
+  //   }
+  // }
 
+  // if (hmNaI) {
+  //   for (const auto& kv : *hmNaI->GetMap()) {
+  //     G4cout << "[DEBUG] Event " << evt->GetEventID()
+  //           << "  NaI key = " << kv.first
+  //           << "  E = " << (kv.second ? *(kv.second)/keV : 0.) << " keV"
+  //           << G4endl;
+  //   }
+  // }
   // Récupère les labels « PARIS50 », … depuis la géométrie
   const auto* det =static_cast<const MyDetectorConstruction*>(G4RunManager::GetRunManager()->GetUserDetectorConstruction());
 

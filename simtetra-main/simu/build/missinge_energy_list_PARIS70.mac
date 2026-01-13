@@ -1,0 +1,3 @@
+// Energies missing from myanalyse/PARIS70 (generated from comparison)
+// Created by automation: contains only the energies that did not produce expected ROOT outputs
+/control/alias Elist { 658.561 1281.81 6214.94 6308.36 6497.15 }

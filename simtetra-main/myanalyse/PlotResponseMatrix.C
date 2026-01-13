@@ -1,38 +1,45 @@
 // PlotResponseMatrix.C
+// ------------------------------------------------------------
 // Macro ROOT pour tracer la matrice de réponse Etrue vs Emeas
 // Source: ntuple "resp" avec colonnes: eventID, parisIndex, Etrue_keV, Emeas_keV, EdepCe_keV, EdepNaI_keV
 //
-// Axes (version actuelle) :
+// Axes :
 //   X = Emeas_keV (énergie mesurée)
 //   Y = Etrue_keV (énergie vraie)
+//
+// NO SMOOTH (option supprimée)
+// Normalisation : par Ngen (et NON par rowSum)
+//
+// + Trace la "photopeak efficiency proxy" = diagonale de la matrice normalisée (ix=iy)
+//   et l'écrit/sauve aussi.
 //
 // Usage typique :
 // root -l PlotResponseMatrix.C'+
 //   PlotResponseMatrix("out_PARIS50_100000.root",
 //                      -1, 400, 0, 15000,
 //                      400, 0, 15000,
-//                      false, "PARIS50_resp_resbin",
-//                      true,  true,  false,
+//                      1e7, "PARIS50_resp_resbin",
+//                      true, true,
 //                      true, "PARIS50");'
 //
 // Paramètres :
-//   fname        : fichier ROOT contenant l'ntuple resp
-//   parisIndex   : -1 = tous les détecteurs, sinon filtre sur un index PARIS
-//   nbinsTrue    : nbins axe énergie vraie (Etrue)  [Y]
-//   trueMin/Max  : bornes Etrue (keV)
-//   nbinsMeas    : nbins axe énergie mesurée (Emeas) [X]
-//   measMin/Max  : bornes Emeas (keV)
-//   normRows     : si true, normalise chaque ligne en Y pour somme=1 (PDF(Etrue|Emeas))
-//   savePrefix   : préfixe pour les fichiers de sortie
-//   useDraw      : true => TTree::Draw, false => boucle explicite
-//   logz         : échelle log en Z
-//   smooth       : lissage léger
-//   resolutionbin: si true, binning variable sur X et Y basé sur (resA,respower)
-//   detName      : nom du détecteur PARIS ("PARIS50", etc.) pour récupérer (resA,respower)
+//   fname         : fichier ROOT contenant l'ntuple resp
+//   parisIndex    : -1 = tous les détecteurs, sinon filtre sur un index PARIS
+//   nbinsTrue     : nbins axe énergie vraie (Etrue)  [Y]
+//   trueMin/Max   : bornes Etrue (keV)
+//   nbinsMeas     : nbins axe énergie mesurée (Emeas) [X]
+//   measMin/Max   : bornes Emeas (keV)
+//   Ngen          : nombre de gammas générés par bin vrai (normalisation absolue)
+//   savePrefix    : préfixe pour les fichiers de sortie
+//   useDraw       : true => TTree::Draw, false => boucle explicite
+//   logz          : échelle log en Z
+//   resolutionbin : si true, binning variable sur X et Y basé sur (resA,respower)
+//   detName       : nom du détecteur PARIS ("PARIS50", etc.) pour récupérer (resA,respower)
 
 #include <TFile.h>
 #include <TTree.h>
 #include <TH2D.h>
+#include <TH1D.h>
 #include <TCanvas.h>
 #include <TStyle.h>
 #include <TSystem.h>
@@ -64,21 +71,20 @@ static const std::map<std::string, ResParams> parisRes = { // run du 05/08/2024
   {"PARIS305", {1.9886,   -0.574021}}
 };
 
-void PlotResponseMatrix(const char* fname = "PARIS50/output_PARIS50_12million.root",
-                        int  parisIndex   = 1,
-                        int  nbinsTrue    = 155,
+void PlotResponseMatrix(const char* fname = "PARIS235/new_output_PARIS235_10million.root",
+                        int  parisIndex   = 5,
+                        int  nbinsTrue    = 156,
                         double trueMin    = 0.0,
                         double trueMax    = 15000.0,
-                        int  nbinsMeas    = 155,
+                        int  nbinsMeas    = 156,
                         double measMin    = 0.0,
                         double measMax    = 15000.0,
-                        bool normRows     = false,
-                        const char* savePrefix = "plot_Response12M",
+                        double Ngen       = 1e7,                      // <-- NEW: normalisation absolue
+                        const char* savePrefix = "plot_new_ResponsePARIS235",
                         bool useDraw      = true,
-                        bool logz         = false,
-                        bool smooth       = false,
+                        bool logz         = true,
                         bool resolutionbin = true,
-                        const char* detName = "PARIS50")
+                        const char* detName = "PARIS235")
 {
   // --- Ouverture du fichier et de l'arbre ---
   TFile* f = TFile::Open(fname, "READ");
@@ -96,6 +102,12 @@ void PlotResponseMatrix(const char* fname = "PARIS50/output_PARIS50_12million.ro
 
   std::cout << "[INFO] Opened file " << fname << std::endl;
   std::cout << "[INFO] Entries in resp = " << t->GetEntries() << std::endl;
+
+  if (!(Ngen > 0.0)) {
+    std::cerr << "[ERROR] Ngen must be > 0 (given " << Ngen << ")\n";
+    f->Close();
+    return;
+  }
 
   // --- Construction du binning variable (si demandé) ---
   std::vector<double> trueEdges;
@@ -130,13 +142,11 @@ void PlotResponseMatrix(const char* fname = "PARIS50/output_PARIS50_12million.ro
         measEdges = buildEdges(nbinsMeas, measMin);
 
         std::cout << "[DEBUG] First trueEdges (keV): ";
-        for (int i = 0; i < std::min(10, nbinsTrue+1); ++i)
-          std::cout << trueEdges[i] << " ";
+        for (int i = 0; i < std::min(10, nbinsTrue+1); ++i) std::cout << trueEdges[i] << " ";
         std::cout << "\n[INFO] Last true edge = " << trueEdges.back() << " keV" << std::endl;
 
         std::cout << "[DEBUG] First measEdges (keV): ";
-        for (int i = 0; i < std::min(10, nbinsMeas+1); ++i)
-          std::cout << measEdges[i] << " ";
+        for (int i = 0; i < std::min(10, nbinsMeas+1); ++i) std::cout << measEdges[i] << " ";
         std::cout << "\n[INFO] Last meas edge = " << measEdges.back() << " keV" << std::endl;
 
       } else {
@@ -148,22 +158,18 @@ void PlotResponseMatrix(const char* fname = "PARIS50/output_PARIS50_12million.ro
   }
 
   // --- Construction de l'histogramme ---
-  std::ostringstream hname; hname << "hResp_Etrue_vs_Emeas";
   TH2D* h = nullptr;
 
   if (resolutionbin && !trueEdges.empty() && !measEdges.empty()) {
-    // Binning variable sur les deux axes
-    // X = Emeas, Y = Etrue
-    h = new TH2D(hname.str().c_str(),
+    h = new TH2D("hResp_Etrue_vs_Emeas",
                  "Response matrix;E_{mes} [keV];E_{true} [keV]",
                  nbinsMeas, measEdges.data(),
                  nbinsTrue, trueEdges.data());
   } else {
-    // Binning uniforme (comportement original)
-    h = new TH2D(hname.str().c_str(),
+    h = new TH2D("hResp_Etrue_vs_Emeas",
                  "Response matrix;E_{mes} [keV];E_{true} [keV]",
-                 nbinsMeas, measMin, measMax,   // X
-                 nbinsTrue, trueMin, trueMax);  // Y
+                 nbinsMeas, measMin, measMax,
+                 nbinsTrue, trueMin, trueMax);
   }
 
   // --- Sélection éventuelle sur parisIndex ---
@@ -175,24 +181,20 @@ void PlotResponseMatrix(const char* fname = "PARIS50/output_PARIS50_12million.ro
 
   // --- Remplissage ---
   if (useDraw) {
-    // Attention : syntaxe Y:X >> hist
-    // Ici, Y = Etrue, X = Emeas
     std::ostringstream drawCmd;
     drawCmd << "Etrue_keV:Emeas_keV>>" << h->GetName();
     t->Draw(drawCmd.str().c_str(), sel.empty() ? nullptr : sel.c_str(), "goff");
-    std::cout << "[INFO] Filled via TTree::Draw with command: "
-              << drawCmd.str() << std::endl;
+    std::cout << "[INFO] Filled via TTree::Draw with command: " << drawCmd.str() << std::endl;
   } else {
-    // Boucle explicite
     double Etrue=0, Emeas=0; int pIdx=0;
     t->SetBranchAddress("Etrue_keV", &Etrue);
     t->SetBranchAddress("Emeas_keV", &Emeas);
     t->SetBranchAddress("parisIndex", &pIdx);
+
     Long64_t n = t->GetEntries();
     for (Long64_t i=0;i<n;++i) {
       t->GetEntry(i);
       if (parisIndex >= 0 && parisIndex != pIdx) continue;
-      // X = Emeas, Y = Etrue
       h->Fill(Emeas, Etrue);
     }
     std::cout << "[INFO] Filled via explicit loop, n entries = " << n << std::endl;
@@ -204,35 +206,44 @@ void PlotResponseMatrix(const char* fname = "PARIS50/output_PARIS50_12million.ro
   TH2D* hRaw = (TH2D*)h->Clone("ResponseMatrix_raw");
   hRaw->SetDirectory(nullptr);
 
-  // Maintenant qu'il est rempli, on peut détacher h aussi
   h->SetDirectory(nullptr);
 
-  // --- Normalisation par "ligne" (ici : à Y fixe, on normalise sur X) ---
-  // NB : comme on a inversé les axes, il faut décider :
-  //   - si tu veux PDF(Emeas | Etrue)  -> normalise sur X à Y fixé
-  // Ici on garde cette logique : chaque Y (Etrue) => somme sur tous les X.
-  if (normRows) {
-    for (int iy=1; iy<=h->GetNbinsY(); ++iy) {
-      double rowSum = 0.0;
-      for (int ix=1; ix<=h->GetNbinsX(); ++ix) rowSum += h->GetBinContent(ix, iy);
-      if (rowSum > 0) {
-        for (int ix=1; ix<=h->GetNbinsX(); ++ix) {
-          double v = h->GetBinContent(ix, iy);
-          h->SetBinContent(ix, iy, v/rowSum);
-        }
-      }
+  // --- Normalisation ABSOLUE par Ngen (pas de rowSum) ---
+  for (int iy = 1; iy <= h->GetNbinsY(); ++iy) {
+    for (int ix = 1; ix <= h->GetNbinsX(); ++ix) {
+      const double v = h->GetBinContent(ix, iy);
+      h->SetBinContent(ix, iy, v / Ngen);
     }
-    h->SetName("ResponseMatrix"); // nom propre pour la version normalisée
-    h->SetTitle("Response matrix (row-normalized);E_{mes} [keV];E_{true} [keV]");
+  }
+  h->SetName("ResponseMatrix");
+  h->SetTitle("Response matrix (normalized by N_{gen});E_{mes} [keV];E_{true} [keV]");
+
+  // --- Courbe efficacité "photopeak proxy" = diagonale ix=iy de la matrice normalisée ---
+  // NOTE: ceci est un proxy strict (bin Emeas == bin Etrue).
+  // Si tu veux une fenêtre autour de la diagonale, on peut l'ajouter aussi.
+  TH1D* hDiagEff = nullptr;
+  if (resolutionbin && !trueEdges.empty()) {
+    hDiagEff = new TH1D("PhotopeakEff_Diagonal",
+                        "Photopeak efficiency proxy (diagonal);E_{true} [keV];Efficiency",
+                        nbinsTrue, trueEdges.data());
   } else {
-    h->SetName("ResponseMatrix"); // version brute mais avec nom explicite
+    hDiagEff = new TH1D("PhotopeakEff_Diagonal",
+                        "Photopeak efficiency proxy (diagonal);E_{true} [keV];Efficiency",
+                        nbinsTrue, trueMin, trueMax);
+  }
+  hDiagEff->SetDirectory(nullptr);
+
+  const int nY = h->GetNbinsY();
+  const int nX = h->GetNbinsX();
+  const int nMin = std::min(nX, nY);
+
+  for (int iy = 1; iy <= nY; ++iy) {
+    double eff = 0.0;
+    if (iy <= nMin) eff = h->GetBinContent(iy, iy);
+    hDiagEff->SetBinContent(iy, eff);
   }
 
-  if (smooth) {
-    h->Smooth(1);
-  }
-
-  // --- Style & affichage ---
+  // --- Style & affichage matrice ---
   gStyle->SetOptStat(0);
   gStyle->SetPalette(kBird);
 
@@ -240,35 +251,40 @@ void PlotResponseMatrix(const char* fname = "PARIS50/output_PARIS50_12million.ro
   if (logz) c->SetLogz();
   h->Draw("COLZ");
 
-  // Info pave
-  TPaveText* pt = new TPaveText(0.13,0.82,0.42,0.93, "NDC");
+  TPaveText* pt = new TPaveText(0.13,0.80,0.46,0.93, "NDC");
   pt->SetFillColor(0);
   pt->SetTextAlign(12);
   pt->AddText(Form("File: %s", fname));
   if (parisIndex >= 0) pt->AddText(Form("parisIndex = %d", parisIndex));
   if (detName && detName[0] != '\0') pt->AddText(Form("Det: %s", detName));
   pt->AddText(Form("Entries (filled): %.0f", h->GetEntries()));
-  if (normRows) pt->AddText("Row norm: yes");
+  pt->AddText(Form("Norm: / Ngen = %.3g", Ngen));
   if (resolutionbin && !trueEdges.empty() && !measEdges.empty())
     pt->AddText("Binning: resolution (X & Y)");
   pt->Draw();
 
-  // Fichiers image
+  // --- Canvas efficacité diagonale ---
+  TCanvas* cEff = new TCanvas("cPhotopeakEff", "Photopeak efficiency proxy (diagonal)", 1000, 700);
+  cEff->SetGrid();
+  hDiagEff->Draw("HIST");
+
+  // --- Sauvegardes images ---
   std::string base = savePrefix;
-  c->SaveAs((base+".png").c_str());
-  c->SaveAs((base+".pdf").c_str());
+  c->SaveAs((base + ".C").c_str());
+  //c->SaveAs((base + ".pdf").c_str());
+
+  cEff->SaveAs((base + "_PhotopeakEffDiagonal.C").c_str());
+  cEff->SaveAs((base + "_PhotopeakEffDiagonal.png").c_str());
 
   // --- Sauvegarde ROOT ---
   {
     std::string rootOut = base + ".root";
     TFile fout(rootOut.c_str(), "RECREATE");
 
-    // matrice brute
-    if (hRaw) hRaw->Write();        // nom = "ResponseMatrix_raw"
-    // matrice éventuellement normalisée
-    if (h)    h->Write();           // nom = "ResponseMatrix"
+    if (hRaw)    hRaw->Write();      // "ResponseMatrix_raw"
+    if (h)       h->Write();         // "ResponseMatrix"
+    if (hDiagEff) hDiagEff->Write(); // "PhotopeakEff_Diagonal"
 
-    // Sauvegarde des edges si binning résolution
     if (resolutionbin && !trueEdges.empty() && !measEdges.empty()) {
       TVectorD vTrue(trueEdges.size());
       TVectorD vMeas(measEdges.size());
@@ -282,8 +298,8 @@ void PlotResponseMatrix(const char* fname = "PARIS50/output_PARIS50_12million.ro
     std::cout << "[INFO] ROOT output saved to: " << rootOut << std::endl;
   }
 
-  std::cout << "[INFO] Saved: " << base << ".png/.pdf/.root" << std::endl;
+  std::cout << "[INFO] Saved: " << base
+            << ".png/.pdf/.root + diagonal eff plots (_PhotopeakEffDiagonal.*)\n";
 
-  // Nettoyage fichier d'entrée
   f->Close();
 }
