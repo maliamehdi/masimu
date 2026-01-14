@@ -70,6 +70,10 @@
         "vector": "cpp",
         "algorithm": "cpp",
         "plot_gamma_simspectra_PARIS.C": "cpp",
-        "*.icc": "cpp"
+        "*.icc": "cpp",
+        "CompareHists.C": "cpp",
+        "make_paris_spectra.C": "cpp",
+        "rbuf": "cpp",
+        "buffer": "cpp"
     }
 }

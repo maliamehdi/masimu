@@ -47,12 +47,14 @@ int main(int argc, char** argv)
   hp->SetUseWendtFissionModel(false);
   hp->SetUseNRESP71Model(false);
 
-  // Visu
-  auto* visManager = new G4VisExecutive();
-  visManager->Initialize();
-
   // UI / Batch
   G4UIExecutive* ui = (argc == 1) ? new G4UIExecutive(argc, argv) : nullptr;
+  // Visu uniquement en mode interactif
+  G4VisExecutive* visManager = nullptr;
+  if (ui) {
+    visManager = new G4VisExecutive();
+    visManager->Initialize();
+  }
   auto* UImanager = G4UImanager::GetUIpointer();
 
   auto wall_start = std::chrono::steady_clock::now();
@@ -89,7 +91,7 @@ int main(int argc, char** argv)
   // }
 
   delete ui;          // 1) ferme l’UI d’abord
-  delete visManager;  // 2) puis la visu
+  delete visManager;  // 2) puis la visu (nullptr OK en batch)
   delete runManager;  // 3) et enfin le run manager (dernier)
 
   return 0;

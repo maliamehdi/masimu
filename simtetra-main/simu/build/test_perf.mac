@@ -1,0 +1,4 @@
+/run/numberOfThreads 4
+/run/initialize
+/control/execute 152Eu.mac
+/run/beamOn 1000

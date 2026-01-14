@@ -109,7 +109,7 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
     std::stringstream tag2;
     tag2 << "_run" << run->GetRunID();        // _run0, _run1, ...
 
-    G4String outFile = "../../myanalyse/output_" + base + tag2.str() + "_smeared.root";
+    G4String outFile = "../../myanalyse/newGeo_" + base + tag2.str() + "_smeared.root";
     G4cout << ">>> Ouverture du fichier ROOT (fallback): " << outFile << G4endl;
     man->OpenFile(outFile);
 }

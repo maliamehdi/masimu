@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o.d"
   "CMakeFiles/simTetra.dir/src/RunAction.cc.o"
   "CMakeFiles/simTetra.dir/src/RunAction.cc.o.d"
+  "CMakeFiles/simTetra.dir/src/SToGS_LowEnergyEMPhysicsList.cc.o"
+  "CMakeFiles/simTetra.dir/src/SToGS_LowEnergyEMPhysicsList.cc.o.d"
   "CMakeFiles/simTetra.dir/src/SteppingAction.cc.o"
   "CMakeFiles/simTetra.dir/src/SteppingAction.cc.o.d"
   "simTetra"

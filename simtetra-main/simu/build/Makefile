@@ -334,6 +334,30 @@ src/RunAction.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/src/RunAction.cc.s
 .PHONY : src/RunAction.cc.s
 
+src/SToGS_LowEnergyEMPhysicsList.o: src/SToGS_LowEnergyEMPhysicsList.cc.o
+.PHONY : src/SToGS_LowEnergyEMPhysicsList.o
+
+# target to build an object file
+src/SToGS_LowEnergyEMPhysicsList.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/src/SToGS_LowEnergyEMPhysicsList.cc.o
+.PHONY : src/SToGS_LowEnergyEMPhysicsList.cc.o
+
+src/SToGS_LowEnergyEMPhysicsList.i: src/SToGS_LowEnergyEMPhysicsList.cc.i
+.PHONY : src/SToGS_LowEnergyEMPhysicsList.i
+
+# target to preprocess a source file
+src/SToGS_LowEnergyEMPhysicsList.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/src/SToGS_LowEnergyEMPhysicsList.cc.i
+.PHONY : src/SToGS_LowEnergyEMPhysicsList.cc.i
+
+src/SToGS_LowEnergyEMPhysicsList.s: src/SToGS_LowEnergyEMPhysicsList.cc.s
+.PHONY : src/SToGS_LowEnergyEMPhysicsList.s
+
+# target to generate assembly for a file
+src/SToGS_LowEnergyEMPhysicsList.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/src/SToGS_LowEnergyEMPhysicsList.cc.s
+.PHONY : src/SToGS_LowEnergyEMPhysicsList.cc.s
+
 src/SteppingAction.o: src/SteppingAction.cc.o
 .PHONY : src/SteppingAction.o
 
@@ -392,6 +416,9 @@ help:
 	@echo "... src/RunAction.o"
 	@echo "... src/RunAction.i"
 	@echo "... src/RunAction.s"
+	@echo "... src/SToGS_LowEnergyEMPhysicsList.o"
+	@echo "... src/SToGS_LowEnergyEMPhysicsList.i"
+	@echo "... src/SToGS_LowEnergyEMPhysicsList.s"
 	@echo "... src/SteppingAction.o"
 	@echo "... src/SteppingAction.i"
 	@echo "... src/SteppingAction.s"

@@ -150,8 +150,8 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
   auto* hcevt = evt->GetHCofThisEvent();
   //if (!hcevt) goto FILL_SUM_ONLY;
 
-  auto* hmCe  = static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_CeEdep));
-  auto* hmNaI = static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_NaIEdep));
+  auto* hmCe  = (fHCID_CeEdep  >= 0) ? static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_CeEdep))  : nullptr;
+  auto* hmNaI = (fHCID_NaIEdep >= 0) ? static_cast<G4THitsMap<G4double>*>(hcevt->GetHC(fHCID_NaIEdep)) : nullptr;
 
   // Accumulateurs : parisIndex -> (eCe, eNaI) en keV (on convertit directement)
   std::unordered_map<int, std::pair<G4double,G4double>> byParisIndex;
@@ -215,9 +215,21 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
     double eResNaI_keV = Enai_keV;
 
     if (Ece_keV > 0.0) {
-      const double fwhm_Ce  = P.resA * std::pow(Ece_keV,  P.resPower);
-      const double sigma_Ce    = (fwhm_Ce / 2.35) * Ece_keV;  // keV
-      eResCe_keV  = G4RandGauss::shoot(Ece_keV,  std::max(sigma_Ce,  0.0));
+      // === DEBUG print pour vérifier les paramètres et le smear ===
+      // G4cout << "[DEBUG] EventID=" << evt->GetEventID()
+      //       << " | idx=" << idx << " (" << parisName << ")"
+      //       << " | Ece_keV=" << Ece_keV
+      //       << " | A=" << P.resA
+      //       << " | power=" << P.resPower
+      //       << G4endl;
+      const double resolution_Ce  = P.resA * std::pow(Ece_keV,  P.resPower);
+      const double sigma_Ce    = (resolution_Ce / 2.35) * Ece_keV;  // keV
+      eResCe_keV  = G4RandGauss::shoot(Ece_keV,  sigma_Ce);
+      // --- debug : impression du résultat smearé ---
+      // G4cout << "  resolution=" << resolution_Ce
+      //       << " keV, sigma=" << sigma_Ce
+      //       << " → EresCe=" << eResCe_keV
+      //       << " keV" << G4endl;
     }
     // if (Enai_keV > 0.0) {
     //   const double fwhm_NaI = P.resA * std::pow(Enai_keV, P.resPower);

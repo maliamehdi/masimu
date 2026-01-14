@@ -1,1 +1,12 @@
 **.root
+**.png
+run*.mac
+*log*.txt
+results_*/
+myanalyse/results_*/
+*.o
+*.so
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
