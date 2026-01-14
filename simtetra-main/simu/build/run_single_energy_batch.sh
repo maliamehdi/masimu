@@ -90,10 +90,27 @@ do_one() {
 /tracking/verbose 0
 /run/numberOfThreads ${NTHREADS}
 /random/setSeeds ${s1} ${s2}
+
 /run/initialize 
-/gun/particle gamma
-/gun/position 0 0 -31.8 mm
-/gun/energy ${E} keV
+/gps/particle gamma
+/gps/ene/type Mono
+/gps/energy ${E} keV
+# -------------------------
+#   POSITION : disque
+# -------------------------
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/centre 0 0 0 mm     # centre du disque
+/gps/pos/radius 12.5 mm          # rayon du disque (à adapter)
+/gps/pos/rot1 1 0 0           # axe u du plan
+/gps/pos/rot2 0 1 0           # axe v du plan
+# -> Ici le disque est dans le plan XY (normale +Z)
+
+# -------------------------
+#   DIRECTION : isotrope 4π
+# -------------------------
+/gps/ang/type iso
+
 /run/beamOn ${EVENTS}
 EOF
 

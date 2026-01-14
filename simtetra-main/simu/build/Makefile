@@ -190,6 +190,30 @@ src/ActionInitialization.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/src/ActionInitialization.cc.s
 .PHONY : src/ActionInitialization.cc.s
 
+src/CrystalSD.o: src/CrystalSD.cc.o
+.PHONY : src/CrystalSD.o
+
+# target to build an object file
+src/CrystalSD.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/src/CrystalSD.cc.o
+.PHONY : src/CrystalSD.cc.o
+
+src/CrystalSD.i: src/CrystalSD.cc.i
+.PHONY : src/CrystalSD.i
+
+# target to preprocess a source file
+src/CrystalSD.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/src/CrystalSD.cc.i
+.PHONY : src/CrystalSD.cc.i
+
+src/CrystalSD.s: src/CrystalSD.cc.s
+.PHONY : src/CrystalSD.s
+
+# target to generate assembly for a file
+src/CrystalSD.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/src/CrystalSD.cc.s
+.PHONY : src/CrystalSD.cc.s
+
 src/DetectorConstruction.o: src/DetectorConstruction.cc.o
 .PHONY : src/DetectorConstruction.o
 
@@ -374,6 +398,9 @@ help:
 	@echo "... src/ActionInitialization.o"
 	@echo "... src/ActionInitialization.i"
 	@echo "... src/ActionInitialization.s"
+	@echo "... src/CrystalSD.o"
+	@echo "... src/CrystalSD.i"
+	@echo "... src/CrystalSD.s"
 	@echo "... src/DetectorConstruction.o"
 	@echo "... src/DetectorConstruction.i"
 	@echo "... src/DetectorConstruction.s"

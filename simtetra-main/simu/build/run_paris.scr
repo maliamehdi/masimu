@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-EVENTS=${EVENTS:-500000}
+EVENTS=${EVENTS:-10000000}
 MAX_PROCS=${MAX_PROCS:-1}
 LIST_DIR=${LIST_DIR:-.}
 #50 70 90 110 130 235 262 278 305
@@ -18,7 +18,7 @@ IDS=(235)
 
 for id in "${IDS[@]}"; do
   PARIS_ID="PARIS${id}"
-  MAC="${LIST_DIR}/energies_list_${PARIS_ID}.mac" #new_
+  MAC="${LIST_DIR}/new_energies_list_${PARIS_ID}.mac" #new_
   if [[ ! -f "$MAC" ]]; then
     echo "[SKIP] Missing macro: $MAC" >&2
     continue

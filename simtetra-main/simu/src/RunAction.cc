@@ -10,8 +10,6 @@
 
 #include <algorithm>
 #include <ctime>
-#include <cstdlib>
-#include <unistd.h>
 
 MyRunAction::MyRunAction(const G4String& macroFileName)
 : G4UserRunAction(),
@@ -19,7 +17,7 @@ MyRunAction::MyRunAction(const G4String& macroFileName)
 {
     auto* man = G4AnalysisManager::Instance();
 
-  man->SetVerboseLevel(0);
+    man->SetVerboseLevel(1);
     #ifdef G4MULTITHREADED
     man->SetNtupleMerging(true);
     #endif
@@ -69,12 +67,15 @@ MyRunAction::MyRunAction(const G4String& macroFileName)
     man->CreateNtupleDColumn(fTruthRespNtupleId, "EdepCe_keV");   // dépôt Ce (avant smearing)
     man->CreateNtupleDColumn(fTruthRespNtupleId, "EdepNaI_keV");  // dépôt NaI (optionnel)
     man->FinishNtuple();    // index 4
-
-  // 5) Ntuple "truthAll" : Etrue par événement (rempli à chaque event, pour debug/validation)
-  fTruthAllNtupleId = man->CreateNtuple("truthAll", "Etrue per event (all events)");
-  man->CreateNtupleIColumn(fTruthAllNtupleId, "eventID");
-  man->CreateNtupleDColumn(fTruthAllNtupleId, "Etrue_keV");
-  man->FinishNtuple(); // index 5
+    // 5) Ntuple temps/énergie par crystal (à remplir plus tard)
+    man->CreateNtuple("paris_time", "Edep + first time per PARIS");
+    man->CreateNtupleIColumn("eventID");
+    man->CreateNtupleIColumn("parisIdx");
+    man->CreateNtupleDColumn("Ece_keV");
+    man->CreateNtupleDColumn("Enai_keV");
+    man->CreateNtupleDColumn("tFirstCe_ns");
+    man->CreateNtupleDColumn("tFirstNaI_ns");
+    man->FinishNtuple(); // index 5
 }
 
 MyRunAction::~MyRunAction() {}
@@ -101,77 +102,26 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
     auto* man = G4AnalysisManager::Instance();
 
     // 1) Priorité au TAG (fourni par le script bash)
-      if (const char* tag = std::getenv("TAG"); tag && *tag) {
-        // Déterminer le répertoire PARIS: priorité à PARIS_ID env, sinon extraire de TAG
-        std::string parisDir = "misc";
-        if (const char* p = std::getenv("PARIS_ID"); p && *p) {
-          parisDir = p;
-        } else {
-          std::string t(tag);
-          auto pos = t.find("PARIS");
-          if (pos != std::string::npos) {
-            std::string digits;
-            size_t i = pos + 5; // après "PARIS"
-            while (i < t.size() && std::isdigit(static_cast<unsigned char>(t[i]))) { digits.push_back(t[i]); ++i; }
-            if (!digits.empty()) parisDir = std::string("PARIS") + digits;
-          }
-        }
-
-        // créer le répertoire de sortie
-        std::string outdir = std::string("../../myanalyse/") + parisDir;
-        std::string cmd = std::string("mkdir -p ") + outdir;
-        std::system(cmd.c_str());
-
-        fOutFileName = outdir + std::string("/output_") + std::string(tag) + std::string(".root");
-        if (!std::getenv("QUIET")) {
-          G4cout << ">>> Ouverture du fichier ROOT (via TAG, une seule fois): " << fOutFileName << G4endl;
-        }
-        man->OpenFile(fOutFileName);
-        fFileOpened = true;
+    if (const char* tag = std::getenv("TAG"); tag && *tag) {
+        G4String outFile = "../../myanalyse/output_" + G4String(tag) + ".root";
+        G4cout << ">>> Ouverture du fichier ROOT (via TAG): " << outFile << G4endl;
+        man->OpenFile(outFile);
         return;
-      }
+    }
 
-    // 2) Fallback: nommage basé sur le macro + runID + timestamp + pid (évite tout overwrite)
-    G4String base = fMacroName;               // ex: "PARIS50_E5p5kev.mac"
+    // 2) Fallback: nommage basé sur le macro + runID
+    G4String base = fMacroName;               // ex: "run_0.mac"
     if (base.empty()) base = "interactive.mac";
     base = StripPath(base);                   // "run_0.mac"
     base = StripExtension(base, ".mac");      // "run_0"
 
-    std::time_t t = std::time(nullptr);
     std::stringstream tag2;
-    tag2 << "_run" << run->GetRunID()
-         << "_t" << static_cast<long long>(t)
-         << "_p" << static_cast<long long>(getpid());
+    tag2 << "_run" << run->GetRunID();        // _run0, _run1, ...
 
-      // Create per-base directory under myanalyse to keep outputs organized
-      // Prefer explicit PARIS_ID env; otherwise, extract "PARIS<digits>" from macro base name
-      std::string parisDir;
-      if (const char* p = std::getenv("PARIS_ID"); p && *p) {
-        parisDir = p;
-      } else {
-        std::string b = base;
-        auto pos = b.find("PARIS");
-        if (pos != std::string::npos) {
-          std::string digits;
-          size_t i = pos + 5; // after "PARIS"
-          while (i < b.size() && std::isdigit(static_cast<unsigned char>(b[i]))) { digits.push_back(b[i]); ++i; }
-          if (!digits.empty()) {
-            parisDir = std::string("PARIS") + digits; // e.g. PARIS50
-          }
-        }
-        if (parisDir.empty()) parisDir = base; // fallback to full base
-      }
-      std::string outdir = std::string("../../myanalyse/") + parisDir;
-      std::string cmd = std::string("mkdir -p ") + outdir;
-      std::system(cmd.c_str());
-
-      fOutFileName = outdir + std::string("/output_") + base + tag2.str() + std::string("_smeared.root");
-      if (!std::getenv("QUIET")) {
-        G4cout << ">>> Ouverture du fichier ROOT (fallback, une seule fois): " << fOutFileName << G4endl;
-      }
-      man->OpenFile(fOutFileName);
+    G4String outFile = "../../myanalyse/BerceaunewGeo" + base + tag2.str() + "_smeared.root";
+    G4cout << ">>> Ouverture du fichier ROOT (fallback): " << outFile << G4endl;
+    man->OpenFile(outFile);
 }
-
 void MyRunAction::EndOfRunAction(const G4Run*)
 {
     auto* man = G4AnalysisManager::Instance();

@@ -457,7 +457,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         
         
         // Rail courbé PARIS
-        G4double R_arc    = 550.*mm;     // rayon moyen de l’arc
+        G4double R_arc    = 500.*mm;     // rayon moyen de l’arc
         G4double w_arc    = 50.*mm;      // largeur radiale (dans le plan)
         G4double t    = 20.*mm;      // épaisseur (hors plan, le long de Z)
         G4double phi_arc = 20.*deg;     // angle de départ

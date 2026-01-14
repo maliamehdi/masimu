@@ -97,10 +97,24 @@ CMakeFiles/simTetra.dir/src/ActionInitialization.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simTetra.dir/src/ActionInitialization.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /srv/data/Geant4/masimu-1/simtetra-main/simu/src/ActionInitialization.cc -o CMakeFiles/simTetra.dir/src/ActionInitialization.cc.s
 
+CMakeFiles/simTetra.dir/src/CrystalSD.cc.o: CMakeFiles/simTetra.dir/flags.make
+CMakeFiles/simTetra.dir/src/CrystalSD.cc.o: ../src/CrystalSD.cc
+CMakeFiles/simTetra.dir/src/CrystalSD.cc.o: CMakeFiles/simTetra.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/simTetra.dir/src/CrystalSD.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simTetra.dir/src/CrystalSD.cc.o -MF CMakeFiles/simTetra.dir/src/CrystalSD.cc.o.d -o CMakeFiles/simTetra.dir/src/CrystalSD.cc.o -c /srv/data/Geant4/masimu-1/simtetra-main/simu/src/CrystalSD.cc
+
+CMakeFiles/simTetra.dir/src/CrystalSD.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/simTetra.dir/src/CrystalSD.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /srv/data/Geant4/masimu-1/simtetra-main/simu/src/CrystalSD.cc > CMakeFiles/simTetra.dir/src/CrystalSD.cc.i
+
+CMakeFiles/simTetra.dir/src/CrystalSD.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simTetra.dir/src/CrystalSD.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /srv/data/Geant4/masimu-1/simtetra-main/simu/src/CrystalSD.cc -o CMakeFiles/simTetra.dir/src/CrystalSD.cc.s
+
 CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o: CMakeFiles/simTetra.dir/flags.make
 CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o: ../src/DetectorConstruction.cc
 CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o: CMakeFiles/simTetra.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o -MF CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o.d -o CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o -c /srv/data/Geant4/masimu-1/simtetra-main/simu/src/DetectorConstruction.cc
 
 CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.s: cmake_force
 CMakeFiles/simTetra.dir/src/EventAction.cc.o: CMakeFiles/simTetra.dir/flags.make
 CMakeFiles/simTetra.dir/src/EventAction.cc.o: ../src/EventAction.cc
 CMakeFiles/simTetra.dir/src/EventAction.cc.o: CMakeFiles/simTetra.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/simTetra.dir/src/EventAction.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/simTetra.dir/src/EventAction.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simTetra.dir/src/EventAction.cc.o -MF CMakeFiles/simTetra.dir/src/EventAction.cc.o.d -o CMakeFiles/simTetra.dir/src/EventAction.cc.o -c /srv/data/Geant4/masimu-1/simtetra-main/simu/src/EventAction.cc
 
 CMakeFiles/simTetra.dir/src/EventAction.cc.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/simTetra.dir/src/EventAction.cc.s: cmake_force
 CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.o: CMakeFiles/simTetra.dir/flags.make
 CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.o: ../src/NeutronHPphysics.cc
 CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.o: CMakeFiles/simTetra.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.o -MF CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.o.d -o CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.o -c /srv/data/Geant4/masimu-1/simtetra-main/simu/src/NeutronHPphysics.cc
 
 CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.i: cmake_force
@@ -142,7 +156,7 @@ CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.s: cmake_force
 CMakeFiles/simTetra.dir/src/PhysicsList.cc.o: CMakeFiles/simTetra.dir/flags.make
 CMakeFiles/simTetra.dir/src/PhysicsList.cc.o: ../src/PhysicsList.cc
 CMakeFiles/simTetra.dir/src/PhysicsList.cc.o: CMakeFiles/simTetra.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/simTetra.dir/src/PhysicsList.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/simTetra.dir/src/PhysicsList.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simTetra.dir/src/PhysicsList.cc.o -MF CMakeFiles/simTetra.dir/src/PhysicsList.cc.o.d -o CMakeFiles/simTetra.dir/src/PhysicsList.cc.o -c /srv/data/Geant4/masimu-1/simtetra-main/simu/src/PhysicsList.cc
 
 CMakeFiles/simTetra.dir/src/PhysicsList.cc.i: cmake_force
@@ -156,7 +170,7 @@ CMakeFiles/simTetra.dir/src/PhysicsList.cc.s: cmake_force
 CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o: CMakeFiles/simTetra.dir/flags.make
 CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o: ../src/PrimaryGenerator.cc
 CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o: CMakeFiles/simTetra.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o -MF CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o.d -o CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.o -c /srv/data/Geant4/masimu-1/simtetra-main/simu/src/PrimaryGenerator.cc
 
 CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.i: cmake_force
@@ -170,7 +184,7 @@ CMakeFiles/simTetra.dir/src/PrimaryGenerator.cc.s: cmake_force
 CMakeFiles/simTetra.dir/src/RunAction.cc.o: CMakeFiles/simTetra.dir/flags.make
 CMakeFiles/simTetra.dir/src/RunAction.cc.o: ../src/RunAction.cc
 CMakeFiles/simTetra.dir/src/RunAction.cc.o: CMakeFiles/simTetra.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/simTetra.dir/src/RunAction.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/simTetra.dir/src/RunAction.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simTetra.dir/src/RunAction.cc.o -MF CMakeFiles/simTetra.dir/src/RunAction.cc.o.d -o CMakeFiles/simTetra.dir/src/RunAction.cc.o -c /srv/data/Geant4/masimu-1/simtetra-main/simu/src/RunAction.cc
 
 CMakeFiles/simTetra.dir/src/RunAction.cc.i: cmake_force
@@ -184,7 +198,7 @@ CMakeFiles/simTetra.dir/src/RunAction.cc.s: cmake_force
 CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: CMakeFiles/simTetra.dir/flags.make
 CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: ../src/SteppingAction.cc
 CMakeFiles/simTetra.dir/src/SteppingAction.cc.o: CMakeFiles/simTetra.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/simTetra.dir/src/SteppingAction.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/simTetra.dir/src/SteppingAction.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simTetra.dir/src/SteppingAction.cc.o -MF CMakeFiles/simTetra.dir/src/SteppingAction.cc.o.d -o CMakeFiles/simTetra.dir/src/SteppingAction.cc.o -c /srv/data/Geant4/masimu-1/simtetra-main/simu/src/SteppingAction.cc
 
 CMakeFiles/simTetra.dir/src/SteppingAction.cc.i: cmake_force
@@ -199,6 +213,7 @@ CMakeFiles/simTetra.dir/src/SteppingAction.cc.s: cmake_force
 simTetra_OBJECTS = \
 "CMakeFiles/simTetra.dir/simTetra.cc.o" \
 "CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o" \
+"CMakeFiles/simTetra.dir/src/CrystalSD.cc.o" \
 "CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o" \
 "CMakeFiles/simTetra.dir/src/EventAction.cc.o" \
 "CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.o" \
@@ -212,6 +227,7 @@ simTetra_EXTERNAL_OBJECTS =
 
 simTetra: CMakeFiles/simTetra.dir/simTetra.cc.o
 simTetra: CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o
+simTetra: CMakeFiles/simTetra.dir/src/CrystalSD.cc.o
 simTetra: CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o
 simTetra: CMakeFiles/simTetra.dir/src/EventAction.cc.o
 simTetra: CMakeFiles/simTetra.dir/src/NeutronHPphysics.cc.o
@@ -268,7 +284,7 @@ simTetra: /opt/geant4/11.2.2/lib/libG4global.so
 simTetra: /opt/geant4/11.2.2/lib/libG4clhep.so
 simTetra: /opt/geant4/11.2.2/lib/libG4ptl.so.2.3.3
 simTetra: CMakeFiles/simTetra.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable simTetra"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/srv/data/Geant4/masimu-1/simtetra-main/simu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable simTetra"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/simTetra.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

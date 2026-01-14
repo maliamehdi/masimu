@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/simTetra.dir/simTetra.cc.o.d"
   "CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o"
   "CMakeFiles/simTetra.dir/src/ActionInitialization.cc.o.d"
+  "CMakeFiles/simTetra.dir/src/CrystalSD.cc.o"
+  "CMakeFiles/simTetra.dir/src/CrystalSD.cc.o.d"
   "CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o"
   "CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o.d"
   "CMakeFiles/simTetra.dir/src/EventAction.cc.o"
