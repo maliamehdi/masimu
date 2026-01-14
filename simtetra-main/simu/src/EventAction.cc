@@ -43,15 +43,15 @@ struct ResParams { double resA; double resPower; };
 
 // Avec les copy number
 static const std::map<int, ResParams> parisRes = { // run du 05/08/2024
-    {1,  {1.12145,  -0.441244}},
-    {2,  {1.80973,  -0.550685}},
-    {3,  {1.94868,  -0.564616}},
-    {4,  {2.11922,  -0.582147}},
-    {5,  {0.794233, -0.377311}},
-    {6,  {1.30727,  -0.477402}},
-    {7,  {1.76345,  -0.542769}},
-    {8,  {1.98579,  -0.559095}},
-    {9,  {1.9886,   -0.574021}}
+    {0,  {1.12145,  -0.441244}},
+    {1,  {1.80973,  -0.550685}},
+    {2,  {1.94868,  -0.564616}},
+    {3,  {2.11922,  -0.582147}},
+    {4,  {0.794233, -0.377311}},
+    {5,  {1.30727,  -0.477402}},
+    {6,  {1.76345,  -0.542769}},
+    {7,  {1.98579,  -0.559095}},
+    {8,  {1.9886,   -0.574021}}
 };
 
 // Récupère l'énergie du premier gamma primaire de l'évènement (en keV)
@@ -155,7 +155,7 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
       // int idx = copy - 3;
       // if (idx == 21) idx = 8;
       // if (idx < 0) continue;
-      int idx = copy;
+      int idx = copy -1; //pour garder paris de 0 à 8
       // DEBUG sécurité
       //std::cout<<"DEBUG Ce copyNo="<<copy<<" idx="<<idx<<std::endl;
       if (idx < 0 || idx > 8) continue;   // sécurité
@@ -181,8 +181,8 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
       // int idx = copy - 4;
       // if (idx == 21) idx = 8;
       // if (idx < 0) continue;
-      int idx = copy;
-      if (idx < 1 || idx > 9) continue;   // sécurité
+      int idx = copy-1; //pour garder paris de 0 à 8
+      if (idx < 0 || idx > 8) continue;   // sécurité
 
       const G4double eMeV   = hit->GetEdep();
       const G4double tFirst = hit->GetTFirst();
