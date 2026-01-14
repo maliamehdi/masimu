@@ -1,4 +1,5 @@
 #include "DetectorConstruction.hh"
+#include "CrystalSD.hh"
 #include "G4NistManager.hh"
 #include "G4GenericMessenger.hh"
 #include "G4SystemOfUnits.hh"
@@ -747,29 +748,23 @@ void MyDetectorConstruction::ConstructSDandField()
 {
     auto sdMan = G4SDManager::GetSDMpointer();
 
-    // Ce & NaI (énergie déposée)
+    // Ce & NaI : récupérer toute l'énergie déposée + temps (par copy)
     auto lvCe  = G4LogicalVolumeStore::GetInstance()->GetVolume("SCIONIXPWLVCe");
     auto lvNaI = G4LogicalVolumeStore::GetInstance()->GetVolume("SCParisPWLV.1");
 
-    auto sdCe = new G4MultiFunctionalDetector("CeSD");
-    sdMan->AddNewDetector(sdCe);
-    // NOTE: depth=0 pour indexer par le copy number du parent (imprint PARIS)
-    auto edepCe = new G4PSEnergyDeposit("edep", /*depth=*/0);
-    sdCe->RegisterPrimitive(edepCe);
-    if (lvCe) lvCe->SetSensitiveDetector(sdCe);
+    // depth=0 => copyNo du volume sensible (Ce/NaI) lui-même (ça colle avec ce que tu lisais dans la HitsMap)
+    auto sdCe  = new CrystalSD("CeCrystalSD",  "CeCrystalHits",  /*copyDepth=*/0);
+    auto sdNaI = new CrystalSD("NaICrystalSD", "NaICrystalHits", /*copyDepth=*/0);
 
-    auto sdNaI = new G4MultiFunctionalDetector("NaISD");
+    sdMan->AddNewDetector(sdCe);
     sdMan->AddNewDetector(sdNaI);
-    // NOTE: depth=0 pour indexer par le copy number du parent (imprint PARIS)
-    auto edepNaI = new G4PSEnergyDeposit("edep", /*depth=*/0);
-    sdNaI->RegisterPrimitive(edepNaI);
+
+    if (lvCe)  lvCe->SetSensitiveDetector(sdCe);
     if (lvNaI) lvNaI->SetSensitiveDetector(sdNaI);
 
-    // Cells : filtre neutron E < 100 keV
-    // auto filterThermalN = new G4SDParticleWithEnergyFilter("fThermalN");
-    // filterThermalN->add("neutron");
-    // filterThermalN->SetKineticEnergy(0.*eV, 10000.*keV);
-
+    // ===============================
+    // Cells : inchangé
+    // ===============================
     auto sdCell = new G4MultiFunctionalDetector("CellSD");
     sdMan->AddNewDetector(sdCell);
 

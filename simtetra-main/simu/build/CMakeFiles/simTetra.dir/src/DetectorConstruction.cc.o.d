@@ -673,6 +673,14 @@ CMakeFiles/simTetra.dir/src/DetectorConstruction.cc.o: \
  /opt/geant4/11.2.2/include/Geant4/G4LogicalVolumeStore.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VStoreNotifier.hh \
  /opt/geant4/11.2.2/include/Geant4/G4VNotifier.hh \
+ /srv/data/Geant4/masimu-1/simtetra-main/simu/include/CrystalSD.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VSensitiveDetector.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4THitsCollection.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4VHit.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Allocator.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4ThreeVector.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4Step.hh \
+ /opt/geant4/11.2.2/include/Geant4/G4TouchableHistory.hh \
  /opt/geant4/11.2.2/include/Geant4/G4PhysicalConstants.hh \
  /opt/geant4/11.2.2/include/Geant4/G4Material.hh \
  /opt/geant4/11.2.2/include/Geant4/G4Element.hh \
