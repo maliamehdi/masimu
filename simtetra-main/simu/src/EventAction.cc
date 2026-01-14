@@ -182,7 +182,7 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
       // if (idx == 21) idx = 8;
       // if (idx < 0) continue;
       int idx = copy;
-      if (idx < 0 || idx > 8) continue;   // sécurité
+      if (idx < 1 || idx > 9) continue;   // sécurité
 
       const G4double eMeV   = hit->GetEdep();
       const G4double tFirst = hit->GetTFirst();
