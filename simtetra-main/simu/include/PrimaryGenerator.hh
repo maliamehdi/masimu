@@ -12,16 +12,19 @@
 #include "Randomize.hh"
 #include "globals.hh"
 
+class G4GeneralParticleSource;
+class G4Event;
+
 class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction
 {
 public:
-	MyPrimaryGenerator();
-	~MyPrimaryGenerator();
-	
-	virtual void GeneratePrimaries(G4Event*);
-	
+  MyPrimaryGenerator();
+  ~MyPrimaryGenerator() override;
+
+  void GeneratePrimaries(G4Event*) override;
+
 private:
-	G4ParticleGun *fParticleGun;
+  G4GeneralParticleSource* fGPS = nullptr;
 };
 
 #endif

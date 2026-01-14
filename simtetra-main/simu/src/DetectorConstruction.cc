@@ -1,5 +1,5 @@
 #include "DetectorConstruction.hh"
-
+#include "CrystalSD.hh"
 #include "G4NistManager.hh"
 #include "G4GenericMessenger.hh"
 #include "G4SystemOfUnits.hh"
@@ -46,7 +46,7 @@ static void PlaceRingCells(
         G4LogicalVolume* logicMod;
         G4ThreeVector localPos;
 
-        if ((x > (+50./6.) && y > 0) || (x > (-50./6.) && y <= 0))
+        if ((x > (+50./6.) && y < 0) || (x > (-50./6.) && y >= 0))
         {
             logicMod = logic_polycase;
             localPos = globalPos - shell2_pos;
@@ -70,6 +70,17 @@ static void PlaceRingCells(
                    << " in " << (logicMod == logic_polycase2 ? "polycase2" : "polycase")
                    << G4endl;
         }
+        //test d'inclusion
+        // auto status = logicMod->GetSolid()->Inside(localPos);
+        // if (status == kOutside) {
+        //     G4cout << "!!! Cell OUTSIDE volume !!! Pos: " << localPos
+        //         << " in " << (logicMod == logic_polycase2 ? "polycase2" : "polycase")
+        //         << G4endl;
+        // } else if (status == kSurface) {
+        //     G4cout << "[WARN] Cell ON SURFACE at Pos: " << localPos
+        //         << " in " << (logicMod == logic_polycase2 ? "polycase2" : "polycase")
+        //         << G4endl;
+        // }
 
         new G4PVPlacement(0, localPos, logicCell, "physCell", logicMod, false, copyIndex++, false);
         new G4PVPlacement(0, localPos, logicCyl,  "physCyl",  logicMod, false, copyIndex++, false);
@@ -186,7 +197,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     borPol->AddMaterial(boron, 5.*perCent);
 
     // ========= Monde =========
-    auto solidWorld = new G4Box("solidWorld", 1.*m, 1.*m, 1.*m);
+    auto solidWorld = new G4Box("solidWorld", 10.*m, 10.*m, 10.*m);
     auto logicWorld = new G4LogicalVolume(solidWorld, air, "logicWorld");
     auto physWorld  = new G4PVPlacement(0, {}, logicWorld, "physWorld", nullptr, false, 0);
 
@@ -212,28 +223,48 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
     auto box_addon_shell    = new G4Box("shell_addon", 50./3.*mm, 258*mm, 350*mm);
     auto box_addon_polycase = new G4Box("polycase_addon", 50./3.*mm, (183-16.875)*mm, 250*mm);
+    auto box_cutoff       = new G4Box("box_cutoff", 50./3.*mm, 67.5*mm, 400*mm);
 
-    auto solid_shell_init1 = new G4UnionSolid("solid_shell_init1", solid_half_shell, box_addon_shell, nullptr, G4ThreeVector(-50./3./2.*mm, -258*mm, 0));
-    auto solid_shell_init  = new G4SubtractionSolid("solid_shell_init", solid_shell_init1, box_addon_shell, nullptr, G4ThreeVector(-50./3./2.*mm, 258*mm, 0));
+    // auto solid_shell_init1 = new G4UnionSolid("solid_shell_init1", solid_half_shell, box_addon_shell, nullptr, G4ThreeVector(-50./3./2.*mm, 258*mm, 0));
+    // auto solid_shell_init  = new G4SubtractionSolid("solid_shell_init", solid_shell_init1, box_addon_shell, nullptr, G4ThreeVector(-50./3./2.*mm, -258*mm, 0));
 
-    auto solid_polycase_init1 = new G4UnionSolid("solid_polycase_init1", solid_half_polycase, box_addon_polycase, nullptr, G4ThreeVector(-50./3./2.*mm, (-(183+16.875))*mm, 0));
-    auto solid_polycase_init  = new G4SubtractionSolid("solid_polycase_init", solid_polycase_init1, box_addon_polycase, nullptr, G4ThreeVector(-50./3./2.*mm, (183+16.875)*mm, 0));
+    // auto solid_polycase_init1 = new G4UnionSolid("solid_polycase_init1", solid_half_polycase, box_addon_polycase, nullptr, G4ThreeVector(-50./3./2.*mm, ((183+16.875))*mm, 0));
+    // auto solid_polycase_init  = new G4SubtractionSolid("solid_polycase_init", solid_polycase_init1, box_addon_polycase, nullptr, G4ThreeVector(-50./3./2.*mm, -(183+16.875)*mm, 0));
 
-    auto solid_shell2_init1 = new G4UnionSolid("solid_shell2_init1", solid_half_shell2, box_addon_shell, nullptr, G4ThreeVector(+50./3./2.*mm, 258*mm, 0));
-    auto solid_shell2_init  = new G4SubtractionSolid("solid_shell2_init", solid_shell2_init1, box_addon_shell, nullptr, G4ThreeVector(+50./3./2.*mm, -258*mm, 0));
+    // auto solid_shell2_init1 = new G4UnionSolid("solid_shell2_init1", solid_half_shell2, box_addon_shell, nullptr, G4ThreeVector(+50./3./2.*mm, -258*mm, 0));
+    // auto solid_shell2_init  = new G4SubtractionSolid("solid_shell2_init", solid_shell2_init1, box_addon_shell, nullptr, G4ThreeVector(+50./3./2.*mm, 258*mm, 0));
 
-    auto solid_polycase2_init1 = new G4UnionSolid("solid_polycase2_init1", solid_half_polycase2, box_addon_polycase, nullptr, G4ThreeVector(+50./3./2.*mm, (183+16.875)*mm, 0));
-    auto solid_polycase2_init  = new G4SubtractionSolid("solid_polycase2_init", solid_polycase2_init1, box_addon_polycase, nullptr, G4ThreeVector(+50./3./2.*mm, (-(183+16.875))*mm, 0));
+    // auto solid_polycase2_init1 = new G4UnionSolid("solid_polycase2_init1", solid_half_polycase2, box_addon_polycase, nullptr, G4ThreeVector(+50./3./2.*mm, -(183+16.875)*mm, 0));
+    // auto solid_polycase2_init  = new G4SubtractionSolid("solid_polycase2_init", solid_polycase2_init1, box_addon_polycase, nullptr, G4ThreeVector(+50./3./2.*mm, ((183+16.875))*mm, 0));
 
-    auto solid_hole = new G4Tubs("solid_pipe", 0*mm, 67.5*mm, 520.*mm, 0.*deg, 360.0*deg);
+    auto solid_shell_init1 = new G4UnionSolid("solid_shell_init1", solid_half_shell, box_addon_shell, nullptr, G4ThreeVector(0*mm, 258*mm, 0));
+    auto solid_shell_init  = new G4SubtractionSolid("solid_shell_init", solid_shell_init1, box_addon_shell, nullptr, G4ThreeVector(0*mm, -258*mm, 0));
+
+    auto solid_polycase_init1 = new G4UnionSolid("solid_polycase_init1", solid_half_polycase, box_addon_polycase, nullptr, G4ThreeVector(0*mm, ((183+16.875))*mm, 0));
+    auto solid_polycase_init  = new G4SubtractionSolid("solid_polycase_init", solid_polycase_init1, box_addon_polycase, nullptr, G4ThreeVector(0*mm, -(183+16.875)*mm, 0));
+
+    auto solid_shell2_init1 = new G4UnionSolid("solid_shell2_init1", solid_half_shell2, box_addon_shell, nullptr, G4ThreeVector(0*mm, -258*mm, 0));
+    auto solid_shell2_init  = new G4SubtractionSolid("solid_shell2_init", solid_shell2_init1, box_addon_shell, nullptr, G4ThreeVector(0*mm, 258*mm, 0));
+
+    auto solid_polycase2_init1 = new G4UnionSolid("solid_polycase2_init1", solid_half_polycase2, box_addon_polycase, nullptr, G4ThreeVector(0*mm, -(183+16.875)*mm, 0));
+    auto solid_polycase2_init  = new G4SubtractionSolid("solid_polycase2_init", solid_polycase2_init1, box_addon_polycase, nullptr, G4ThreeVector(0*mm, ((183+16.875))*mm, 0));
+
+        auto solid_shell_rabot   = new G4SubtractionSolid("solid_shell_rabot",    solid_shell_init,    box_cutoff, nullptr, G4ThreeVector(0*mm, 0*mm, 0));
+        auto solid_shell2_rabot  = new G4SubtractionSolid("solid_shell2_rabot",   solid_shell2_init,   box_cutoff, nullptr, G4ThreeVector(0*mm, 0*mm, 0));
+        auto solid_polycase_rabot= new G4SubtractionSolid("solid_polycase_rabot", solid_polycase_init, box_cutoff, nullptr, G4ThreeVector(0*mm, 0*mm, 0));
+        auto solid_polycase2_rabot= new G4SubtractionSolid("solid_polycase2_rabot", solid_polycase2_init, box_cutoff, nullptr, G4ThreeVector(0*mm, 0*mm, 0));
+
+    auto solid_hole = new G4Tubs("solid_pipe", 0.*mm, 67.5*mm, 620.*mm, 0.*deg, 360.0*deg); //520 mm → 620 mm pour traverser les deux coques
     auto solidLightGuide = new G4Box("solidLightGuide", 2.25*cm, 25.*cm, 5.*cm);
-    G4ThreeVector yTrans(0., -20.*cm, 0.);
+    G4ThreeVector yTrans(0., -67.5*mm, 0.);
     auto solid_pipe = new G4UnionSolid("solid_pipe", solid_hole, solidLightGuide, nullptr, yTrans);
 
-    auto solid_shell    = new G4SubtractionSolid("solid_shell",    solid_shell_init,    solid_pipe);
-    auto solid_polycase = new G4SubtractionSolid("solid_polycase", solid_polycase_init, solid_pipe);
-    auto solid_shell2   = new G4SubtractionSolid("solid_shell2",   solid_shell2_init,   solid_pipe);
-    auto solid_polycase2= new G4SubtractionSolid("solid_polycase2",solid_polycase2_init,solid_pipe);
+    auto solid_shell    = new G4SubtractionSolid("solid_shell",    solid_shell_rabot,    solid_pipe);
+    auto solid_polycase = new G4SubtractionSolid("solid_polycase", solid_polycase_rabot, solid_pipe);
+    auto solid_shell2   = new G4SubtractionSolid("solid_shell2",   solid_shell2_rabot,   solid_hole);
+    auto solid_polycase2= new G4SubtractionSolid("solid_polycase2",solid_polycase2_rabot,solid_hole);
+
+
 
     // Volumes logiques : PE_TS sur polycase, boré sur shell
     auto logic_shell     = new G4LogicalVolume(solid_shell,  borPol, "logic_shell");
@@ -302,7 +333,12 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         G4Box* norcandepth = new G4Box("norcanshort", 40.*mm, 40*mm, 235*mm);
         G4Box* norcanheight = new G4Box("norcanheight", 40.*mm, 375*mm, 40*mm);
         G4Box* norcandepthrenfo = new G4Box("norcanrenfo", 40.*mm, 40*mm, 195*mm);
-        G4Box* norcanlengthrenfo = new G4Box("norcanlengthrenfo", 710.*mm, 40*mm, 40*mm);
+        G4Box* norcanlengthrenfo = new G4Box("norcanlengthrenfo", 670.*mm, 40*mm, 40*mm);
+        //Pieds du support en aluminium NORCAN
+        // G4Box* pied_norcan1 = new G4Box("pied_norcan1", 40.*mm, 375*mm, 40*mm);
+        // G4Box* renfort_norcan_long = new G4Box("renfort_norcan_long", 670.*mm, 40*mm, 40*mm);
+        
+
         //Translations pour les différentes parties du support
         G4ThreeVector ztransback = G4ThreeVector((750.-40)*mm, 0.*mm, -235.*mm); //translation pour le dos
         G4ThreeVector ztransfront = G4ThreeVector((750.-40)*mm, 0.*mm, 235.*mm); //translation pour le devant
@@ -332,8 +368,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         G4UnionSolid* norcanrenfo_4 = new G4UnionSolid("norcanrenfo_4", norcanrenfo_3, norcandepthrenfo,nullptr, trans_renfo_bas_droit);
 
         //G4UnionSolid* norcanTETRA = ;
-        G4LogicalVolume* logicChassis = new G4LogicalVolume(norcan1234, aluminium, "logicChassis");
-        G4PVPlacement* physChassis = new G4PVPlacement(0, G4ThreeVector(-710.*mm, -590.*mm, 0.*mm), logicChassis, "physChassis", logicWorld, false, 0, checkOverlaps);
+        //G4LogicalVolume* logicChassis = new G4LogicalVolume(norcan1234, aluminium, "logicChassis");
+        G4LogicalVolume* logicChassis = new G4LogicalVolume(norcan12345678, aluminium, "logicChassis");
+        G4PVPlacement* physChassis = new G4PVPlacement(0, G4ThreeVector(-710.*mm, -660.*mm, 0.*mm), logicChassis, "physChassis", logicWorld, false, 0, checkOverlaps);
         // //---------------------------------------------------
         // // Support châssis NORCAN en aluminium de la chambre d'ionisation + PARIS
         // G4Box* barre_1 = new G4Box("barre_1", 30.*mm, 915*mm, 30*mm);//grande barre
@@ -368,6 +405,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         auto s_barre_7 = new G4Box("s_barre_7", 30*mm, 30*mm, 74.7*mm);  // 60x149.4
         auto s_barre_8 = new G4Box("s_barre_8", 20*mm, 20*mm, 115.25*mm); // 40x190.5 (sous la chambre)
         auto s_barre_9 = new G4Box("s_barre_9", 30*mm, 30*mm, 82.5*mm);  // 60x165 (exterieur du support)
+        auto s_barre_10 = new G4Box("s_barre_10", 20*mm, 40*mm, 195*mm);  // renfort court sous la chambre
         // logicals (alu)
         auto lv_barre_1 = new G4LogicalVolume(s_barre_1, aluminium, "lv_barre_1");
         auto lv_barre_2 = new G4LogicalVolume(s_barre_2, aluminium, "lv_barre_2");
@@ -378,9 +416,10 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         auto lv_barre_7 = new G4LogicalVolume(s_barre_7, aluminium, "lv_barre_7");
         auto lv_barre_8 = new G4LogicalVolume(s_barre_8, aluminium, "lv_barre_8");
         auto lv_barre_9 = new G4LogicalVolume(s_barre_9, aluminium, "lv_barre_9");
+        auto lv_barre_10 = new G4LogicalVolume(s_barre_10, aluminium, "lv_barre_10");
 
         // base = ancien offset du mother : (0, +590, 0) + (115-20, 0, 0) rayon du support chambre ABS
-        const G4ThreeVector base(115-33.5*mm, 550.*mm, 0.); //115mm rayon deu support ABS chambre - 33.5mm j'ai suivi le schéma
+        const G4ThreeVector base(115-20*mm, 430.*mm, 0.); //115mm rayon deu support ABS chambre - 33.5mm j'ai suivi le schéma
 
         // placements (add base.y à toutes tes Y locales)
         new G4PVPlacement(nullptr, base + G4ThreeVector(0,     0*mm,   0*mm),
@@ -396,19 +435,21 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         new G4PVPlacement(nullptr, base + G4ThreeVector(0,  -430*mm, +470*mm),
                         lv_barre_4, "pv_barre_4_R", logicWorld, false, 1, checkOverlaps);
 
-        new G4PVPlacement(nullptr, base + G4ThreeVector(0,  -840*mm, -200.95*mm),
+        new G4PVPlacement(nullptr, base + G4ThreeVector(0,  -810*mm, -200.95*mm),
                         lv_barre_7, "pv_barre_7", logicWorld, false, 0, checkOverlaps);
-        new G4PVPlacement(nullptr, base + G4ThreeVector(0,  -840*mm, +220.3*mm),
+        new G4PVPlacement(nullptr, base + G4ThreeVector(0,  -810*mm, +220.3*mm),
                         lv_barre_6, "pv_barre_6", logicWorld, false, 0, checkOverlaps);
 
         // barre_5 = montants chambre VERTICAUX (axe Y)
-        new G4PVPlacement(nullptr, base + G4ThreeVector(0*mm,  -838*mm, -130.6*mm), 
+        new G4PVPlacement(nullptr, base + G4ThreeVector(0*mm,  -750*mm, -130.6*mm), 
                         lv_barre_5, "pv_barre_5_L", logicWorld, false, 0, checkOverlaps);
-        new G4PVPlacement(nullptr, base + G4ThreeVector(0*mm,  -838*mm, +138.9*mm),
+        new G4PVPlacement(nullptr, base + G4ThreeVector(0*mm,  -750*mm, +138.9*mm),
                         lv_barre_5, "pv_barre_5_R", logicWorld, false, 1, checkOverlaps);
         //barre de renforcement sous la chambre
-        new G4PVPlacement(nullptr, base + G4ThreeVector(0,  -950*mm, 5.*mm),
+        new G4PVPlacement(nullptr, base + G4ThreeVector(0,  -930*mm, 5.*mm),
                         lv_barre_8, "pv_barre_8", logicWorld, false, 0, checkOverlaps);
+        new G4PVPlacement(nullptr, base + G4ThreeVector(0,  -1090*mm, 0.*mm),
+                        lv_barre_10, "pv_barre_10", logicWorld, false, 0, checkOverlaps);
         //barre de renforcement exterieure
                 new G4PVPlacement(nullptr, base + G4ThreeVector(0,  -860*mm, -417.5*mm),
                         lv_barre_9, "pv_barre_9_L", logicWorld, false, 0, checkOverlaps);
@@ -417,7 +458,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         
         
         // Rail courbé PARIS
-        G4double R_arc    = 550.*mm;     // rayon moyen de l’arc
+        G4double R_arc    = 500.*mm;     // rayon moyen de l’arc
         G4double w_arc    = 50.*mm;      // largeur radiale (dans le plan)
         G4double t    = 20.*mm;      // épaisseur (hors plan, le long de Z)
         G4double phi_arc = 20.*deg;     // angle de départ
@@ -437,8 +478,8 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         rotY->rotateY(90.*deg);  // fait passer l’axe Z → X
         rotY2->rotateY(90.*deg); // fait passer l’axe Z → X pour l'autre arc
         rotY2->rotateZ(180.*deg); // fait passer l’axe Z → -X pour l'autre arc
-        G4PVPlacement* physArc1 = new G4PVPlacement(rotY, G4ThreeVector(-40+81.5*mm, 0.*mm, 0.*mm), logicArc, "physArc1", logicWorld, false, 0, false);
-        G4PVPlacement* physArc2 = new G4PVPlacement(rotY2, G4ThreeVector(-40+81.5*mm, 0.*mm, 0.*mm), logicArc, "physArc2", logicWorld, false, 1, false);
+        G4PVPlacement* physArc1 = new G4PVPlacement(rotY, G4ThreeVector(-20+81.5*mm, 0.*mm, 0.*mm), logicArc, "physArc1", logicWorld, false, 0, false);
+        G4PVPlacement* physArc2 = new G4PVPlacement(rotY2, G4ThreeVector(-20+81.5*mm, 0.*mm, 0.*mm), logicArc, "physArc2", logicWorld, false, 1, false);
 
         //---------------------------------------------------
         // Support en impression 3D plastique  la chambre d'ionisation ABS  (acrylonitrile butadiène styrène)
@@ -544,6 +585,21 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     physSP   = new G4PVPlacement(0, G4ThreeVector(0., -2.*cm, 10.*cm), logicSP, "physSP", logicWorld, false, 0, true);
     fSPVolume = logicSP;
 
+
+    // ====== Détecteurs PARIS ======
+    //=========== Chariots PARIS ===================
+    G4Box* solidChariot = new G4Box("solidChariot", 44.5*mm, 39.*mm, 6.*mm);
+    G4LogicalVolume* logicChariot = new G4LogicalVolume(solidChariot, aluminium, "logicChariot");
+    G4double chariotHalfThickness = 6.*mm;   // demi-épaisseur dans la direction radiale
+    G4double radialCenter = rmax_arc - chariotHalfThickness; // position radiale du centre du chariot
+
+    //=========== Berceaux en ABS PARIS ===================
+    G4Box* solidBerceau = new G4Box("solidBerceau", 39.*mm, 39.*mm, 39.*mm);
+    //Creuser un cube dans le berceau
+    G4Box* solidTrouBerceau = new G4Box("solidTrouBerceau", 40.*mm, 31.*mm, 31.*mm);
+    G4SubtractionSolid* solidBerceauFinal = new G4SubtractionSolid("solidBerceauFinal", solidBerceau, solidTrouBerceau, nullptr, G4ThreeVector(0.,0.,0.));
+    G4LogicalVolume* logicBerceau = new G4LogicalVolume(solidBerceauFinal, ABS, "logicBerceau");
+
     // ====== PARIS GDML (inchangé) ======
     G4GDMLParser parser;
     parser.Read("../PARISMalia.gdml");
@@ -576,18 +632,24 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
     //const G4ThreeVector arcCenter(-60.5*4*mm, 0., 0.);
     const G4ThreeVector arcCenter(-40*4-33*mm, 0., 0.);
+    const G4ThreeVector Chariot_offset(-137.5*mm -(chariotHalfThickness * 2),0.,0.);
+    const G4ThreeVector Berceau_offset(-137.5*mm - 57*mm ,0.,0.);
+
     const std::array<G4double,9> thetas = {50.*deg, 70.*deg, 90.*deg, 110.*deg, 130.*deg, 235.*deg, 262.*deg, 278.*deg, 305.*deg};
+    int chariotCopy = 0;
     int copyNo = 0;
     const G4RotationMatrix RA_top = *rotY;
     const G4ThreeVector Cworld(0.,0.,0.);
-    const G4double D_frontCe = 233.0*mm; //+6.656mm peut-être à ajuster selon le GDML
+    const G4double D_frontCe = 233.0 * mm;//233.0*mm; //+6.656mm peut-être à ajuster selon le GDML
+    
     //const G4double D_frontCe = 207.5*mm; // test d'après le GDML fourni
     const G4double Rtarget   = 300.0*mm;
     for (auto theta : thetas) {
         const G4double phi_loc = theta;
         G4ThreeVector r_local(std::cos(phi_loc), std::sin(phi_loc), 0.);
         G4ThreeVector w = RA_top * r_local;  w = w.unit();
-        const G4ThreeVector pos = Cworld + ((Rtarget - D_frontCe) * w) + arcCenter;
+        
+        // const G4ThreeVector pos = Cworld + (Rtarget + D_frontCe) * w + arcCenter;   // pas de +arcCenter
         //const G4ThreeVector pos = Cworld + (Rtarget + D_frontCe) * w;        // test(sans arcCenter)
         //const G4ThreeVector pos = Cworld - arcCenter + (Rtarget + D_frontCe) * w;
         const G4ThreeVector k(0.,0.,1.);
@@ -597,17 +659,85 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         if (axis.mag2() < 1e-24) axis = G4ThreeVector(1,0,0);
         axis = axis.unit();
         G4RotationMatrix R;  R.rotate(ang, axis);
+        //ajout test
+        // 2) point local = centre de la face avant Ce (dans le repère assembly)
+        const G4ThreeVector pFaceLocal(193.*mm, 0., 233.*mm);
+
+        // 3) cible monde pour cette face : sphère de rayon 300 mm autour de (0,0,0)
+        const G4ThreeVector faceTargetWorld = 300.0*mm * w;
+
+        // 4) translation qui impose faceCeWorld = faceTargetWorld
+        const G4ThreeVector pos = faceTargetWorld - (R * pFaceLocal);
+
+        // 5) debug
+        const G4ThreeVector faceCeWorld = pos + R * pFaceLocal;
+        G4cout << "theta=" << theta/deg
+            << "  |faceCeWorld|=" << faceCeWorld.mag()/mm << " mm"
+            << "  faceCeWorld=" << faceCeWorld/mm
+            << G4endl;
         G4Transform3D T(R, pos);
         asmPARIS->MakeImprint(logicWorld, T, copyNo, checkOverlaps);
+        
+        G4cout << "dist(faceCeWorld) = " << faceCeWorld.mag()/mm << " mm" << G4endl;
 
         const int degLab = (int) std::round(theta/deg);
         SetParisLabel(copyNo,"PARIS" + std::to_string(degLab)); // ex: PARIS50, PARIS90, ...
+
+        // ==== Position du CHARIOT sur l’arc ====
+
+            G4ThreeVector w_world = w;
+
+            // 1) direction radiale dans le plan XY (pas de RA_top ici)
+            G4double phi = theta;  // theta est déjà en radian (50*deg, etc.)
+            G4ThreeVector r_unit(0.0, std::sin(phi), -std::cos(phi)); // vecteur unitaire radial
+
+            // 2) position du centre du chariot sur le cercle
+            G4ThreeVector posChariot = Chariot_offset -arcCenter + radialCenter * r_unit;
+
+            // 3) rotation : on aligne X_local du chariot sur le rayon
+            auto rotChariot = new G4RotationMatrix();
+            rotChariot->rotateX(90*deg);  // X→radial, Y→tangent
+            rotChariot->rotateY(90.*deg); 
+            //rotChariot->rotateX(-90*deg);     // pour que X_local suive le rayon
+            rotChariot->rotateY(180*deg);        
+            rotChariot->rotateZ(90*deg-phi);
+
+            new G4PVPlacement(
+                rotChariot,
+                posChariot,
+                logicChariot,
+                "physChariot",
+                logicWorld,
+                false,
+                chariotCopy++,
+                checkOverlaps
+            );
+        // ==== Position du BERCEAU en ABS ====
+        G4ThreeVector posBerceau = Berceau_offset -arcCenter + radialCenter * r_unit;
+        auto rotBerceau = new G4RotationMatrix();
+        rotBerceau->rotateX(90*deg);  // X→radial,
+        rotBerceau->rotateY(90.*deg);
+        rotBerceau->rotateY(180*deg);
+        rotBerceau->rotateZ(90*deg-phi);
+
+        new G4PVPlacement(
+            rotBerceau,
+            posBerceau,
+            logicBerceau,
+            "physBerceau",
+            logicWorld,
+            false,
+            copyNo,
+            checkOverlaps
+        );
+
         copyNo++;
 
         G4ThreeVector zplus_world = R * k;
         G4ThreeVector faceCe = pos - D_frontCe * zplus_world;
         G4double dist = faceCe.mag();
         G4cout << "θ=" << theta/deg << "°  dist(faceCe->world) = " << dist/mm << " mm" << G4endl;
+        
     }
 
     // ====== Retour ======
@@ -618,29 +748,23 @@ void MyDetectorConstruction::ConstructSDandField()
 {
     auto sdMan = G4SDManager::GetSDMpointer();
 
-    // Ce & NaI (énergie déposée)
+    // Ce & NaI : récupérer toute l'énergie déposée + temps (par copy)
     auto lvCe  = G4LogicalVolumeStore::GetInstance()->GetVolume("SCIONIXPWLVCe");
     auto lvNaI = G4LogicalVolumeStore::GetInstance()->GetVolume("SCParisPWLV.1");
 
-    auto sdCe = new G4MultiFunctionalDetector("CeSD");
-    sdMan->AddNewDetector(sdCe);
-    // NOTE: depth=0 pour indexer par le copy number du parent (imprint PARIS)
-    auto edepCe = new G4PSEnergyDeposit("edep", /*depth=*/0);
-    sdCe->RegisterPrimitive(edepCe);
-    if (lvCe) lvCe->SetSensitiveDetector(sdCe);
+    // depth=0 => copyNo du volume sensible (Ce/NaI) lui-même (ça colle avec ce que tu lisais dans la HitsMap)
+    auto sdCe  = new CrystalSD("CeCrystalSD",  "CeCrystalHits",  /*copyDepth=*/0);
+    auto sdNaI = new CrystalSD("NaICrystalSD", "NaICrystalHits", /*copyDepth=*/0);
 
-    auto sdNaI = new G4MultiFunctionalDetector("NaISD");
+    sdMan->AddNewDetector(sdCe);
     sdMan->AddNewDetector(sdNaI);
-    // NOTE: depth=0 pour indexer par le copy number du parent (imprint PARIS)
-    auto edepNaI = new G4PSEnergyDeposit("edep", /*depth=*/0);
-    sdNaI->RegisterPrimitive(edepNaI);
+
+    if (lvCe)  lvCe->SetSensitiveDetector(sdCe);
     if (lvNaI) lvNaI->SetSensitiveDetector(sdNaI);
 
-    // Cells : filtre neutron E < 100 keV
-    // auto filterThermalN = new G4SDParticleWithEnergyFilter("fThermalN");
-    // filterThermalN->add("neutron");
-    // filterThermalN->SetKineticEnergy(0.*eV, 10000.*keV);
-
+    // ===============================
+    // Cells : inchangé
+    // ===============================
     auto sdCell = new G4MultiFunctionalDetector("CellSD");
     sdMan->AddNewDetector(sdCell);
 

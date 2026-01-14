@@ -1,3 +1,4 @@
+/run/numberOfThreads 6
 /run/initialize
 
 /gun/particle gamma
@@ -5,4 +6,4 @@
 /gun/position 0 0 0 cm
 
 
-/run/beamOn 10000
+/run/beamOn 1000000

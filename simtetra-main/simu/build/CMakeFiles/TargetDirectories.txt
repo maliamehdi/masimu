@@ -1,4 +1,7 @@
 /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles/simTetra.dir
-/Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles/SimulationTetra.dir
 /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles/edit_cache.dir
 /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles/rebuild_cache.dir
+/Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles/list_install_components.dir
+/Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles/install.dir
+/Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles/install/local.dir
+/Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles/install/strip.dir

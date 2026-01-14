@@ -85,6 +85,51 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/opt/homebrew/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/opt/homebrew/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build/CMakeFiles /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/build//CMakeFiles/progress.marks
@@ -128,19 +173,6 @@ simTetra: cmake_check_build_system
 simTetra/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/build
 .PHONY : simTetra/fast
-
-#=============================================================================
-# Target rules for targets named SimulationTetra
-
-# Build rule for target.
-SimulationTetra: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SimulationTetra
-.PHONY : SimulationTetra
-
-# fast build rule for target.
-SimulationTetra/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimulationTetra.dir/build.make CMakeFiles/SimulationTetra.dir/build
-.PHONY : SimulationTetra/fast
 
 simTetra.o: simTetra.cc.o
 .PHONY : simTetra.o
@@ -189,6 +221,30 @@ src/ActionInitialization.s: src/ActionInitialization.cc.s
 src/ActionInitialization.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/src/ActionInitialization.cc.s
 .PHONY : src/ActionInitialization.cc.s
+
+src/CrystalSD.o: src/CrystalSD.cc.o
+.PHONY : src/CrystalSD.o
+
+# target to build an object file
+src/CrystalSD.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/src/CrystalSD.cc.o
+.PHONY : src/CrystalSD.cc.o
+
+src/CrystalSD.i: src/CrystalSD.cc.i
+.PHONY : src/CrystalSD.i
+
+# target to preprocess a source file
+src/CrystalSD.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/src/CrystalSD.cc.i
+.PHONY : src/CrystalSD.cc.i
+
+src/CrystalSD.s: src/CrystalSD.cc.s
+.PHONY : src/CrystalSD.s
+
+# target to generate assembly for a file
+src/CrystalSD.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simTetra.dir/build.make CMakeFiles/simTetra.dir/src/CrystalSD.cc.s
+.PHONY : src/CrystalSD.cc.s
 
 src/DetectorConstruction.o: src/DetectorConstruction.cc.o
 .PHONY : src/DetectorConstruction.o
@@ -389,8 +445,11 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... SimulationTetra"
 	@echo "... simTetra"
 	@echo "... simTetra.o"
 	@echo "... simTetra.i"
@@ -398,6 +457,9 @@ help:
 	@echo "... src/ActionInitialization.o"
 	@echo "... src/ActionInitialization.i"
 	@echo "... src/ActionInitialization.s"
+	@echo "... src/CrystalSD.o"
+	@echo "... src/CrystalSD.i"
+	@echo "... src/CrystalSD.s"
 	@echo "... src/DetectorConstruction.o"
 	@echo "... src/DetectorConstruction.i"
 	@echo "... src/DetectorConstruction.s"

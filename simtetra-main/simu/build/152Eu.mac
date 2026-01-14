@@ -24,15 +24,29 @@
 /run/initialize
 /process/had/rdm/thresholdForVeryLongDecayTime 1.0e+60 year
 # --- Définir la source comme un ion 152Eu au repos
-/gun/particle ion
-#    Z=63 (Eu), A=152, charge=0, Ex=0
-/gun/ion 63 152 0 0
-/gun/energy 0 keV
+# --- Utiliser GPS (General Particle Source)
+/gps/particle ion
+/gps/ion 63 152 0 0
+/gps/energy 0 keV
 
-# --- Position de la source (à adapter à ta géométrie)
-#     Ex : au centre du monde
-/gun/position 0 0 0 mm
-#/gun/pos/type Point
+# -------------------------
+#   POSITION : disque
+# -------------------------
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/centre 0 0 0 mm     # centre du disque
+/gps/pos/radius 10 mm          # rayon du disque (à adapter)
+/gps/pos/rot1 1 0 0           # axe u du plan
+/gps/pos/rot2 0 1 0           # axe v du plan
+# -> Ici le disque est dans le plan XY (normale +Z)
+
+# -------------------------
+#   DIRECTION : isotrope 4π
+# -------------------------
+/gps/ang/type iso
+# (optionnel) si tu veux limiter à un hémisphère :
+# /gps/ang/type cos
+# /gps/ang/maxtheta 90 deg
 
 # --- (Optionnel) un peu de verbosité de tracking pour debug
 /tracking/verbose 0

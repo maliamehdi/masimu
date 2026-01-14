@@ -67,6 +67,15 @@ MyRunAction::MyRunAction(const G4String& macroFileName)
     man->CreateNtupleDColumn(fTruthRespNtupleId, "EdepCe_keV");   // dépôt Ce (avant smearing)
     man->CreateNtupleDColumn(fTruthRespNtupleId, "EdepNaI_keV");  // dépôt NaI (optionnel)
     man->FinishNtuple();    // index 4
+    // 5) Ntuple temps/énergie par crystal (à remplir plus tard)
+    man->CreateNtuple("paris_time", "Edep + first time per PARIS");
+    man->CreateNtupleIColumn("eventID");
+    man->CreateNtupleIColumn("parisIdx");
+    man->CreateNtupleDColumn("Ece_keV");
+    man->CreateNtupleDColumn("Enai_keV");
+    man->CreateNtupleDColumn("tFirstCe_ns");
+    man->CreateNtupleDColumn("tFirstNaI_ns");
+    man->FinishNtuple(); // index 5
 }
 
 MyRunAction::~MyRunAction() {}
@@ -109,7 +118,7 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
     std::stringstream tag2;
     tag2 << "_run" << run->GetRunID();        // _run0, _run1, ...
 
-    G4String outFile = "../../myanalyse/newGeo_" + base + tag2.str() + "_smeared.root";
+    G4String outFile = "../../myanalyse/last" + base + tag2.str() + "_smeared.root";
     G4cout << ">>> Ouverture du fichier ROOT (fallback): " << outFile << G4endl;
     man->OpenFile(outFile);
 }

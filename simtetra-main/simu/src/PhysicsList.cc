@@ -38,9 +38,9 @@ MyPhysicsList::MyPhysicsList()
     // + dans ton main ou ici :
     auto em = G4EmParameters::Instance();
     em->SetFluo(true); em->SetAuger(true); em->SetAugerCascade(true); em->SetPixe(true);
-    SetDefaultCutValue(1*um);
+    //SetDefaultCutValue(1*um);
     RegisterPhysics(new G4EmPenelopePhysics());
-    RegisterPhysics( new NeutronHPphysics("neutronHP"));
+    //RegisterPhysics( new NeutronHPphysics("neutronHP"));
 }
 
 void MyPhysicsList::ConstructParticle()

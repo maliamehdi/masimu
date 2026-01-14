@@ -1502,6 +1502,7 @@ CMakeFiles/simTetra.dir/src/EventAction.cc.o: \
   /Users/mehdi/install/myG4/install/include/Geant4/G4LogicalVolumeStore.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4VStoreNotifier.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4VNotifier.hh \
+  /Users/mehdi/workspace/G4/masimu/simtetra-main/simu/include/CrystalSD.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4RunManager.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/G4Event.hh \
   /Users/mehdi/install/myG4/install/include/Geant4/evtdefs.hh \

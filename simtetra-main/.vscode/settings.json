@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "MakeEfficiencyFile.C": "cpp",
-        "PlotEfficiencies.C": "cpp"
+        "PlotEfficiencies.C": "cpp",
+        "new": "cpp"
     }
 }
