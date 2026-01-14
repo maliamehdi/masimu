@@ -158,7 +158,7 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
       int idx = copy -1; //pour garder paris de 0 à 8
       // DEBUG sécurité
       //std::cout<<"DEBUG Ce copyNo="<<copy<<" idx="<<idx<<std::endl;
-      if (idx < 0 || idx > 8) continue;   // sécurité
+      if (idx < 0 || idx > 8) std::cout<<"DEBUG CeBr3 idx ="<< idx<<std::endl;   // sécurité
       const G4double eMeV   = hit->GetEdep();   // MeV
       const G4double tFirst = hit->GetTFirst(); // ns
 
@@ -182,8 +182,9 @@ void MyEventAction::EndOfEventAction(const G4Event* evt) {
       // if (idx == 21) idx = 8;
       // if (idx < 0) continue;
       int idx = copy-1; //pour garder paris de 0 à 8
-      if (idx < 0 || idx > 8) continue;   // sécurité
-
+      if (idx < 0 || idx > 8) std::cout<<"DEBUG NaI idx ="<< idx<<std::endl;   // sécurité
+      // DEBUG sécurité
+      //std::cout<<"DEBUG NaI copyNo="<<copy<<" idx="<<idx<<std::endl;
       const G4double eMeV   = hit->GetEdep();
       const G4double tFirst = hit->GetTFirst();
 
