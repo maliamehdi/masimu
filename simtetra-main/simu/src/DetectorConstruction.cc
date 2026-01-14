@@ -1,5 +1,4 @@
 #include "DetectorConstruction.hh"
-
 #include "G4NistManager.hh"
 #include "G4GenericMessenger.hh"
 #include "G4SystemOfUnits.hh"
@@ -641,13 +640,15 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     const G4RotationMatrix RA_top = *rotY;
     const G4ThreeVector Cworld(0.,0.,0.);
     const G4double D_frontCe = 233.0 * mm;//233.0*mm; //+6.656mm peut-être à ajuster selon le GDML
+    
     //const G4double D_frontCe = 207.5*mm; // test d'après le GDML fourni
     const G4double Rtarget   = 300.0*mm;
     for (auto theta : thetas) {
         const G4double phi_loc = theta;
         G4ThreeVector r_local(std::cos(phi_loc), std::sin(phi_loc), 0.);
         G4ThreeVector w = RA_top * r_local;  w = w.unit();
-        const G4ThreeVector pos = Cworld + (Rtarget + D_frontCe) * w;   // pas de +arcCenter
+        
+        // const G4ThreeVector pos = Cworld + (Rtarget + D_frontCe) * w + arcCenter;   // pas de +arcCenter
         //const G4ThreeVector pos = Cworld + (Rtarget + D_frontCe) * w;        // test(sans arcCenter)
         //const G4ThreeVector pos = Cworld - arcCenter + (Rtarget + D_frontCe) * w;
         const G4ThreeVector k(0.,0.,1.);
@@ -657,8 +658,26 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         if (axis.mag2() < 1e-24) axis = G4ThreeVector(1,0,0);
         axis = axis.unit();
         G4RotationMatrix R;  R.rotate(ang, axis);
+        //ajout test
+        // 2) point local = centre de la face avant Ce (dans le repère assembly)
+        const G4ThreeVector pFaceLocal(193.*mm, 0., 233.*mm);
+
+        // 3) cible monde pour cette face : sphère de rayon 300 mm autour de (0,0,0)
+        const G4ThreeVector faceTargetWorld = 300.0*mm * w;
+
+        // 4) translation qui impose faceCeWorld = faceTargetWorld
+        const G4ThreeVector pos = faceTargetWorld - (R * pFaceLocal);
+
+        // 5) debug
+        const G4ThreeVector faceCeWorld = pos + R * pFaceLocal;
+        G4cout << "theta=" << theta/deg
+            << "  |faceCeWorld|=" << faceCeWorld.mag()/mm << " mm"
+            << "  faceCeWorld=" << faceCeWorld/mm
+            << G4endl;
         G4Transform3D T(R, pos);
         asmPARIS->MakeImprint(logicWorld, T, copyNo, checkOverlaps);
+        
+        G4cout << "dist(faceCeWorld) = " << faceCeWorld.mag()/mm << " mm" << G4endl;
 
         const int degLab = (int) std::round(theta/deg);
         SetParisLabel(copyNo,"PARIS" + std::to_string(degLab)); // ex: PARIS50, PARIS90, ...
