@@ -115,7 +115,7 @@ run_and_move() {
 }
 
 status=0
-for n in $(seq -w 1 12); do
+for n in $(seq -w 11 11); do
   macro="$ROOT_DIR/fixed_mult_${n}.mac"
   if [[ ! -f "$macro" ]]; then
     echo "Warning: missing macro $macro, skipping" >&2

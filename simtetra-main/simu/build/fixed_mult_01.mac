@@ -2,5 +2,7 @@
 /run/initialize
 /src/mode fixed
 /src/mult 1
+/src/budgetMEV 14
+/src/enforceBudgetAuto true
 /src/equal false
-/run/beamOn 100000000
+/run/beamOn 500000

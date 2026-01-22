@@ -33,6 +33,9 @@ static const int    kWattNgrid     = 20000;
 // Limiter les cas extrêmes
 static const int    kMultMax       = 14;
 
+// [AJOUT] énergie faible de fallback si budget restant ~0 (100 keV)
+static const double kEminFallback_MeV = 0.1; // 100 keV
+
 // =======================
 // -- Utilitaires internes
 // =======================
@@ -50,6 +53,7 @@ inline double WattPDF_unnorm(double E, double a, double b) {
   const double s = std::sqrt(std::max(0.0, b*E));
   return std::exp(-E/a) * std::sinh(s);
 }
+
 static void BuildWattCDF(double a, double b, double Emax, int N) {
   gWatt.E.resize(N); gWatt.C.resize(N);
   const double dE = Emax / (N - 1);
@@ -68,6 +72,25 @@ static void BuildWattCDF(double a, double b, double Emax, int N) {
 
   gWatt.a = a; gWatt.b = b; gWatt.built = true;
 }
+
+// [AJOUT] CDF interpolée à une énergie E (MeV)
+static double WattCDF(double E) {
+  if (!gWatt.built) {
+    BuildWattCDF(kWattA_MeV, kWattB_invMeV, kEmax_MeV, kWattNgrid);
+  }
+  if (E <= gWatt.E.front()) return gWatt.C.front(); // ~0
+  if (E >= gWatt.E.back())  return gWatt.C.back();  // ~1
+
+  auto it = std::lower_bound(gWatt.E.begin(), gWatt.E.end(), E);
+  if (it == gWatt.E.begin()) return gWatt.C.front();
+  if (it == gWatt.E.end())   return gWatt.C.back();
+
+  const int i = int(it - gWatt.E.begin());
+  const double E0 = gWatt.E[i-1], E1 = gWatt.E[i];
+  const double C0 = gWatt.C[i-1], C1 = gWatt.C[i];
+  const double t  = (E - E0) / std::max(1e-16, (E1 - E0));
+  return C0 + t * (C1 - C0);
+}
 } // namespace
 
 // Tirage inverse-CDF dans la table
@@ -84,6 +107,33 @@ G4double MyPrimaryGenerator::SampleWattMeV() {
   const double E0 = gWatt.E[i-1], E1 = gWatt.E[i];
   const double t  = (u - C0) / std::max(1e-16, (C1 - C0));
   return E0 + t*(E1 - E0);
+}
+
+// [AJOUT] Tirage Watt tronqué à Emax (MeV) via u ~ U(0, F(Emax))
+G4double MyPrimaryGenerator::SampleWattMeV_Truncated(double Emax) {
+  if (!gWatt.built) {
+    BuildWattCDF(kWattA_MeV, kWattB_invMeV, kEmax_MeV, kWattNgrid);
+  }
+
+  const double EmaxEff = std::min(std::max(Emax, 0.0), gWatt.E.back());
+  if (EmaxEff <= 0.0) return 0.0;
+
+  const double Cmax = WattCDF(EmaxEff);
+  if (Cmax <= 0.0) return 0.0;
+
+  const double u = G4UniformRand() * Cmax;
+
+  auto it = std::lower_bound(gWatt.C.begin(), gWatt.C.end(), u);
+  if (it == gWatt.C.begin()) return gWatt.E.front();
+  if (it == gWatt.C.end())   return gWatt.E.back();
+
+  const int i = int(it - gWatt.C.begin());
+  const double C0 = gWatt.C[i-1], C1 = gWatt.C[i];
+  const double E0 = gWatt.E[i-1], E1 = gWatt.E[i];
+  const double t  = (u - C0) / std::max(1e-16, (C1 - C0));
+  const double E  = E0 + t*(E1 - E0);
+
+  return std::min(E, EmaxEff);
 }
 
 // Direction isotrope
@@ -175,28 +225,37 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event* evt)
     auto draw_watt = [&](){
       for (int i=0; i<mult; ++i) E_MeV[i] = SampleWattMeV();
     };
-    // E_MeV[0] = 1.0; // SampleWattMeV(); --- IGNORE ---
-    // for (int i=1; i<mult; ++i) E_MeV[i] +=1.0; // à commenter plus tard
 
-    if (fEnforceBudgetAuto && ((fMode==Mode::kAuto) || (fMode==Mode::kFixed && !fEqualEnergy))) {
-      // Rejet si dépasse le budget (appliqué maintenant aussi au mode fixed quand !equal)
-      int guard = 0;
-      while (true) {
-        draw_watt();
-        double sum = 0.0; for (double e: E_MeV) sum += e;
-        if (sum <= fBudget_MeV) break;
-        if (++guard > 128) { // éviter une boucle infinie (un peu plus de tentatives)
-          G4cout << "[Budget] Echec: sumE=" << sum << " MeV > " << fBudget_MeV
-                 << " MeV après " << guard << " tentatives (mode="
-                 << (fMode==Mode::kAuto?"auto":"fixed") << ")" << G4endl;
-          break;
+    // [AJOUT] Tirage sous contrainte budget : séquentiel, Watt tronqué à l'énergie restante.
+    // Si budget restant trop faible, on met une petite énergie (<= 100 keV) plutôt que de réduire mult.
+    auto draw_watt_budgeted = [&](){
+      double Erem = std::max(0.0, (double)fBudget_MeV);
+      for (int i=0; i<mult; ++i) {
+        if (Erem <= 0.0) {
+          // budget épuisé -> on garde le neutron mais faible énergie (100 keV max)
+          E_MeV[i] = kEminFallback_MeV;
+          continue;
+        }
+
+        // On veut éviter qu'un tirage dépasse le budget restant :
+        // - si Erem >= 100 keV, on tire Watt tronqué à Erem
+        // - si Erem < 100 keV, on met directement Erem (ou une petite valeur) pour ne pas dépasser
+        if (Erem <= kEminFallback_MeV) {
+          E_MeV[i] = Erem;     // on "consomme" le reste sans dépasser
+          Erem = 0.0;
+        } else {
+          const double e = SampleWattMeV_Truncated(Erem);
+          E_MeV[i] = std::max(0.0, std::min(e, Erem));
+          Erem -= E_MeV[i];
         }
       }
-    } else {
-       draw_watt();
-      //  E_MeV[0] = 1.0; // SampleWattMeV(); --- IGNORE ---
-      //  for (int i=1; i<mult; ++i) E_MeV[i] +=1.0;
+    };
 
+    if (fEnforceBudgetAuto && ((fMode==Mode::kAuto) || (fMode==Mode::kFixed && !fEqualEnergy))) {
+      // [MODIF] Plus de rejet global : on respecte le budget en séquentiel
+      draw_watt_budgeted();
+    } else {
+      draw_watt();
     }
   }
 

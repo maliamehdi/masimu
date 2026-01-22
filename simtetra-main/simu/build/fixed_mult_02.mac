@@ -5,4 +5,4 @@
 /src/equal false
 /src/budgetMEV 14
 /src/enforceBudgetAuto true
-/run/beamOn 100000000
+/run/beamOn 500000

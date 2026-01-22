@@ -49,5 +49,6 @@ private:
 
     // helpers
     G4double       SampleWattMeV();
+    G4double SampleWattMeV_Truncated(G4double Emax);
     static G4ThreeVector SampleIsotropicDir();
 };

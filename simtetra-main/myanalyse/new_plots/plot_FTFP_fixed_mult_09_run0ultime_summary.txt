@@ -1,0 +1,14 @@
+Input: FTFP_fixed_mult_09_run0ultime.root
+Total events: 100000
+Total emitted: 900000
+Total detected (nDetected field): 169474
+Total escaped: 427280 (47.476 %)
+Emitted - Detected: 730526
+Check (Em-Det vs Esc): 730526 vs 427280
+Gate t <= 150000.000 ns
+Events (all detections in gate): 70534 (eff = 70.534000 +/- 0.144165 %)
+Events (any detection in gate): 80428 (eff = 80.428000 +/- 0.125465 %)
+Mean measured multiplicity in gate: 1.496590
+Mean average detection time [ns]: 60254.557152
+Mean last detection time [ns]: 88618.404553
+Mean emitted multiplicity: 9.000000

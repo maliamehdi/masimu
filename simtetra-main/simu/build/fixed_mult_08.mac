@@ -3,4 +3,6 @@
 /src/mode fixed
 /src/mult 8
 /src/equal false
-/run/beamOn 1000000
+/src/budgetMEV 14
+/src/enforceBudgetAuto true
+/run/beamOn 500000
