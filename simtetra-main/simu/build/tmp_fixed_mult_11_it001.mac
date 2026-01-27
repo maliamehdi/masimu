@@ -1,0 +1,7 @@
+/control/verbose 0
+/run/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+/run/numberOfThreads 36
+/random/setSeeds 1770539048 1770539134
+/control/execute /srv/data/Geant4/masimu/simtetra-main/simu/fixed_mult_11.mac

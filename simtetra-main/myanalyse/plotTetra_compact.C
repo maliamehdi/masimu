@@ -73,8 +73,8 @@ static std::vector<std::string> ReadFileList(const char* listfile) {
 // ---------- main ----------
 void plotTetraCompact(const char* infile = "output_neutron_run01_smeared.root",
                       double tGate_ns = 150000.0,
-                      double deadtime_ns = 720.0,
-                      double budgetMEV = 14.0)
+                      double deadtime_ns = 480.0,
+                      double budgetMEV = 20.0)
 {
   gStyle->SetOptStat(1110);
 
@@ -204,22 +204,36 @@ void plotTetraCompact(const char* infile = "output_neutron_run01_smeared.root",
     maxSumRingsGate  = std::max(maxSumRingsGate, ringCounts[0]+ringCounts[1]+ringCounts[2]+ringCounts[3]);
   }
 
+  // Find max detected multiplicity from Events tree (fast scan) to match binning
+  int maxMultEventsTree = 1;
+  for (Long64_t i=0; i<totEvents; ++i) {
+    tEvents->GetEntry(i);
+    int nd = (int)std::llround(nDetected);
+    if (nd > maxMultEventsTree) maxMultEventsTree = nd;
+  }
+  int maxMultBins = std::max(maxMultDetGate, maxMultEventsTree);
+
   auto hMultEmitted = new TH1I("hMultEmitted",
                                "Emitted neutron multiplicity per event (dedup by trackID);N emitted;Events",
                                maxMultEm+1, -0.5, maxMultEm+0.5);
 
   auto hMultGate = new TH1I("hMultGate",
                             "Measured neutron multiplicity per event in gate (dedup by trackID);N detected (t_{det}<=gate);Events",
-                            maxMultDetGate+1, -0.5, maxMultDetGate+0.5);
+                            maxMultBins+1, -0.5, maxMultBins+0.5);
+
+  // Direct multiplicity as recorded in Events ntuple (fast, no dedup)
+  auto hMultEvents = new TH1I("hMultEvents",
+                              "Detected multiplicity from Events tree;N detected;Events",
+                              maxMultBins+1, -0.5, maxMultBins+0.5);
 
   auto hR1 = new TH1I("hR1", "Ring 1 multiplicity in gate (dedup);HitsRing1;Events",
-                      maxMultDetGate+1, -0.5, maxMultDetGate+0.5);
+                      maxMultBins+1, -0.5, maxMultBins+0.5);
   auto hR2 = new TH1I("hR2", "Ring 2 multiplicity in gate (dedup);HitsRing2;Events",
-                      maxMultDetGate+1, -0.5, maxMultDetGate+0.5);
+                      maxMultBins+1, -0.5, maxMultBins+0.5);
   auto hR3 = new TH1I("hR3", "Ring 3 multiplicity in gate (dedup);HitsRing3;Events",
-                      maxMultDetGate+1, -0.5, maxMultDetGate+0.5);
+                      maxMultBins+1, -0.5, maxMultBins+0.5);
   auto hR4 = new TH1I("hR4", "Ring 4 multiplicity in gate (dedup);HitsRing4;Events",
-                      maxMultDetGate+1, -0.5, maxMultDetGate+0.5);
+                      maxMultBins+1, -0.5, maxMultBins+0.5);
 
   auto hSumRings = new TH1I("hSumRings",
                             "Sum of hits over 4 rings in gate (dedup);Sum rings (t_{det}<=gate);Events",
@@ -354,6 +368,7 @@ void plotTetraCompact(const char* infile = "output_neutron_run01_smeared.root",
     tEvents->GetEntry(i);
     totEmitted_evt  += NNeutronsEmitted;
     totDetected_evt += (long long)std::llround(nDetected);
+    if (hMultEvents) hMultEvents->Fill((int)std::llround(nDetected));
     totEscaped_evt  += NNeutronsEscaped;
   }
 
@@ -397,7 +412,22 @@ void plotTetraCompact(const char* infile = "output_neutron_run01_smeared.root",
   auto c1 = new TCanvas("c1_compact", "Multiplicity (compact)", 1400, 900);
   c1->Divide(3,3);
   c1->cd(1); hMultEmitted->Draw("HIST");
-  c1->cd(2); hMultGate->Draw("HIST");
+  c1->cd(2);
+  // Draw Events-tree multiplicity (raw) and deduped multiplicity (from NeutronPrimaries)
+  hMultEvents->SetLineColor(kGray+2);
+  hMultEvents->SetFillColor(kGray+2);
+  hMultEvents->SetFillStyle(3004);
+  hMultEvents->Draw("HIST");
+  hMultGate->SetLineColor(kBlue+2);
+  hMultGate->SetLineWidth(2);
+  hMultGate->Draw("HIST SAME");
+  {
+    auto legM = new TLegend(0.60,0.65,0.90,0.88);
+    legM->AddEntry(hMultEvents, "Events::nDetected (raw)", "f");
+    legM->AddEntry(hMultGate, "NeutronPrimaries dedup (in gate)", "l");
+    legM->SetBorderSize(0);
+    legM->Draw();
+  }
   c1->cd(3); hSumRings->Draw("HIST");
   c1->cd(4); hSumRingsDead->Draw("HIST");
   c1->cd(5); hR1->Draw("HIST");
@@ -470,6 +500,7 @@ void plotTetraCompact(const char* infile = "output_neutron_run01_smeared.root",
   }
 
   hMultEmitted->Write();
+  hMultEvents->Write();
   hMultGate->Write();
   hR1->Write(); hR2->Write(); hR3->Write(); hR4->Write();
   hSumRings->Write();
@@ -543,7 +574,7 @@ void plotTetraCompact(const char* infile = "output_neutron_run01_smeared.root",
 void plotTetraCompactFromList(const char* listfile,
                               double default_tGate_ns = 150000.0,
                               double default_deadtime_ns = 720.0,
-                              double default_budgetMEV = 14.0)
+                              double default_budgetMEV = 20.0)
 {
   std::vector<std::string> files = ReadFileList(listfile);
   if (files.empty()) return;

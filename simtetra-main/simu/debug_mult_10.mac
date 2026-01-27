@@ -1,0 +1,5 @@
+/run/numberOfThreads 1
+/run/initialize
+/src/mode fixed
+/src/mult 10
+/run/beamOn 2000

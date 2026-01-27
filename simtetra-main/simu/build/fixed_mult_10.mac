@@ -1,8 +1,8 @@
-/run/numberOfThreads 36
+/run/numberOfThreads 38
 /run/initialize
 /src/mode fixed
 /src/mult 10
 /src/equal false
-/src/budgetMEV 14
+/src/budgetMEV 16
 /src/enforceBudgetAuto true
-/run/beamOn 500000
+/run/beamOn 10000000

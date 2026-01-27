@@ -14,8 +14,14 @@
 
 #include <algorithm>
 
+// Detection time gate (ns) — define once for reuse in this translation unit
+static constexpr double kGate_ns = 150e3;
+
 MySteppingAction::MySteppingAction(MyEventAction* eventAction)
 : fEventAction(eventAction) {}
+
+// Debug: limit prints to first N events
+static const int kPrintFirstEvents = 30;
 
 // --------- Helpers ----------
 G4bool MySteppingAction::IsNeutron(const G4Track* t) {
@@ -85,6 +91,8 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
   }
 
   // --- 2) DÉTECTION ³He(n,p)³H : triton/proton créé dans une cellule He-3
+  // use centralized detection gate
+  const double Gate_ns = kGate_ns; // fenêtre détection neutron expérimentale
   if (InHe3Cell(step)) {
     const auto& secs = *step->GetSecondaryInCurrentStep();
     for (auto* s : secs) {
@@ -96,7 +104,15 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
           fDetectRecorded.insert(parentNeutronID);
           const double t_ns = step->GetPostStepPoint()->GetGlobalTime()/ns;
           fDetectTime_ns[parentNeutronID] = t_ns;
-          if (fEventAction) {
+          if (fEventAction && t_ns <= Gate_ns) {
+            // Diagnostic print for early events
+            const auto* evt = G4RunManager::GetRunManager()->GetCurrentEvent();
+            const G4int eid = evt ? evt->GetEventID() : -1;
+            // if (eid >= 0 && eid < kPrintFirstEvents) {
+            //   const int copyNo = step->GetPreStepPoint()->GetTouchableHandle()->GetCopyNumber();
+            //   G4cout << "[DET] evt=" << eid << " parentID=" << parentNeutronID
+            //          << " copyNo=" << copyNo << " t_ns=" << t_ns << G4endl;
+            // }
             fEventAction->RegisterNeutronDetection(parentNeutronID, t_ns);
             fEventAction->IncrementDetectedNeutrons();
           }
@@ -108,7 +124,7 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
       if (def == G4Triton::TritonDefinition()) {
         const auto pos = s->GetPosition();
         const double t_ns = s->GetGlobalTime()/ns;
-        if (fEventAction) {
+        if (fEventAction && t_ns<=Gate_ns) {
           fEventAction->RegisterTritonBirth(pos.x()/mm, pos.y()/mm, pos.z()/mm, t_ns);
         }
       }
@@ -146,7 +162,9 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
       else if (lv == det->GetScoringVolumeThree()) ring = 3;
       else if (lv == det->GetScoringVolumeFour())  ring = 4;
 
-      if (ring > 0 && fEventAction) {
+      // Apply centralized detection time gate: only count rings for tritons within Gate_ns
+      const double t_ns = trk->GetGlobalTime()/ns;
+      if (ring > 0 && fEventAction && t_ns <= Gate_ns) {
         fEventAction->AddHitToRing(ring);
         // Associer le ring au neutron parent du triton
         const G4int parentNeutronID = trk->GetParentID();

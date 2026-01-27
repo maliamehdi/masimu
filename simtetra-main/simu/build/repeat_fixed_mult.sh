@@ -61,7 +61,7 @@ run_repeat_one_mult() {
   fi
 
   local dest_dir="../../myanalyse/test_mult${m_int}"
-  local runs_dir="${dest_dir}/runs"
+  local runs_dir="${dest_dir}"
   local merged="${dest_dir}/merged.root"
   mkdir -p "$runs_dir"
 
